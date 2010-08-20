@@ -2,3 +2,4 @@ Questo **README** sarà abbastanza lungo temo...
 
 Al momento il sito di riferimento non esiste, poichè sono rimasto *davvero*  impressionato dalla qualità del materiale che è relazionato con GIT.
 _E ovviamente non posso sfigurare!_
+(peraltro mi han dato delle ottime idee per il css 2.0...!)
