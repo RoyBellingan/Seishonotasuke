@@ -1,0 +1,527 @@
+<head>
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//IT" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+    <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it" dir="ltr"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="generator" content="新世紀エヴァンゲリオン" />
+    <title>聖書DB</title>
+    <script type="text/javascript" src="js/jquery.js">
+    </script>
+    <script type="text/javascript">
+        
+        function sleep(delay){
+            var start = new Date().getTime();
+            while (new Date().getTime() < start + delay) 
+                ;
+        }
+        
+        $(document).ready(function(){
+        
+            $("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled - Adds empty span tag after ul.subnav
+            $("ul.topnav li").bind('mouseenter', function(){ //When trigger is clicked...
+                //Following events are applied to the subnav itself (moving subnav up and down)
+                var neu = $(this).find("ul.subnav")
+                neu.slideDown('fast').show(); //Drop down the subnav on click
+                $(this).hover(function(){
+                }, function(){
+                    var nao = $(this).find("ul.subnav")
+                    nao.stop(true, true).slideUp(1);
+                    //When the mouse hovers out of the subnav, move it back up
+                
+                });
+                
+                //Following events are applied to the trigger (Hover events for the trigger)
+            });
+            
+        });
+    </script>
+    <link rel="stylesheet" href="./css/1.css" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <div id="header">
+            <ul class="topnav">
+                <li>
+                    <a href="index.php">Home</a>
+                </li>
+                <li onmousemove="getElementById('lib').focus()">
+                    <a>Libri</a>
+                    <ul class="subnav" style="width:750px;">
+                        <div id="full">
+                            <ul>
+                                <form action="l.php" method="post" name="quest" id="quest">
+                                    <input id="lib" name="lib" type"text" style="margin: 8px 0 0 20px; "><input name="submit" type="submit" value="cerca">
+                                </form>
+                                <li id="Pentateuco">
+                                    Pentateuco 
+                                    <dl>
+                                        <dt>
+                                            <a id="Pentateuco" href="l?l=1">Genesi</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Pentateuco" href="l?l=2">Esodo</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Pentateuco" href="l?l=3">Levitico</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Pentateuco" href="l?l=4">Numeri</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Pentateuco" href="l?l=5">Deuteronomio</a>
+                                        </dt>
+                                    </dl>
+                                </li>
+                                <li id="Storici">
+                                    Storici 
+                                    <dl>
+                                        <dt>
+                                            <a id="Storici" href="l?l=6">Giosuè</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=7">Giudici</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=8">Rut</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=9">1 Samuele</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=10">2 Samuele</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=11">1 Re</a>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            <a id="Storici" href="l?l=13">1 Cronache</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=14">2 Cronache</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=15">Esdra</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=16">Neemia</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=17">Ester</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Storici" href="l?l=18">Giobbe</a>
+                                        </dt>
+                                    </dl>
+                                </li>
+                                <li id="Poetici">
+                                    Poetici 
+                                    <dl>
+                                        <dt>
+                                            <a id="Poetici" href="l?l=19">Salmi</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Poetici" href="l?l=20">Proverbi</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Poetici" href="l?l=21">Ecclesiaste</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Poetici" href="l?l=22">Il Cantico dei Cantici</a>
+                                        </dt>
+                                    </dl>
+                                </li>
+                                <li id="Profetici">
+                                    Profetici 
+                                    <dl>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=23">Isaia</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=24">Geremia</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=25">Lamentazioni</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=26">Ezechiele</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=27">Daniele</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=28">Osea</a>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=30">Amos</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=31">Abdia</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=32">Giona</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=33">Michea</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=34">Naum</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=35">Abacuc</a>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=37">Aggeo</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=38">Zaccaria</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Profetici" href="l?l=39">Malachia</a>
+                                        </dt>
+                                    </dl>
+                                </li>
+                                <li id="Vangeli">
+                                    Vangeli 
+                                    <dl>
+                                        <dt>
+                                            <a id="Vangeli" href="l?l=40">Matteo</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Vangeli" href="l?l=41">Marco</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Vangeli" href="l?l=42">Luca</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Vangeli" href="l?l=43">Giovanni</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Vangeli" href="l?l=44">Atti</a>
+                                        </dt>
+                                    </dl>
+                                </li>
+                                <li id="Lettere">
+                                    Lettere 
+                                    <dl>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=45">Romani</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=46">1 Corinti</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=47">2 Corinti</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=48">Galati</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=49">Efesini</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=50">Filippesi</a>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=52">1 Tessalonicesi</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=53">2 Tessalonicesi</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=54">1 Timoteo</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=55">2 Timoteo</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=56">Tito</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=57">Filemone</a>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=59">Giacomo</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=60">1 Pietro</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=61">2 Pietro</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=62">1 Giovanni</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=63">2 Giovanni</a>
+                                        </dt>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=64">3 Giovanni</a>
+                                        </dt>
+                                    </dl>
+                                    <dl>
+                                        <dt>
+                                            <a id="Lettere" href="l?l=66">Rivelazione</a>
+                                        </dt>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                    </ul>
+                </li>
+                <li>
+                    <a>Concordanze</a>
+                    <ul class="subnav" style="width:220px;">
+                        <li>
+                            <a href="p">Alfabetica</a>
+                        </li>
+                        <li>
+                            <a href="f">Frequenza</a>
+                        </li>
+                        <li>
+                            <a href="l">Lunghezza</a>
+                        </li>
+                        <li>
+                            <a href="r">Rovesciate&nbsp;(lettera&nbsp;finale)</a>
+                        </li>
+                        <li>
+                            <a href="c">Ricerca libera</a>
+                        </li>
+                        <li>
+                            <a href="s">Stastiche</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">Annotazioni</a>
+                </li>
+                <li>
+                    <a href="#">Discorsi</a>
+                </li>
+                <li>
+                    <a href="#">Visite (sperimentale)</a>
+                </li>
+                <li>
+                    <a href="Opzioni">Opzioni</a>
+                    <ul class="subnav" style="width:220px;">
+                        <li>
+                            <a href="#">CSS</a>
+                        </li>
+                        <li>
+                            <a href="#">Lingua</a>
+                            <!--
+                            http://www.dynamicdrive.com/style/csslibrary/item/jquery_multi_level_css_menu_horizontal_blue/
+                            -->
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="Tools">Tools</a>
+                    <ul class="subnav" style="width:220px;">
+                        <li>
+                            <a href="parser">Parser</a>
+                        </li>
+                        <li>
+                            <a href="loader">Loader</a>
+                        </li>
+                        <li>
+                            <a href="gui">Gui Alpha</a>
+                        </li>
+                        <li>
+                            <a href="prove">Prove</a>
+                        </li>
+                        <li>
+                            <a href="semantica">Semantica</a>
+                        </li>
+                        <li>
+                            <a href="lang.php">Lingua</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="phs">
+        <div id="alfabetico">
+            A
+            <br>
+            l
+            <br>
+            f
+            <br>
+            a
+            <br>
+            b
+            <br>
+            e
+            <br>
+            t
+            <br>
+            i
+            <br>
+            c
+            <br>
+            o
+        </div>
+        <div id="selector1">
+            <select onclick="location = this.options[this.selectedIndex].value;" id="prova" class="selector" size="5">
+                <option value="p?w=calza">calza</option>
+                <option value="p?w=calzare">calzare</option>
+                <option value="p?w=calzarti">calzarti</option>
+                <option value="p?w=calzati">calzati</option>
+                <option value="p?w=calzatura">calzatura</option>
+                <option value="p?w=calpestpestarono">calppepepepepepepesarono</option>
+                <option value="p?w=cam">cam</option>
+                <option value="p?w=camaleonte">camaleonte</option>
+                <option value="p?w=cambi">cambi</option>
+                <option value="p?w=cambia">cambia</option>
+                <option value="p?w=cambiamento ">cambiamento </option>
+                <option value="p?w=cambiamonete">cambiamonete</option>
+            </select>
+        </div>
+        <div id="frequenza">
+            F
+            <br>
+            r
+            <br>
+            e
+            <br>
+            q
+            <br>
+            u
+            <br>
+            e
+            <br>
+            n
+            <br>
+            z
+            <br>
+            a
+        </div>
+        <div id="selector2">
+            <select onclick="location = this.options[this.selectedIndex].value;" id="prova2" class="selector" size="5">
+                <option value="p?w=calpestano">calpestano</option>
+                <option value="p?w=calpestare">calpestare</option>
+                <option value="p?w=calpestpestarono">calppepepepepepepesarono</option>
+                <option value="p?w=calpestarsi">calpestarsi</option>
+                <option value="p?w=calpestata">calpestata</option>
+                <option value="p?w=calpestate">calpestate</option>
+                <option value="p?w=calpestato">calpestato</option>
+                <option value="p?w=calpestava">calpestava</option>
+            </select>
+        </div>
+        <div id="infoparola">
+            <h2 align="center">Parola</h2>
+            <ul>
+                <li>
+                    Frequenza 
+                    <dl>
+                        34
+                    </dl>
+                </li>
+                <li>
+                    Inglese 
+                    <dl>
+                        Word
+                    </dl>
+                </li>
+                <li>
+                    日本語
+                    <dl>
+                        言(げん）
+                    </dl>
+                </li>
+            </ul>
+            Qui ci metto una descrizione breve, con link alla lunga
+            <br>
+            Traduzione nelle lingue scelte
+            <br>
+            vedi bug http://susi/bugzilla/show_bug.cgi?id=17
+            <br>
+        </div>
+    </div>
+    <div class="versettip">
+        <table width="100%" class="tbl-footer">
+            <tbody>
+                <tr>
+                    <td width="33%" class="tbl-found">
+                        Trovati <em>40</em>
+                        Versetti, showing <em>1</em>
+                        to <em>12</em>
+                    </td>
+                    <td class="tbl-pages" wdith="33%" align="center">
+                        <img title="First Page" alt="&lt;&lt;" class="tbl-arrows" src="images/arrow_first_disabled.gif"><img title="Previous Page" alt="&lt;" class="tbl-arrows" src="images/arrow_left_disabled.gif">&nbsp;<span class="page-selected">1</span>&nbsp;&nbsp;<a onclick="tblSetPage(2)" href="javascript:;">2</a>&nbsp;&nbsp;<a onclick="tblSetPage(3)" href="javascript:;">3</a>&nbsp;&nbsp;<a onclick="tblSetPage(4)" href="javascript:;">4</a>&nbsp;<a onclick="tblSetPage(2)" href="javascript:;"><img title="Next Page" alt="&gt;" class="tbl-arrows" src="images/arrow_right.gif"></a><a onclick="tblSetPage(4)" href="javascript:;"><img title="Last Page" alt="&gt;&gt;" class="tbl-arrows" src="images/arrow_last.gif"></a>
+                    </td>
+                    <td width="33%" class="tbl-page" align="right">
+                        Page 
+                        <select onchange="tblSetPage(this.options[this.selectedIndex].value)" name="tbl-page" id="tbl-page">
+                            <option selected="selected" value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                        </select>
+                        of 4
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="versetto">
+            <div class="quale">
+                <a href=""l?l=Matteo 1&o=1:24">Matteo 1:24</a>
+            </div>
+            <p>
+                Quindi Giuseppe si svegliò dal sonno e fece come l’angelo di Geova gli aveva prescritto, conducendo a casa sua moglie. 
+            </p>
+        </div>
+        <hr>
+        <div class="versetto">
+            <div class="quale">
+                Matteo 1:24
+            </div>
+            <p>
+                Quindi Giuseppe si svegliò dal sonno e fece come l’angelo di Geova gli aveva prescritto, conducendo a casa sua moglie. 
+            </p>
+        </div>
+        <hr>
+        <div class="versetto">
+            <div class="quale">
+                Matteo 1:24
+            </div>
+            <p>
+                Quindi Giuseppe si svegliò dal sonno e fece come l’angelo di Geova gli aveva prescritto, conducendo a casa sua moglie. 
+            </p>
+        </div>
+        <hr>
+        <div class="versetto">
+            <div class="quale">
+                Matteo 1:24
+            </div>
+            <p>
+                Quindi Giuseppe si svegliò dal sonno e fece come l’angelo di Geova gli aveva prescritto, conducendo a casa sua moglie. 
+            </p>
+        </div>
+        <hr>
+    </div>
+	
+	
+	
+	
+    <script type="text/javascript">
+        window.onload = function(){
+            document.getElementById('prova').size = 9;
+            document.getElementById('prova2').size = 9;
+        }
+    </script>
+    <hr width="66%" size=1 color="silver">
+    <div align="center" id="footer">
+        Served with proud by susi in 0.00183 secs. 
+    </div>
+</body>

@@ -1,0 +1,589 @@
+<head>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//IT" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it" dir="ltr">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="新世紀エヴァンゲリオン" />
+	<title>聖書DB</title>
+	<script type="text/javascript" src="js/jquery.js">
+        </script>
+        <script type="text/javascript">
+            
+            function sleep(delay){
+                var start = new Date().getTime();
+                while (new Date().getTime() < start + delay);
+            }
+            
+            $(document).ready(function(){
+            
+                $("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled - Adds empty span tag after ul.subnav
+                $("ul.topnav li").bind('mouseenter',
+                 function(){ //When trigger is clicked...
+                    //Following events are applied to the subnav itself (moving subnav up and down)
+                    var neu = $(this).find("ul.subnav")
+                    neu.slideDown('fast').show(); //Drop down the subnav on click
+                    $(this).hover(function(){
+                    },
+                    function(){
+                        var nao = $(this).find("ul.subnav")
+                        nao.stop(true, true).slideUp(1);
+                        //When the mouse hovers out of the subnav, move it back up
+                    
+                    });
+                    
+                    //Following events are applied to the trigger (Hover events for the trigger)
+                });
+
+                $("#full a").bind('mouseenter',
+                 function(){
+                  //When trigger is clicked...
+                    //Following events are applied to the subnav itself (moving subnav up and down)
+                    //var neu = $(this).
+                    //alert ($(this).attr("name"))
+                    });
+                
+                
+            });
+        </script>
+
+	
+	
+	<link rel="stylesheet" href="./css/1.css" type="text/css" />
+	</head>
+<body>
+<div class="container">
+            <div id="header">
+                <ul class="topnav">
+                    <li>
+                        <a href="index.php">Home</a>
+                    </li>
+
+                    <li onmousemove="getElementById('lib').focus()">
+                        <a>Libri</a>
+                        <ul class="subnav" style="width:750px;" >
+                            <div id="full">
+                                <ul>
+                                <form style=" margin: 0px; padding: 0px" action="l.php" method="post" name="quest" id="quest"><input id="lib" name="lib" type"text" style="margin: 0px 0 0 20px;"><input name="submit" type="submit" value="cerca"></form>
+									<li id="Pentateuco">
+									        Pentateuco 
+									        <dl>
+
+									            <dt>
+									                <a id="Pentateuco" name="Genesi" href="l?l=1">Genesi</a>
+									            </dt>
+									            <dt>
+									                <a id="Pentateuco" href="l?l=2">Esodo</a>
+									            </dt>
+									            <dt>
+									                <a id="Pentateuco" href="l?l=3">Levitico</a>
+
+									            </dt>
+
+									            <dt>
+									                <a id="Pentateuco" href="l?l=4">Numeri</a>
+									            </dt>
+									            <dt>
+									                <a id="Pentateuco" href="l?l=5">Deuteronomio</a>
+									            </dt>
+
+									        </dl>
+									    </li>
+									    <li id="Storici">
+									        Storici 
+									        <dl>
+									            <dt>
+									                <a id="Storici" href="l?l=6">Giosuè</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Storici" href="l?l=7">Giudici</a>
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=8">Rut</a>
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=9">1 Samuele</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=10">2 Samuele</a>
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=11">1 Re</a>
+									            </dt>
+									        </dl>
+
+									        <dl>
+									            <dt>
+									                <a id="Storici" href="l?l=13">1 Cronache</a>
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=14">2 Cronache</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Storici" href="l?l=15">Esdra</a>
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=16">Neemia</a>
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=17">Ester</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Storici" href="l?l=18">Giobbe</a>
+									            </dt>
+									        </dl>
+									    </li>
+									    <li id="Poetici">
+									        Poetici 
+									        <dl>
+
+									            <dt>
+									                <a id="Poetici" href="l?l=19">Salmi</a>
+									            </dt>
+									            <dt>
+									                <a id="Poetici" href="l?l=20">Proverbi</a>
+									            </dt>
+									            <dt>
+									                <a id="Poetici" href="l?l=21">Ecclesiaste</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Poetici" href="l?l=22">Il Cantico dei Cantici</a>
+									            </dt>
+									        </dl>
+									    </li>
+									    <li id="Profetici">
+									        Profetici 
+									        <dl>
+
+									            <dt>
+									                <a id="Profetici" href="l?l=23">Isaia</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=24">Geremia</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=25">Lamentazioni</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=26">Ezechiele</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=27">Daniele</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Profetici" href="l?l=28">Osea</a>
+									            </dt>
+									        </dl>
+									        <dl>
+									            <dt>
+									                <a id="Profetici" href="l?l=30">Amos</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Profetici" href="l?l=31">Abdia</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=32">Giona</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=33">Michea</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=34">Naum</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=35">Abacuc</a>
+									            </dt>
+									        </dl>
+
+									        <dl>
+									            <dt>
+									                <a id="Profetici" href="l?l=37">Aggeo</a>
+									            </dt>
+									            <dt>
+									                <a id="Profetici" href="l?l=38">Zaccaria</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Profetici" href="l?l=39">Malachia</a>
+									            </dt>
+									        </dl>
+									    </li>
+									    <li id="Vangeli">
+									        Vangeli 
+									        <dl>
+									            <dt>
+									                <a id="Vangeli" href="l?l=40">Matteo</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Vangeli" href="l?l=41">Marco</a>
+									            </dt>
+									            <dt>
+									                <a id="Vangeli" href="l?l=42">Luca</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Vangeli" href="l?l=43">Giovanni</a>
+									            </dt>
+									            <dt>
+									                <a id="Vangeli" href="l?l=44">Atti</a>
+									            </dt>
+									        </dl>
+									    </li>
+									    <li id="Lettere">
+
+									        Lettere 
+									        <dl>
+									            <dt>
+									                <a id="Lettere" href="l?l=45">Romani</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=46">1 Corinti</a>
+									            </dt>
+
+									            <dt>
+									                <a id="Lettere" href="l?l=47">2 Corinti</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=48">Galati</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=49">Efesini</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=50">Filippesi</a>
+									            </dt>
+									        </dl>
+									        <dl>
+									            <dt>
+									                <a id="Lettere" href="l?l=52">1 Tessalonicesi</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=53">2 Tessalonicesi</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=54">1 Timoteo</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Lettere" href="l?l=55">2 Timoteo</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=56">Tito</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=57">Filemone</a>
+
+									            </dt>
+									        </dl>
+									        <dl>
+									            <dt>
+									                <a id="Lettere" href="l?l=59">Giacomo</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=60">1 Pietro</a>
+
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=61">2 Pietro</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=62">1 Giovanni</a>
+									            </dt>
+									            <dt>
+
+									                <a id="Lettere" href="l?l=63">2 Giovanni</a>
+									            </dt>
+									            <dt>
+									                <a id="Lettere" href="l?l=64">3 Giovanni</a>
+									            </dt>
+									        </dl>
+									        <dl>
+									            <dt>
+
+									                <a id="Lettere" href="l?l=66">Rivelazione</a>
+									            </dt>
+									        </dl>
+									    </li>
+                                
+                                </ul>
+                            </div>
+                            </ul>
+                    </li>
+
+                    <li>
+                        <a>Concordanze</a>
+                        <ul class="subnav" style="width:220px;">
+                            <li>
+                                <a href="p">Alfabetica</a>
+                            </li>
+                           <!-- <li>
+                                <a href="f">Frequenza</a>
+                            </li>
+                            <li>
+                                <a href="l">Lunghezza</a>
+                            </li>
+                            <li>
+                                <a href="r">Rovesciate&nbsp;(lettera&nbsp;finale)</a> -->
+                            </li>
+
+                            <li>
+                                <a href="c">Ricerca libera</a>
+                            </li>
+                            <li>
+                                <a href="s">Stastiche</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="#">Annotazioni</a>
+                    </li>
+                    <li>
+                        <a href="#">Discorsi</a>
+                    </li>
+                    <li>
+                        <a href="#">Visite (sperimentale)</a>
+
+                    </li>
+                    <li>
+                        <a href="Opzioni">Opzioni</a>
+                        <ul class="subnav" style="width:220px;">
+                            <li>
+                                <a href="#">CSS</a>
+                            </li>
+                            <li>
+
+                                <a href="#">Lingua</a>
+                                <!--
+                                http://www.dynamicdrive.com/style/csslibrary/item/jquery_multi_level_css_menu_horizontal_blue/
+                                -->
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="Tools">Tools</a>
+               			<ul class="subnav" style="width:220px;">
+
+                            <li>
+                                <a href="flush.php">Flush della cache</a>
+                            </li>
+                            <li>
+                                <a href="lang.php">Lingua</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                </ul>
+            </div>
+			
+        </div>
+		
+		
+		
+		
+		
+		
+		<div class="capitolo" id="">
+        	
+			
+<p>
+	
+</p><a class="" id="">1</a>
+<span class="ver" id="">
+E <a  href="p2?w=queste" >queste</a> <a  href="p2?w=sono" >sono</a> le <a  href="p2?w=ultime" >ultime</a> <a  href="p2?w=parole" >parole</a> di <a  href="p2?w=Davide" >Davide</a>:
+“<a  href="p2?w=Espressione" >Espressione</a> di <a  href="p2?w=Davide" >Davide</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Iesse" >Iesse</a>,
+Ed <a  href="p2?w=espressione" >espressione</a> <a  href="p2?w=dell" >dell</a>’<a  href="p2?w=uomo" >uomo</a> <a  href="p2?w=robusto" >robusto</a> <a  href="p2?w=che" >che</a> fu <a  href="p2?w=levato" >levato</a> in <a  href="p2?w=alto" >alto</a>,
+L’<a  href="p2?w=unto" >unto</a> <a  href="p2?w=dell" >dell</a>’<a  href="p2?w=Iddio" >Iddio</a> di <a  href="p2?w=Giacobbe" >Giacobbe</a>,
+E il <a  href="p2?w=piacevole" >piacevole</a> <a  href="p2?w=delle" >delle</a> <a  href="p2?w=melodie" >melodie</a> d’<a  href="p2?w=Israele" >Israele</a>.</span>
+
+<a class="" id="">2</a>
+<span class="ver" id="">
+Lo <a  href="p2?w=spirito" >spirito</a> di <a  href="p2?w=Geova" >Geova</a> <a  href="p2?w=parlò" >parlò</a> <a  href="p2?w=mediante" >mediante</a> me,
+E la <a  href="p2?w=sua" >sua</a> <a  href="p2?w=parola" >parola</a> fu <a  href="p2?w=sulla" >sulla</a> <a  href="p2?w=mia" >mia</a> <a  href="p2?w=lingua" >lingua</a>.</span>
+
+<a class="" id="">3</a>
+<span class="ver" id="">
+L’<a  href="p2?w=Iddio" >Iddio</a> d’<a  href="p2?w=Israele" >Israele</a> <a  href="p2?w=disse" >disse</a>,
+A me <a  href="p2?w=parlò" >parlò</a> la <a  href="p2?w=Roccia" >Roccia</a> d’<a  href="p2?w=Israele" >Israele</a>:
+‘<a  href="p2?w=Quando" >Quando</a> <a  href="p2?w=chi" >chi</a> <a  href="p2?w=governa" >governa</a> il <a  href="p2?w=genere" >genere</a> <a  href="p2?w=umano" >umano</a> è <a  href="p2?w=giusto" >giusto</a>,
+
+<a  href="p2?w=Governando" >Governando</a> <a  href="p2?w=nel" >nel</a> <a  href="p2?w=timore" >timore</a> di <a  href="p2?w=Dio" >Dio</a>,</span>
+
+</p>
+
+<p>
+<a class="" id="">4</a>
+<span class="ver" id="">
+<a  href="p2?w=Allora" >Allora</a> è <a  href="p2?w=come" >come</a> la <a  href="p2?w=luce" >luce</a> <a  href="p2?w=del" >del</a> <a  href="p2?w=mattino" >mattino</a>, <a  href="p2?w=quando" >quando</a> <a  href="p2?w=rifulge" >rifulge</a> il <a  href="p2?w=sole" >sole</a>,
+Un <a  href="p2?w=mattino" >mattino</a> <a  href="p2?w=senza" >senza</a> <a  href="p2?w=nubi" >nubi</a>.
+
+<a  href="p2?w=Dal" >Dal</a> <a  href="p2?w=fulgore" >fulgore</a>, <a  href="p2?w=dalla" >dalla</a> <a  href="p2?w=pioggia" >pioggia</a>, [<a  href="p2?w=spunta" >spunta</a>] <a  href="p2?w=erba" >erba</a> <a  href="p2?w=dalla" >dalla</a> <a  href="p2?w=terra" >terra</a>’.</span>
+
+<a class="" id="">5</a>
+<span class="ver" id="">
+<a  href="p2?w=Poiché" >Poiché</a> <a  href="p2?w=non" >non</a> è <a  href="p2?w=così" >così</a> la <a  href="p2?w=mia" >mia</a> <a  href="p2?w=casa" >casa</a> <a  href="p2?w=con" >con</a> <a  href="p2?w=Dio" >Dio</a>?
+
+<a  href="p2?w=Perché" >Perché</a> <a  href="p2?w=egli" >egli</a> mi ha <a  href="p2?w=assegnato" >assegnato</a> un <a  href="p2?w=patto" >patto</a> di <a  href="p2?w=durata" >durata</a> <a  href="p2?w=indefinita" >indefinita</a>,
+<a  href="p2?w=Messo" >Messo</a> in <a  href="p2?w=bell" >bell</a>’<a  href="p2?w=ordine" >ordine</a> in <a  href="p2?w=ogni" >ogni</a> <a  href="p2?w=cosa" >cosa</a> e <a  href="p2?w=assicurato" >assicurato</a>.
+
+<a  href="p2?w=Siccome" >Siccome</a> <a  href="p2?w=esso" >esso</a> è <a  href="p2?w=tutta" >tutta</a> la <a  href="p2?w=mia" >mia</a> <a  href="p2?w=salvezza" >salvezza</a> e <a  href="p2?w=tutto" >tutto</a> il <a  href="p2?w=mio" >mio</a> <a  href="p2?w=diletto" >diletto</a>,
+
+<a  href="p2?w=Non" >Non</a> è <a  href="p2?w=questa" >questa</a> la <a  href="p2?w=ragione" >ragione</a> <a  href="p2?w=per" >per</a> <a  href="p2?w=cui" >cui</a> lo <a  href="p2?w=farà" >farà</a> <a  href="p2?w=crescere" >crescere</a>?</span>
+</p>
+<p>
+<a class="" id="">6</a>
+<span class="ver" id="">
+Ma le <a  href="p2?w=persone" >persone</a> <a  href="p2?w=buone" >buone</a> a <a  href="p2?w=nulla" >nulla</a> <a  href="p2?w=sono" >sono</a> <a  href="p2?w=scacciate" >scacciate</a>, <a  href="p2?w=come" >come</a> <a  href="p2?w=spine" >spine</a>, <a  href="p2?w=tutte" >tutte</a> <a  href="p2?w=quante" >quante</a>;
+
+<a  href="p2?w=Poiché" >Poiché</a> <a  href="p2?w=non" >non</a> si <a  href="p2?w=devono" >devono</a> <a  href="p2?w=prendere" >prendere</a> <a  href="p2?w=con" >con</a> la <a  href="p2?w=mano" >mano</a>.</span>
+<a class="" id="">7</a>
+
+<span class="ver" id="">
+<a  href="p2?w=Quando" >Quando</a> un <a  href="p2?w=uomo" >uomo</a> le <a  href="p2?w=tocca" >tocca</a>
+<a  href="p2?w=Dev" >Dev</a>’<a  href="p2?w=essere" >essere</a> <a  href="p2?w=completamente" >completamente</a> <a  href="p2?w=armato" >armato</a> di <a  href="p2?w=ferro" >ferro</a> e <a  href="p2?w=dell" >dell</a>’<a  href="p2?w=asta" >asta</a> di <a  href="p2?w=una" >una</a> <a  href="p2?w=lancia" >lancia</a>,
+E <a  href="p2?w=saranno" >saranno</a> <a  href="p2?w=interamente" >interamente</a> <a  href="p2?w=bruciate" >bruciate</a> <a  href="p2?w=col" >col</a> <a  href="p2?w=fuoco" >fuoco</a>”.</span>
+</p>
+<p>
+<a class="" id="">8</a>
+<span class="ver" id="">
+<a  href="p2?w=Questi" >Questi</a> <a  href="p2?w=sono" >sono</a> i <a  href="p2?w=nomi" >nomi</a> <a  href="p2?w=degli" >degli</a> <a  href="p2?w=uomini" >uomini</a> <a  href="p2?w=potenti" >potenti</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=appartenevano" >appartenevano</a> a <a  href="p2?w=Davide" >Davide</a>: <a  href="p2?w=Ioseb" >Ioseb</a>-<a  href="p2?w=Bassebet" >Bassebet</a> un <a  href="p2?w=tachemonita" >tachemonita</a>, <a  href="p2?w=capo" >capo</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=tre" >tre</a>. <a  href="p2?w=Egli" >Egli</a> <a  href="p2?w=brandiva" >brandiva</a> la <a  href="p2?w=sua" >sua</a> <a  href="p2?w=lancia" >lancia</a> su <a  href="p2?w=ottocento" >ottocento</a>, <a  href="p2?w=uccisi" >uccisi</a> in <a  href="p2?w=una" >una</a> <a  href="p2?w=sola" >sola</a> <a  href="p2?w=volta" >volta</a>.</span>
+
+<a class="" id="">9</a>
+<span class="ver" id="">
+<a  href="p2?w=Dopo" >Dopo</a> di <a  href="p2?w=lui" >lui</a>, <a  href="p2?w=Eleazaro" >Eleazaro</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Dodo" >Dodo</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Aoi" >Aoi</a> <a  href="p2?w=era" >era</a> <a  href="p2?w=fra" >fra</a> i <a  href="p2?w=tre" >tre</a> <a  href="p2?w=uomini" >uomini</a> <a  href="p2?w=potenti" >potenti</a> <a  href="p2?w=con" >con</a> <a  href="p2?w=Davide" >Davide</a> <a  href="p2?w=quando" >quando</a> <a  href="p2?w=biasimarono" >biasimarono</a> i <a  href="p2?w=filistei" >filistei</a>. Si <a  href="p2?w=erano" >erano</a> <a  href="p2?w=raccolti" >raccolti</a> là <a  href="p2?w=per" >per</a> la <a  href="p2?w=battaglia" >battaglia</a>, e <a  href="p2?w=così" >così</a> <a  href="p2?w=gli" >gli</a> <a  href="p2?w=uomini" >uomini</a> d’<a  href="p2?w=Israele" >Israele</a> si <a  href="p2?w=ritirarono" >ritirarono</a>.</span>
+
+<a class="" id="">10</a>
+<span class="ver" id="">
+Fu <a  href="p2?w=lui" >lui</a> a <a  href="p2?w=levarsi" >levarsi</a> e ad <a  href="p2?w=abbattere" >abbattere</a> i <a  href="p2?w=filistei" >filistei</a> <a  href="p2?w=finché" >finché</a> <a  href="p2?w=gli" >gli</a> si <a  href="p2?w=affaticò" >affaticò</a> la <a  href="p2?w=mano" >mano</a> e la <a  href="p2?w=sua" >sua</a> <a  href="p2?w=mano" >mano</a> <a  href="p2?w=rimase" >rimase</a> <a  href="p2?w=attaccata" >attaccata</a> <a  href="p2?w=alla" >alla</a> <a  href="p2?w=spada" >spada</a>, <a  href="p2?w=così" >così</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=Geova" >Geova</a> <a  href="p2?w=compì" >compì</a> <a  href="p2?w=quel" >quel</a> <a  href="p2?w=giorno" >giorno</a> <a  href="p2?w=una" >una</a> <a  href="p2?w=grande" >grande</a> <a  href="p2?w=salvezza" >salvezza</a>; e in <a  href="p2?w=quanto" >quanto</a> al <a  href="p2?w=popolo" >popolo</a>, <a  href="p2?w=tornò" >tornò</a> <a  href="p2?w=dietro" >dietro</a> a <a  href="p2?w=lui" >lui</a> <a  href="p2?w=solo" >solo</a> <a  href="p2?w=per" >per</a> <a  href="p2?w=spogliare" >spogliare</a> [<a  href="p2?w=quelli" >quelli</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=erano" >erano</a> <a  href="p2?w=stati" >stati</a> <a  href="p2?w=abbattuti" >abbattuti</a>].</span>
+
+<a class="" id="">11</a>
+<span class="ver" id="">
+E <a  href="p2?w=dopo" >dopo</a> di <a  href="p2?w=lui" >lui</a> c’<a  href="p2?w=era" >era</a> <a  href="p2?w=Samma" >Samma</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Aghee" >Aghee</a> l’<a  href="p2?w=hararita" >hararita</a>. E i <a  href="p2?w=filistei" >filistei</a> si <a  href="p2?w=raccoglievano" >raccoglievano</a> a <a  href="p2?w=Lehi" >Lehi</a>, <a  href="p2?w=dove" >dove</a> <a  href="p2?w=allora" >allora</a> c’<a  href="p2?w=era" >era</a> un <a  href="p2?w=tratto" >tratto</a> di <a  href="p2?w=campo" >campo</a> <a  href="p2?w=pieno" >pieno</a> di <a  href="p2?w=lenticchie" >lenticchie</a>; e il <a  href="p2?w=popolo" >popolo</a> <a  href="p2?w=stesso" >stesso</a> <a  href="p2?w=fuggì" >fuggì</a> a <a  href="p2?w=causa" >causa</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=filistei" >filistei</a>.</span>
+
+<a class="" id="">12</a>
+<span class="ver" id="">
+Ma <a  href="p2?w=egli" >egli</a> si <a  href="p2?w=pose" >pose</a> in <a  href="p2?w=mezzo" >mezzo</a> al <a  href="p2?w=tratto" >tratto</a> e lo <a  href="p2?w=liberò" >liberò</a> e <a  href="p2?w=abbatteva" >abbatteva</a> i <a  href="p2?w=filistei" >filistei</a>, <a  href="p2?w=così" >così</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=Geova" >Geova</a> <a  href="p2?w=compì" >compì</a> <a  href="p2?w=una" >una</a> <a  href="p2?w=grande" >grande</a> <a  href="p2?w=salvezza" >salvezza</a>.</span>
+
+<a class="" id="">13</a>
+<span class="ver" id="">
+E <a  href="p2?w=tre" >tre</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=trenta" >trenta</a> <a  href="p2?w=capi" >capi</a> <a  href="p2?w=scendevano" >scendevano</a> e <a  href="p2?w=venivano" >venivano</a> al [<a  href="p2?w=tempo" >tempo</a> <a  href="p2?w=della" >della</a>] <a  href="p2?w=mietitura" >mietitura</a> da <a  href="p2?w=Davide" >Davide</a>, <a  href="p2?w=nella" >nella</a> <a  href="p2?w=caverna" >caverna</a> di <a  href="p2?w=Adullam" >Adullam</a>; e un <a  href="p2?w=villaggio" >villaggio</a> di <a  href="p2?w=tende" >tende</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=filistei" >filistei</a> <a  href="p2?w=era" >era</a> <a  href="p2?w=accampato" >accampato</a> <a  href="p2?w=nel" >nel</a> <a  href="p2?w=bassopiano" >bassopiano</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=refaim" >refaim</a>.</span>
+</p>
+<p>
+<a class="" id="">14</a>
+<span class="ver" id="">
+E <a  href="p2?w=Davide" >Davide</a> <a  href="p2?w=era" >era</a> <a  href="p2?w=allora" >allora</a> <a  href="p2?w=nel" >nel</a> <a  href="p2?w=luogo" >luogo</a> di <a  href="p2?w=difficile" >difficile</a> <a  href="p2?w=accesso" >accesso</a>; e un <a  href="p2?w=avamposto" >avamposto</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=filistei" >filistei</a> <a  href="p2?w=era" >era</a> <a  href="p2?w=allora" >allora</a> a <a  href="p2?w=Betleem" >Betleem</a>.</span>
+
+<a class="" id="">15</a>
+<span class="ver" id="">
+<a  href="p2?w=Dopo" >Dopo</a> un po’ <a  href="p2?w=Davide" >Davide</a> <a  href="p2?w=espresse" >espresse</a> la <a  href="p2?w=sua" >sua</a> <a  href="p2?w=brama" >brama</a> e <a  href="p2?w=disse" >disse</a>: “Oh <a  href="p2?w=potessi" >potessi</a> <a  href="p2?w=avere" >avere</a> un <a  href="p2?w=sorso" >sorso</a> d’<a  href="p2?w=acqua" >acqua</a> <a  href="p2?w=della" >della</a> <a  href="p2?w=cisterna" >cisterna</a> di <a  href="p2?w=Betleem" >Betleem</a> <a  href="p2?w=che" >che</a> è <a  href="p2?w=alla" >alla</a> <a  href="p2?w=porta" >porta</a>!”</span>
+
+<a class="" id="">16</a>
+<span class="ver" id="">
+<a  href="p2?w=Allora" >Allora</a> i <a  href="p2?w=tre" >tre</a> <a  href="p2?w=uomini" >uomini</a> <a  href="p2?w=potenti" >potenti</a> si <a  href="p2?w=aprirono" >aprirono</a> a <a  href="p2?w=forza" >forza</a> un <a  href="p2?w=varco" >varco</a> <a  href="p2?w=nel" >nel</a> <a  href="p2?w=campo" >campo</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=filistei" >filistei</a> e <a  href="p2?w=attinsero" >attinsero</a> <a  href="p2?w=acqua" >acqua</a> <a  href="p2?w=dalla" >dalla</a> <a  href="p2?w=cisterna" >cisterna</a> di <a  href="p2?w=Betleem" >Betleem</a> <a  href="p2?w=che" >che</a> è <a  href="p2?w=alla" >alla</a> <a  href="p2?w=porta" >porta</a> e la <a  href="p2?w=presero" >presero</a> e la <a  href="p2?w=portarono" >portarono</a> a <a  href="p2?w=Davide" >Davide</a>; ed <a  href="p2?w=egli" >egli</a> <a  href="p2?w=non" >non</a> <a  href="p2?w=acconsentì" >acconsentì</a> a <a  href="p2?w=berla" >berla</a>, ma la <a  href="p2?w=versò" >versò</a> a <a  href="p2?w=Geova" >Geova</a>.</span>
+
+<a class="" id="">17</a>
+<span class="ver" id="">
+E <a  href="p2?w=diceva" >diceva</a>: “È <a  href="p2?w=impensabile" >impensabile</a> da <a  href="p2?w=parte" >parte</a> <a  href="p2?w=mia" >mia</a>, o <a  href="p2?w=Geova" >Geova</a>, <a  href="p2?w=che" >che</a> io <a  href="p2?w=faccia" >faccia</a> <a  href="p2?w=questo" >questo</a>! [<a  href="p2?w=Berrò" >Berrò</a> io] il <a  href="p2?w=sangue" >sangue</a> <a  href="p2?w=degli" >degli</a> <a  href="p2?w=uomini" >uomini</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=sono" >sono</a> <a  href="p2?w=andati" >andati</a> a <a  href="p2?w=rischio" >rischio</a> <a  href="p2?w=delle" >delle</a> <a  href="p2?w=loro" >loro</a> <a  href="p2?w=anime" >anime</a>?” E <a  href="p2?w=non" >non</a> <a  href="p2?w=acconsentì" >acconsentì</a> a <a  href="p2?w=berla" >berla</a>.
+
+<a  href="p2?w=Queste" >Queste</a> <a  href="p2?w=sono" >sono</a> le <a  href="p2?w=cose" >cose</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=fecero" >fecero</a> i <a  href="p2?w=tre" >tre</a> <a  href="p2?w=uomini" >uomini</a> <a  href="p2?w=potenti" >potenti</a>.</span>
+</p>
+<p>
+<a class="" id="">18</a>
+<span class="ver" id="">
+In <a  href="p2?w=quanto" >quanto</a> ad <a  href="p2?w=Abisai" >Abisai</a> <a  href="p2?w=fratello" >fratello</a> di <a  href="p2?w=Gioab" >Gioab</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Zeruia" >Zeruia</a>, <a  href="p2?w=era" >era</a> <a  href="p2?w=capo" >capo</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=trenta" >trenta</a>, e <a  href="p2?w=brandiva" >brandiva</a> la <a  href="p2?w=lancia" >lancia</a> su <a  href="p2?w=trecento" >trecento</a> <a  href="p2?w=uccisi" >uccisi</a>, e <a  href="p2?w=aveva" >aveva</a> <a  href="p2?w=una" >una</a> <a  href="p2?w=reputazione" >reputazione</a> <a  href="p2?w=simile" >simile</a> a <a  href="p2?w=quella" >quella</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=tre" >tre</a>.</span>
+
+<a class="" id="">19</a>
+<span class="ver" id="">
+<a  href="p2?w=Benché" >Benché</a> si <a  href="p2?w=distinguesse" >distinguesse</a> <a  href="p2?w=anche" >anche</a> <a  href="p2?w=più" >più</a> <a  href="p2?w=del" >del</a> <a  href="p2?w=resto" >resto</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=trenta" >trenta</a>, e <a  href="p2?w=divenisse" >divenisse</a> <a  href="p2?w=loro" >loro</a> <a  href="p2?w=capo" >capo</a>, <a  href="p2?w=non" >non</a> <a  href="p2?w=pervenne" >pervenne</a> al <a  href="p2?w=rango" >rango</a> <a  href="p2?w=dei" >dei</a> [<a  href="p2?w=primi" >primi</a>] <a  href="p2?w=tre" >tre</a>.</span>
+
+<a class="" id="">20</a>
+<span class="ver" id="">
+In <a  href="p2?w=quanto" >quanto</a> a <a  href="p2?w=Benaia" >Benaia</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Ieoiada" >Ieoiada</a> <a  href="p2?w=figlio" >figlio</a> di un <a  href="p2?w=uomo" >uomo</a> <a  href="p2?w=valoroso" >valoroso</a>, <a  href="p2?w=che" >che</a> <a  href="p2?w=compì" >compì</a> <a  href="p2?w=molte" >molte</a> <a  href="p2?w=imprese" >imprese</a> a <a  href="p2?w=Cabzeel" >Cabzeel</a>, <a  href="p2?w=egli" >egli</a> <a  href="p2?w=stesso" >stesso</a> <a  href="p2?w=abbatté" >abbatté</a> i <a  href="p2?w=due" >due</a> <a  href="p2?w=figli" >figli</a> di <a  href="p2?w=Ariel" >Ariel</a> di <a  href="p2?w=Moab" >Moab</a>; ed <a  href="p2?w=egli" >egli</a> <a  href="p2?w=stesso" >stesso</a> <a  href="p2?w=scese" >scese</a> e <a  href="p2?w=abbatté" >abbatté</a> un <a  href="p2?w=leone" >leone</a> <a  href="p2?w=dentro" >dentro</a> <a  href="p2?w=una" >una</a> <a  href="p2?w=cisterna" >cisterna</a> in un <a  href="p2?w=giorno" >giorno</a> di <a  href="p2?w=nevicata" >nevicata</a>.</span>
+
+<a class="" id="">21</a>
+<span class="ver" id="">
+E fu <a  href="p2?w=lui" >lui</a> ad <a  href="p2?w=abbattere" >abbattere</a> l’<a  href="p2?w=egiziano" >egiziano</a> <a  href="p2?w=che" >che</a> <a  href="p2?w=era" >era</a> di <a  href="p2?w=statura" >statura</a> <a  href="p2?w=straordinaria" >straordinaria</a>. <a  href="p2?w=Benché" >Benché</a> <a  href="p2?w=nella" >nella</a> <a  href="p2?w=mano" >mano</a> <a  href="p2?w=dell" >dell</a>’<a  href="p2?w=egiziano" >egiziano</a> ci <a  href="p2?w=fosse" >fosse</a> <a  href="p2?w=una" >una</a> <a  href="p2?w=lancia" >lancia</a>, <a  href="p2?w=tuttavia" >tuttavia</a> <a  href="p2?w=egli" >egli</a> <a  href="p2?w=scese" >scese</a> a <a  href="p2?w=lui" >lui</a> <a  href="p2?w=con" >con</a> un <a  href="p2?w=bastone" >bastone</a> e <a  href="p2?w=strappò" >strappò</a> la <a  href="p2?w=lancia" >lancia</a> <a  href="p2?w=dalla" >dalla</a> <a  href="p2?w=mano" >mano</a> <a  href="p2?w=dell" >dell</a>’<a  href="p2?w=egiziano" >egiziano</a> e lo <a  href="p2?w=uccise" >uccise</a> <a  href="p2?w=con" >con</a> la <a  href="p2?w=sua" >sua</a> <a  href="p2?w=propria" >propria</a> <a  href="p2?w=lancia" >lancia</a>.</span>
+
+<a class="" id="">22</a>
+<span class="ver" id="">
+<a  href="p2?w=Queste" >Queste</a> <a  href="p2?w=cose" >cose</a> <a  href="p2?w=fece" >fece</a> <a  href="p2?w=Benaia" >Benaia</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Ieoiada" >Ieoiada</a>; e <a  href="p2?w=aveva" >aveva</a> <a  href="p2?w=una" >una</a> <a  href="p2?w=reputazione" >reputazione</a> <a  href="p2?w=simile" >simile</a> a <a  href="p2?w=quella" >quella</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=tre" >tre</a> <a  href="p2?w=uomini" >uomini</a> <a  href="p2?w=potenti" >potenti</a>.</span>
+
+<a class="" id="">23</a>
+<span class="ver" id="">
+<a  href="p2?w=Benché" >Benché</a> si <a  href="p2?w=distinguesse" >distinguesse</a> <a  href="p2?w=anche" >anche</a> <a  href="p2?w=più" >più</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=trenta" >trenta</a>, <a  href="p2?w=non" >non</a> <a  href="p2?w=pervenne" >pervenne</a> al <a  href="p2?w=rango" >rango</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=tre" >tre</a>; ma <a  href="p2?w=Davide" >Davide</a> lo <a  href="p2?w=nominò" >nominò</a> <a  href="p2?w=sulla" >sulla</a> <a  href="p2?w=sua" >sua</a> <a  href="p2?w=propria" >propria</a> <a  href="p2?w=guardia" >guardia</a> <a  href="p2?w=del" >del</a> <a  href="p2?w=corpo" >corpo</a>.</span>
+
+<a class="" id="">24</a>
+<span class="ver" id="">
+<a  href="p2?w=Asael" >Asael</a> <a  href="p2?w=fratello" >fratello</a> di <a  href="p2?w=Gioab" >Gioab</a> <a  href="p2?w=era" >era</a> <a  href="p2?w=fra" >fra</a> i <a  href="p2?w=trenta" >trenta</a>; <a  href="p2?w=Elanan" >Elanan</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Dodo" >Dodo</a> di <a  href="p2?w=Betleem" >Betleem</a>,</span>
+
+<a class="" id="">25</a>
+<span class="ver" id="">
+<a  href="p2?w=Samma" >Samma</a> l’<a  href="p2?w=harodita" >harodita</a>, <a  href="p2?w=Elica" >Elica</a> l’<a  href="p2?w=harodita" >harodita</a>,</span>
+<a class="" id="">26</a>
+<span class="ver" id="">
+</p>
+<p>
+<a  href="p2?w=Elez" >Elez</a> il <a  href="p2?w=paltita" >paltita</a>, <a  href="p2?w=Ira" >Ira</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Icches" >Icches</a> il <a  href="p2?w=tecoita" >tecoita</a>,</span>
+<a class="" id="">27</a>
+
+<span class="ver" id="">
+<a  href="p2?w=Abiezer" >Abiezer</a> l’<a  href="p2?w=anatotita" >anatotita</a>, <a  href="p2?w=Mebunnai" >Mebunnai</a> l’<a  href="p2?w=husatita" >husatita</a>,</span>
+<a class="" id="">28</a>
+<span class="ver" id="">
+<a  href="p2?w=Zalmon" >Zalmon</a> l’<a  href="p2?w=aoita" >aoita</a>, <a  href="p2?w=Maarai" >Maarai</a> il <a  href="p2?w=netofatita" >netofatita</a>,</span>
+
+<a class="" id="">29</a>
+<span class="ver" id="">
+<a  href="p2?w=Eleb" >Eleb</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Baana" >Baana</a> il <a  href="p2?w=netofatita" >netofatita</a>, <a  href="p2?w=Ittai" >Ittai</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Ribai" >Ribai</a> di <a  href="p2?w=Ghibea" >Ghibea</a> <a  href="p2?w=dei" >dei</a> <a  href="p2?w=figli" >figli</a> di <a  href="p2?w=Beniamino" >Beniamino</a>,</span>
+
+<a class="" id="">30</a>
+<span class="ver" id="">
+<a  href="p2?w=Benaia" >Benaia</a> un <a  href="p2?w=piratonita" >piratonita</a>, <a  href="p2?w=Iddai" >Iddai</a> <a  href="p2?w=delle" >delle</a> <a  href="p2?w=valli" >valli</a> <a  href="p2?w=del" >del</a> <a  href="p2?w=torrente" >torrente</a> di <a  href="p2?w=Gaas" >Gaas</a>,</span>
+
+<a class="" id="">31</a>
+<span class="ver" id="">
+<a  href="p2?w=Abi" >Abi</a>-<a  href="p2?w=Albon" >Albon</a> l’<a  href="p2?w=arbatita" >arbatita</a>, <a  href="p2?w=Azmavet" >Azmavet</a> il <a  href="p2?w=bar" >bar</a>-<a  href="p2?w=humita" >humita</a>,</span>
+
+<a class="" id="">32</a>
+<span class="ver" id="">
+<a  href="p2?w=Eliaba" >Eliaba</a> il <a  href="p2?w=saalbonita" >saalbonita</a>, i <a  href="p2?w=figli" >figli</a> di <a  href="p2?w=Iasen" >Iasen</a>, <a  href="p2?w=Gionatan" >Gionatan</a>,</span>
+<a class="" id="">33</a>
+
+<span class="ver" id="">
+<a  href="p2?w=Samma" >Samma</a> l’<a  href="p2?w=hararita" >hararita</a>, <a  href="p2?w=Aiam" >Aiam</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Sarar" >Sarar</a> l’<a  href="p2?w=hararita" >hararita</a>,</span>
+
+<a class="" id="">34</a>
+<span class="sel" id="">
+<a  href="p2?w=Elifelet" >Elifelet</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Aasbai" >Aasbai</a> <a  href="p2?w=figlio" >figlio</a> <a  href="p2?w=del" >del</a> <a  href="p2?w=maacatita" >maacatita</a>, <a  href="p2?w=Eliam" >Eliam</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Ahitofel" >Ahitofel</a> il <a  href="p2?w=ghilonita" >ghilonita</a>,</span>
+
+<a class="" id="">35</a>
+<span class="ver" id="">
+<a  href="p2?w=Ezro" >Ezro</a> il <a  href="p2?w=carmelita" >carmelita</a>, <a  href="p2?w=Paarai" >Paarai</a> l’<a  href="p2?w=arbita" >arbita</a>,</span>
+<a class="" id="">36</a>
+<span class="ver" id="">
+
+<a  href="p2?w=Igal" >Igal</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Natan" >Natan</a> di <a  href="p2?w=Zoba" >Zoba</a>, <a  href="p2?w=Bani" >Bani</a> il <a  href="p2?w=gadita" >gadita</a>,</span>
+<a class="" id="">37</a>
+
+<span class="ver" id="">
+<a  href="p2?w=Zelec" >Zelec</a> l’<a  href="p2?w=ammonita" >ammonita</a>, <a  href="p2?w=Naharai" >Naharai</a> il <a  href="p2?w=beerotita" >beerotita</a>, <a  href="p2?w=scudieri" >scudieri</a> di <a  href="p2?w=Gioab" >Gioab</a> <a  href="p2?w=figlio" >figlio</a> di <a  href="p2?w=Zeruia" >Zeruia</a>,</span>
+</p>
+<p>
+<a class="" id="">38</a>
+<span class="ver" id="">
+<a  href="p2?w=Ira" >Ira</a> l’<a  href="p2?w=itrita" >itrita</a>, <a  href="p2?w=Gareb" >Gareb</a> l’<a  href="p2?w=itrita" >itrita</a>,</span>
+<a class="" id="">39</a>
+<span class="ver" id="">
+
+<a  href="p2?w=Uria" >Uria</a> l’<a  href="p2?w=ittita" >ittita</a>, <a  href="p2?w=trentasette" >trentasette</a> in <a  href="p2?w=tutto" >tutto</a>.</span>
+</div><hr width="66%" size=1 color="silver"><div align="center" id="footer">Served with proud by roy.selfip.org in 0.02578 secs. </div></body>

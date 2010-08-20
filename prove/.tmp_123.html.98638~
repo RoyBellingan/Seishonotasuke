@@ -1,0 +1,37 @@
+<head>
+	
+	
+<script type="text/javascript">
+var hi = 'Howdie Pardner!';
+      
+function sayHi(message)
+{
+  alert(message);
+}
+
+function doExample1()
+{
+  setTimeout('sayHi("' + hi + '")', 800);
+  setTimeout('sayHi("' + hi + '")', 800);
+  setTimeout('sayHi("' + hi + '")', 900);
+  setTimeout('sayHi("' + hi + '")', 1100);
+  setTimeout('sayHi("' + hi + '")', 1200);
+  setTimeout('sayHi("' + hi + '")', 1300);
+  setTimeout('sayHi("' + hi + '")', 2000);
+  setTimeout('sayHi("' + hi + '")', 500);
+  setTimeout('sayHi("' + hi + '")', 3000);
+  setTimeout('sayHi("' + hi + '")', 4000);
+  setTimeout('sayHi("' + hi + '")', 300);
+}</script>
+	
+	
+	
+</head>
+
+<body>
+	
+	<form action="" method="get">
+      <input type="button" value="Run Example 1" onclick="doExample1()">
+    </form>
+	
+</body>

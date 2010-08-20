@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>聖書　gui 0.2</title>
+        <script type="text/javascript" src="../js/jquery.js">
+        </script>
+        <script type="text/javascript">
+            
+            function sleep(delay){
+                var start = new Date().getTime();
+                while (new Date().getTime() < start + delay) 
+                    ;
+            }
+            
+            $(document).ready(function(){
+            
+                $("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled - Adds empty span tag after ul.subnav
+                $("ul.topnav li").bind('mouseenter', function(){ //When trigger is clicked...
+                    //Following events are applied to the subnav itself (moving subnav up and down)
+                    var neu = $(this).find("ul.subnav")
+                    neu.slideDown('fast').show(); //Drop down the subnav on click
+                    $(this).hover(function(){
+                    }, function(){
+                        var nao = $(this).find("ul.subnav")
+                        //nao.stop(true, true).slideUp(1);
+                        sleep(10);
+                        //When the mouse hovers out of the subnav, move it back up
+                    
+                    });
+                    
+                    //Following events are applied to the trigger (Hover events for the trigger)
+                });
+                
+            });
+        </script>
+        <style type="text/css">
+            body {
+                margin: 0;
+                padding: 0;
+                font: 10px normal Arial, Helvetica, sans-serif;
+            }
+            
+            .container {
+                width: 960px;
+                margin: 0 auto;
+                position: relative;
+            }
+            
+            #header {
+                padding-top: 98px;
+            }
+            
+            ul.topnav {
+                list-style: none;
+                width: auto;
+                padding: 0 20px;
+                margin: 0 auto;
+                background: #222;
+                font-size: 1.2em;
+                background: url(topnav_bg.gif) repeat-x;
+            }
+            
+            ul.topnav li {
+                float: left;
+                margin: 0;
+                padding: 0 15px 0 0;
+                position: relative; /*--Declare X and Y axis base--*/
+            }
+            
+            ul.topnav li a {
+                padding: 10px 5px;
+                color: #fff;
+                display: block;
+                text-decoration: none;
+                float: left;
+            }
+            
+            ul.topnav li a:hover {
+                background: url(topnav_hover.gif) repeat-x center top;
+            }
+            
+            ul.topnav li span { /*--Drop down trigger styles--*/
+                width: 17px;
+                height: 35px;
+                float: left;
+                background: url(subnav_btn.gif) no-repeat center top;
+            }
+            
+            ul.topnav li span.subhover {
+                background-position: center bottom;
+                cursor: pointer;
+            }
+            
+            /*--Hover effect for trigger--*/
+            ul.topnav li ul.subnav {
+                list-style: none;
+                position: absolute; /*--Important - Keeps subnav from affecting main navigation flow--*/
+                left: 0;
+                top: 35px;
+                background: #333;
+                margin: 0;
+                padding: 0;
+                display: none;
+                float: left;
+                -moz-border-radius-bottomleft: 5px;
+                -moz-border-radius-bottomright: 5px;
+                -webkit-border-bottom-left-radius: 5px;
+                -webkit-border-bottom-right-radius: 5px;
+                border: 1px solid #111;
+            }
+            
+            ul.topnav li ul.subnav li {
+                margin: 0;
+                padding: 0;
+                border-top: 1px solid #252525; /*--Create bevel effect--*/
+                border-bottom: 1px solid #444; /*--Create bevel effect--*/
+                width: 96%;
+                clear: both;
+            }
+            
+            html ul.topnav li ul.subnav li a {
+                float: left;
+                width: 145px;
+                background: #333 url(dropdown_linkbg.gif) repeat 10px center;
+                padding-left: 20px;
+            }
+            
+            html ul.topnav li ul.subnav li a:hover { /*--Hover effect for subnav links--*/
+                background: #222;
+                width: 100% s;
+            }
+            
+            #header img {
+                margin: 20px 0 10px;
+            }
+            
+            body {
+                background: url("../img/body_bg.png") no-repeat scroll center top #202020;
+                border-top: 3px solid #B0D551;
+                color: #BBBBBB;
+                font: 10px Verdana, Geneva, sans-serif;
+                margin: 0;
+                min-width: 960px;
+                padding: 0;
+            }
+            
+            #full a {
+                background: none;
+                display: inline;
+                float: none;
+                width: 85px;
+                padding-left: 5px;
+            }
+            
+            .over {
+                background: url("img/nav-bg.png") repeat-x scroll left top transparent;
+                color: #ccc;
+                display: block;
+                height: 40px;
+                left: 0;
+                position: absolute;
+                width: 100%;
+                font-family: 'Androgyne';
+                font-size: 22px;
+                opacity: 0.8;
+                padding: 10px;
+            }
+            @font-face {font-family:androgyne;
+                src:
+                url('css/androgyne.otf');
+            }
+            
+            #full {
+                position: relative;
+            }
+            
+            #small {
+                top: 120px;
+                position: relative;
+            }
+            
+            #full ul {
+                list-style: none outside none;
+                padding: 0 0 0 0px;
+            }
+            
+            #full li {
+                text-shadow: 1px 1px 1px #000;
+                font-size: 16px;
+                font-weight: 800;
+                padding: 9px 0 4px 22px;
+            }
+            
+            #full dl {
+                padding: 6px 0 2px 0px;
+            }
+            
+            #full dt {
+                display: inline;
+                text-shadow: 1px 1px 5px #000;
+                padding: 0px 0 0px 22px;
+                font-size: 12px;
+                font-weight: 400;
+            }
+            
+            #Pentateuco {
+                color: #FFC341;
+            }
+            
+            #Storici {
+                color: #5BB6E4;
+            }
+            
+            #Poetici {
+                text-shadow: 1px 1px 5px #000;
+                color: #FF5555;
+            }
+            
+            #Profetici {
+                color: #FFDCA8;
+            }
+            
+            #Vangeli {
+                color: #17C400;
+            }
+            
+            #Lettere {
+                color: #896FFF;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="header">
+                <ul class="topnav">
+                    <li>
+                        <a href="#">Home</a>
+                    </li>
+                    <li>
+                        <a>Libri</a>
+                        <ul class="subnav" style="width:750px;">
+                            <div id="full">
+                                <ul>
+                                    <li id="Pentateuco">
+                                        Pentateuco 
+                                        <dl>
+                                            <dt>
+                                                <a id="Pentateuco" href="./libri/Genesi">Genesi</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Pentateuco" href="/libri/Esodo">Esodo</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Pentateuco" href="/libri/Levitico">Levitico</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Pentateuco" href="/libri/Numeri">Numeri</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Pentateuco" href="/libri/Deuteronomio">Deuteronomio</a>
+                                            </dt>
+                                        </dl>
+                                    </li>
+                                    <li id="Storici">
+                                        Storici 
+                                        <dl>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Giosuè">Giosuè</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Giudici">Giudici</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Rut">Rut</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/1 Samuele">1 Samuele</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/2 Samuele">2 Samuele</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/1 Re">1 Re</a>
+                                            </dt>
+                                        </dl>
+                                        <dl>
+                                            <dt>
+                                                <a id="Storici" href="/libri/1 Cronache">1 Cronache</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/2 Cronache">2 Cronache</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Esdra">Esdra</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Neemia">Neemia</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Ester">Ester</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Storici" href="/libri/Giobbe">Giobbe</a>
+                                            </dt>
+                                        </dl>
+                                    </li>
+                                    <li id="Poetici">
+                                        Poetici 
+                                        <dl>
+                                            <dt>
+                                                <a id="Poetici" href="/libri/Ester">Ester</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Poetici" href="/libri/Giobbe">Giobbe</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Poetici" href="/libri/Salmi">Salmi</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Poetici" href="/libri/Proverbi">Proverbi</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Poetici" href="/libri/Ecclesiaste">Ecclesiaste</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Poetici" href="/libri/Il Cantico dei Cantici">Il Cantico dei Cantici</a>
+                                            </dt>
+                                        </dl>
+                                    </li>
+                                    <li id="Profetici">
+                                        Profetici 
+                                        <dl>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Isaia">Isaia</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Geremia">Geremia</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Lamentazioni">Lamentazioni</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Ezechiele">Ezechiele</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Daniele">Daniele</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Osea">Osea</a>
+                                            </dt>
+                                        </dl>
+                                        <dl>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Amos">Amos</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Abdia">Abdia</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Giona">Giona</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Michea">Michea</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Naum">Naum</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="/libri/Abacuc">Abacuc</a>
+                                            </dt>
+                                        </dl>
+                                        <dl>
+                                            <dt>
+                                                <a id="Profetici" href="./libri//Aggeo">Aggeo</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="./libri//Zaccaria">Zaccaria</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Profetici" href="./libri//Malachia">Malachia</a>
+                                            </dt>
+                                        </dl>
+                                    </li>
+                                    <li id="Vangeli">
+                                        Vangeli 
+                                        <dl>
+                                            <dt>
+                                                <a id="Vangeli" href="./libri//Matteo">Matteo</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Vangeli" href="./libri//Marco">Marco</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Vangeli" href="./libri//Luca">Luca</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Vangeli" href="./libri//Giovanni">Giovanni</a>
+                                            </dt>
+                                        </dl>
+                                    </li>
+                                    <li id="Lettere">
+                                        Lettere 
+                                        <dl>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Atti">Atti</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Romani">Romani</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//1 Corinti">1 Corinti</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//2 Corinti">2 Corinti</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Galati">Galati</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Efesini">Efesini</a>
+                                            </dt>
+                                        </dl>
+                                        <dl>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Colossesi">Colossesi</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//1 Tessalonicesi">1 Tessalonicesi</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//2 Tessalonicesi">2 Tessalonicesi</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//1 Timoteo">1 Timoteo</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//2 Timoteo">2 Timoteo</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Tito">Tito</a>
+                                            </dt>
+                                        </dl>
+                                        <dl>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Ebrei">Ebrei</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Giacomo">Giacomo</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//1 Pietro">1 Pietro</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//2 Pietro">2 Pietro</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//1 Giovanni">1 Giovanni</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//2 Giovanni">2 Giovanni</a>
+                                            </dt>
+                                        </dl>
+                                        <dl>
+                                            <dt>
+                                                <a id="Lettere" href="./libri//Giuda">Giuda</a>
+                                            </dt>
+                                            <dt>
+                                                <a id="Lettere" href="../libri//Rivelazione">Rivelazione</a>
+                                            </dt>
+                                        </dl>
+                                    </li>
+                                </ul>
+                            </div>
+                            </ul>
+                    </li>
+                    <li>
+                        <a>Concordanze</a>
+                        <ul class="subnav" style="width:220px;">
+                            <li>
+                                <a href="#">Alfabetica</a>
+                            </li>
+                            <li>
+                                <a href="#">Frequenza</a>
+                            </li>
+                            <li>
+                                <a href="#">Lunghezza</a>
+                            </li>
+                            <li>
+                                <a href="#">Rovesciate&nbsp;(lettera&nbsp;finale)</a>
+                            </li>
+                            <li>
+                                <a href="#">Stastiche</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Annotazioni</a>
+                    </li>
+                    <li>
+                        <a href="#">Discorsi</a>
+                    </li>
+                    <li>
+                        <a href="#">Visite (sperimentale)</a>
+                    </li>
+                    <li>
+                        <a href="Opzioni">Opzioni</a>
+                        <ul class="subnav" style="width:220px;">
+                            <li>
+                                <a href="#">CSS</a>
+                            </li>
+                            <li>
+                                <a href="#">Lingua</a>
+                                <!--
+                                http://www.dynamicdrive.com/style/csslibrary/item/jquery_multi_level_css_menu_horizontal_blue/
+                                -->
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Aiuto</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+
+/***************************************
+   =cluetipClass: 'jtip'
+-------------------------------------- */
+.cluetip-jtip {
+  background-color: transparent;
+}
+.cluetip-jtip #cluetip-outer {
+  border: 1px solid grey;
+  position: relative;
+  background-color: #000;
+  -moz-border-radius: 8px;
+  
+}
+
+
+
+.cluetip-jtip #cluetip-inner {
+  padding: 0 5px 5px;
+  display: inline-block;
+  line-height:15px;
+  text-shadow: 1px 1px 5px #444;
+}
+.cluetip-jtip div#cluetip-close { 
+  text-align: right;
+  margin: 0 5px 5px;
+  color: #900;
+}

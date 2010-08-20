@@ -1,0 +1,305 @@
+<?php
+//die();
+include_once ("util/top_foot_inc.php");
+top2();
+connetti();
+
+
+$libr_ita[]="Genesi";
+$libr_ita[]="Esodo";
+$libr_ita[]="Levitico";
+$libr_ita[]="Numeri";
+$libr_ita[]="Deuteronomio";
+$libr_ita[]="Giosuè";
+$libr_ita[]="Giudici";
+$libr_ita[]="Rut";
+$libr_ita[]="1 Samuele";
+$libr_ita[]="2 Samuele";
+$libr_ita[]="1 Re";
+$libr_ita[]="2 Re";
+$libr_ita[]="1 Cronache";
+$libr_ita[]="2 Cronache";
+$libr_ita[]="Esdra";
+$libr_ita[]="Neemia";
+$libr_ita[]="Ester";
+$libr_ita[]="Giobbe";
+$libr_ita[]="Salmi";
+$libr_ita[]="Proverbi";
+$libr_ita[]="Ecclesiaste";
+$libr_ita[]="Il Cantico dei Cantici";
+$libr_ita[]="Isaia";
+$libr_ita[]="Geremia";
+$libr_ita[]="Lamentazioni";
+$libr_ita[]="Ezechiele";
+$libr_ita[]="Daniele";
+$libr_ita[]="Osea";
+$libr_ita[]="Gioele";
+$libr_ita[]="Amos";
+$libr_ita[]="Abdia";
+$libr_ita[]="Giona";
+$libr_ita[]="Michea";
+$libr_ita[]="Naum";
+$libr_ita[]="Abacuc";
+$libr_ita[]="Sofonia";
+$libr_ita[]="Aggeo";
+$libr_ita[]="Zaccaria";
+$libr_ita[]="Malachia";
+
+//Scritture Greche Cristiane";
+
+$libr_ita[]="Matteo";
+$libr_ita[]="Marco";
+$libr_ita[]="Luca";
+$libr_ita[]="Giovanni";
+$libr_ita[]="Atti";
+$libr_ita[]="Romani";
+$libr_ita[]="1 Corinti";
+$libr_ita[]="2 Corinti";
+$libr_ita[]="Galati";
+$libr_ita[]="Efesini";
+$libr_ita[]="Filippesi";
+$libr_ita[]="Colossesi";
+$libr_ita[]="1 Tessalonicesi";
+$libr_ita[]="2 Tessalonicesi";
+$libr_ita[]="1 Timoteo";
+$libr_ita[]="2 Timoteo";
+$libr_ita[]="Tito";
+$libr_ita[]="Filemone";
+$libr_ita[]="Ebrei";
+$libr_ita[]="Giacomo";
+$libr_ita[]="1 Pietro";
+$libr_ita[]="2 Pietro";
+$libr_ita[]="1 Giovanni";
+$libr_ita[]="2 Giovanni";
+$libr_ita[]="3 Giovanni";
+$libr_ita[]="Giuda";
+$libr_ita[]="Rivelazione";
+
+
+
+$libr_日本語[]="創世記";
+$libr_日本語[]="出エジプト記";
+$libr_日本語[]="レビ記";
+$libr_日本語[]="民数記";
+$libr_日本語[]="申命記";
+$libr_日本語[]="ヨシュア";
+$libr_日本語[]="裁き人";
+$libr_日本語[]="ルツ";
+$libr_日本語[]="サムエル第一";
+$libr_日本語[]="サムエル第二";
+$libr_日本語[]="列王第一";
+$libr_日本語[]="列王第二";
+$libr_日本語[]="歴代第一";
+$libr_日本語[]="歴代第二";
+$libr_日本語[]="エズラ";
+$libr_日本語[]="ネヘミヤ";
+$libr_日本語[]="エステル";
+$libr_日本語[]="ヨブ";
+$libr_日本語[]="詩編";
+$libr_日本語[]="箴言";
+$libr_日本語[]="伝道の書";
+$libr_日本語[]="ソロモンの歌";
+$libr_日本語[]="イザヤ";
+$libr_日本語[]="エレミヤ";
+$libr_日本語[]="哀歌";
+$libr_日本語[]="エゼキエル";
+$libr_日本語[]="ダニエル";
+$libr_日本語[]="ホセア";
+$libr_日本語[]="ヨエル";
+$libr_日本語[]="アモス";
+$libr_日本語[]="オバデヤ";
+$libr_日本語[]="ヨナ";
+$libr_日本語[]="ミカ";
+$libr_日本語[]="ナホム";
+$libr_日本語[]="ハバクク";
+$libr_日本語[]="ゼパニヤ";
+$libr_日本語[]="ハガイ";
+$libr_日本語[]="ゼカリヤ";
+$libr_日本語[]="マラキ";
+$libr_日本語[]="マタイ";
+$libr_日本語[]="マルコ";
+$libr_日本語[]="ルカ";
+$libr_日本語[]="ヨハネ";
+$libr_日本語[]="使徒";
+$libr_日本語[]="ローマ";
+$libr_日本語[]="コリント第一";
+$libr_日本語[]="コリント第二";
+$libr_日本語[]="ガラテア";
+$libr_日本語[]="エフェソス";
+$libr_日本語[]="フィリピ";
+$libr_日本語[]="コロサイ";
+$libr_日本語[]="テサロニケ第一";
+$libr_日本語[]="テサロニケ第二";
+$libr_日本語[]="テモテ第一";
+$libr_日本語[]="テモテ第二";
+$libr_日本語[]="テトス";
+$libr_日本語[]="フィレモン";
+$libr_日本語[]="ヘブライ";
+$libr_日本語[]="ヤコブ";
+$libr_日本語[]="ペテロ第一";
+$libr_日本語[]="ペテロ第二";
+$libr_日本語[]="ヨハネ第一";
+$libr_日本語[]="ヨハネ第二";
+$libr_日本語[]="ヨハネ第三";
+$libr_日本語[]="ユダ";
+$libr_日本語[]="啓示";
+
+
+
+$libram[]="ge";
+$libram[]="ex";
+$libram[]="le";
+$libram[]="nu";
+$libram[]="de";
+$libram[]="jos";
+$libram[]="jg";
+$libram[]="ru";
+$libram[]="1sa";
+$libram[]="2sa";
+$libram[]="1ki";
+$libram[]="2ki";
+$libram[]="1ch";
+$libram[]="2ch";
+$libram[]="ezr";
+$libram[]="ne";
+$libram[]="es";
+$libram[]="job";
+$libram[]="ps";
+$libram[]="pr";
+$libram[]="ec";
+$libram[]="ca";
+$libram[]="isa";
+$libram[]="jer";
+$libram[]="la";
+$libram[]="eze";
+$libram[]="da";
+$libram[]="ho";
+$libram[]="joe";
+$libram[]="am";
+$libram[]="ob";
+$libram[]="jon";
+$libram[]="mic";
+$libram[]="na";
+$libram[]="hab";
+$libram[]="zep";
+$libram[]="hag";
+$libram[]="zec";
+$libram[]="mal";
+$libram[]="mt";
+$libram[]="mr";
+$libram[]="lu";
+$libram[]="joh";
+$libram[]="ac";
+$libram[]="ro";
+$libram[]="1co";
+$libram[]="2co";
+$libram[]="ga";
+$libram[]="eph";
+$libram[]="php";
+$libram[]="col";
+$libram[]="1th";
+$libram[]="2th";
+$libram[]="1ti";
+$libram[]="2ti";
+$libram[]="tit";
+$libram[]="phm";
+$libram[]="heb";
+$libram[]="jas";
+$libram[]="1pe";
+$libram[]="2pe";
+$libram[]="1jo";
+$libram[]="2jo";
+$libram[]="3jo";
+$libram[]="jude";
+$libram[]="re";
+
+
+
+$libr_eng[]="Genesis";
+$libr_eng[]="Exodus";
+$libr_eng[]="Leviticus";
+$libr_eng[]="Numbers";
+$libr_eng[]="Deuteronomy";
+$libr_eng[]="Joshua";
+$libr_eng[]="Judges";
+$libr_eng[]="Ruth";
+$libr_eng[]="1 Samuel";
+$libr_eng[]="2 Samuel";
+$libr_eng[]="1 Kings";
+$libr_eng[]="2 Kings";
+$libr_eng[]="1 Chronicles";
+$libr_eng[]="2 Chronicles";
+$libr_eng[]="Ezra";
+$libr_eng[]="Nehemiah";
+$libr_eng[]="Esther";
+$libr_eng[]="Job";
+$libr_eng[]="Psalms";
+$libr_eng[]="Proverbs";
+$libr_eng[]="Ecclesiastes";
+$libr_eng[]="Song of Solomon";
+$libr_eng[]="Isaiah";
+$libr_eng[]="Jeremiah";
+$libr_eng[]="Lamentations";
+$libr_eng[]="Ezekiel";
+$libr_eng[]="Daniel";
+$libr_eng[]="Hosea";
+$libr_eng[]="Joel";
+$libr_eng[]="Amos";
+$libr_eng[]="Obadiah";
+$libr_eng[]="Jonah";
+$libr_eng[]="Micah";
+$libr_eng[]="Nahum";
+$libr_eng[]="Habakkuk";
+$libr_eng[]="Zephaniah";
+$libr_eng[]="Haggai";
+$libr_eng[]="Zechariah";
+$libr_eng[]="Malachi";
+$libr_eng[]="Matthew";
+$libr_eng[]="Mark";
+$libr_eng[]="Luke";
+$libr_eng[]="John";
+$libr_eng[]="Acts";
+$libr_eng[]="Romans";
+$libr_eng[]="1 Corinthians";
+$libr_eng[]="2 Corinthians";
+$libr_eng[]="Galatians";
+$libr_eng[]="Ephesians";
+$libr_eng[]="Philippians";
+$libr_eng[]="Colossians";
+$libr_eng[]="1 Thessalonians";
+$libr_eng[]="2 Thessalonians";
+$libr_eng[]="1 Timothy";
+$libr_eng[]="2 Timothy";
+$libr_eng[]="Titus";
+$libr_eng[]="Philemon";
+$libr_eng[]="Hebrews";
+$libr_eng[]="James";
+$libr_eng[]="1 Peter";
+$libr_eng[]="2 Peter";
+$libr_eng[]="1 John";
+$libr_eng[]="2 John";
+$libr_eng[]="3 John";
+$libr_eng[]="Jude";
+$libr_eng[]="Revelation";
+
+
+dumpa ($GLOBALS,1);
+
+
+$dime=66;
+//
+//for ($i=0; $i<66;$i++)
+//{
+//	$sql = "INSERT INTO `聖書`.`libri` (`abb`, `italiano`, `english`, `日本語`) VALUES ( '$libram[$i]', '$libr_ita[$i]', '$libr_eng[$i]', '$libr_日本語[$i]');";
+//	mysql_query($sql,$db);
+//	$err=mysql_error($db);
+//	if ($err)
+//	{
+//		echo "$err<hr>";
+//	}
+//}
+
+
+
+foot();
+?>
