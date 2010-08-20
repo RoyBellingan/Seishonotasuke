@@ -113,7 +113,7 @@ class wordinfo
 			$i++;
 				
 			$this->lang_a[$i][0]=$_COOKIE['lang'.$n];
-			$this->lang_a[$i][1]=$this->lang[$i][0]."_frequency"; //Non sò a cosa serva però...
+			$this->lang_a[$i][1]=$_COOKIE['lang'.$n]."_frequency"; //Non sò a cosa serva però...
 			$n=$i;
 		}
 
