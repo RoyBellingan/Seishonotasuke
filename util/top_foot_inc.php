@@ -32,7 +32,7 @@ $SITE_PATH="http://$host/";
 $path='SITE_PATH';
 $path2='SITE_PATH2';
 $PTitle="聖書の助け -DEVEL";
-$NomeP="Sistema semantico/inferenziale per lo studio personale";
+$NomeP="Sistema semantico/inferenziale per lo studio personale della Bibbia";
 //$società="Smea";
 
 
