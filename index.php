@@ -20,7 +20,7 @@ Al lavoro su : Interlineare! 4%
 <br><br><br>
 <a href="c">Ricerca Libera</a> (in fase di sviluppo)
 <br><br>
-<a href="p2">Concordanza Alfabetica</a> (decente dai)
+<a href="p">Concordanza Alfabetica</a> (decente dai)
 <!--
 <br><br>
 <a href="i">Interlineare!</a> (1%)
