@@ -314,285 +314,483 @@ class trova_versetto
 		$this->testo_cap[1]=$text;
 	}
 
-	function libram($libri,$libri_rsx)
-	{
-		$this->libram=$libri[$this->lang];
-		$this->libram_rsx=$libri_rsx[$this->lang];
-	}
 
-	function versetto($l,$c,$v,$e)
-	{
-		if ($this->evidenzia)
-		{
-
-		}
-		else
-		{
-
-		}
-
-	}
-
-	function lang()
-	{
-		$lang = (empty($_COOKIE['lang'])) ? 'italiano' : $_COOKIE['lang'];
-		$this->lang=$lang;
-		$this->lang_frequency=$lang."_frequency";
-		$this->campo_text=$lang."_text";
-	}
-
-	function request()
-	{
-
-
-		if (isset($_REQUEST['lib']))
-		{//Ovvero ho passato un GET da valutare
-			$lib=ucfirst(strtolower($_REQUEST['lib']));
-			$lib=trim($lib);
-			$lib=explode(" ",$lib);
-			//dumpa ($lib,1);
-			if (is_numeric ($lib[0]))
-			{
-				//Se mando un numero (sintassi ridotta del codice) convertilo nel libro relativo
-				$this->libro=$this->libram[$lib[0]];
-				$this->libro_id=$lib[0];
-			}
-
-			else
-			{
-				//Se invece è una stringa faccio l'iverso per accedere al db...
-				//Potrei usare una sintassi abbreviata però!
-				$this->libfetch($lib[0]);
-				//$this->libro=$lib[0];
-				//$this->libro_id=array_search($lib[0],$this->libram);
-			}
-
-
-
-			if (is_numeric ($lib[1]))
-			{//Se passo un solo capitolo (Matteo 5)
-				$this->capitolo=$lib[1];
-			}
-			else
-			{
-				$liba=explode(":",$lib[1]);
-				$this->capitolo=$liba[0];
-				$this->versetto=$liba[1];
-
-				$fv=true;
-			}
-
-			if (is_numeric ($lib[2]) && (!$fv))
-			{//Se non è passato il versetto allora è nella forma matteo 23 34 (senza il :
-				$this->versetto=$lib[2];
-			}
-			else
-			{//Allora è nella forma matteo 23:34 12 (versetti in evidenza)
-				$this->evidenzia=$lib[2];
-			}
-
-			if (is_numeric ($lib[3]))
-			{//Allora è nella forma matteo 23 34 12 (versetti in evidenza e senza il :)
-				$this->evidenzia=$lib[3];
-
-			}
-		}
-		else
-		{
-			//echo "niente GET";
-			//Sempre Numerico lo passo
-			$this->libro=$this->libram[$_REQUEST['l']] ;
-			$this->libro_id=$_REQUEST['l'];
-			$this->capitolo=(isset($_REQUEST['c']) ? $_REQUEST['c'] : 1);
-			$this->versetto=(isset($_REQUEST['v']) ? $_REQUEST['v'] : "");
-			$this->estensione= (isset($_REQUEST['e']) ? $_REQUEST['e'] : 1);
-		}
-
-	}
-
-	/**
-	 * @param Cerca se è un abbreviazione
+	/**Scrive il versetto con la formattazione per i capitoli dell'interlingua
+	 *
 	 */
-	function libfetch ($lib)
+	function verse_inter()
 	{
-		$this->libro_id=array_search($lib,$this->libram);
-		if ($this->libro_id>0)
-		{//Ok il libro era nella forma "normale"
-			$this->libro=$lib;
-		}
-		else
+		$i=0;
+		$le=sizeof($this->testo_cap[$this->lang][$this->libro_id][$this->capitolo])+1;
+
+		//echo "<br>".$le;
+		for ($l=1;$l<$le;$l++)
 		{
-			$i=0;
-			foreach ($this->libram_rsx as $libram)
+
+			if (isset($this->spacer[$this->libro_id][$this->capitolo][$l]))
 			{
-				$i++;
-				//dumpa ($libram);
-
-				$k=array_search($lib,$libram);
-				//dumpa ($k);
-
-				if (!($k===FALSE))
+				if ($i==1)
 				{
-					$this->libro_id=$i;
-					$this->libro=$this->libram[$this->libro_id];
-					break;
+					$text="<p>\n";
 				}
-
+				else
+				{
+					$text.="</p>\n<p>\n";
+				}
 			}
+
+			$text.="<div class=\"$this->class_a_cap\" id=\"$this->id_a_cap\">";
+			$text.=$l;
+				
+			$cc=0;
+			foreach ($this->lang_a as $lang)
+			{
+				$cc++;
+				$ver_sel=$this->class_ver_sel.$cc;
+				//$this->id_ver_sel.$cc;
+				$ver=$this->class_ver.$cc;
+				//$this->id_ver.$cc;
+				$this->lang=$lang[0];
+
+
+				if ($l==$this->versetto) //Se è versetto selezionato
+				{
+					$text.="<span class=\"$ver_sel\">\n";
+				}
+				else
+				{
+					$text.="<span class=\"$ver\">\n";
+				}
+				$text.=text_hype($this->testo_cap[$this->lang][$this->libro_id][$this->capitolo][$l]);
+				$text.="</span>\n";
+
+				//echo $this->testo_cap[$this->lang][$this->libro_id][$this->capitolo][$l]."<br>";
+			}
+			$text.="<div style=\"clear:both;\"></div>";
+			$text.="</div>\n";
+			//	echo "$l";
 		}
+		$text.="</p>\n <div style=\"clear: both\"></div>";
+		$this->testo_cap[1]=$text;
+
+
+
+
+		//		foreach ($this->testo_cap[$this->lang][$this->libro_id][$this->capitolo] as $testo)
+		//		{
+		//			$i++;
+		//			if (isset($this->spacer[$this->libro_id][$this->capitolo][$i]))
+		//			{
+		//				if ($i==1)
+		//				{
+		//					$text="<p>\n";
+		//				}
+		//				else
+		//				{
+		//					$text.="</p>\n<p>\n";
+		//				}
+		//			}
+		//
+		//			$text.="<span class=\"$this->class_a_cap\" id=\"$this->id_a_cap\">";
+		//			$text.=$i;
+		//			$text.="</span>\n";
+		//			if ($i==$this->versetto) //Se è versetto selezionato
+		//			{
+		//				$text.="<span class=\"$this->class_ver_sel\" id=\"$this->id_ver_sel\">\n";
+		//			}
+		//			else
+		//			{
+		//				$text.="<span class=\"$this->class_ver\" id=\"$this->id_ver\">\n";
+		//			}
+		//			$text.=text_hype($testo);
+		//			$text.="</span>\n";
+		//
+		//		}
+		//		$text.="</p>\n";
+		//		$this->testo_cap[1]=$text;
+
+}
+
+function libram($libri,$libri_rsx)
+{
+	$this->libram=$libri[$this->lang];
+	$this->libram_rsx=$libri_rsx[$this->lang];
+}
+
+function versetto($l,$c,$v,$e)
+{
+	if ($this->evidenzia)
+	{
+
+	}
+	else
+	{
+
 	}
 
-	/**
-	 * Converte dall'ID del libro al libro che lo contiene
-	 */
-	function id_to_lib()
+}
+
+function lang()
+{
+	$lang = (empty($_COOKIE['lang'])) ? 'italiano' : $_COOKIE['lang'];
+	$this->lang=$lang;
+	$this->lang_frequency=$lang."_frequency";
+	$this->campo_text=$lang."_text";
+
+
+	$i=1;
+	while (isset($_COOKIE['lang'.$i]))
 	{
-		$this->libro=$this->libram[$this->libro_id];
+
+
+		$this->lang_a[$i][0]=$_COOKIE['lang'.$i];
+		//$this->lang_a[$i][1]=$this->lang[$i][0]."_frequency"; //Non sò a cosa serva però...
+		$i++;
 	}
 
 
-	/**Carica un capitolo, se passo un id di un versetto, si ricava il capitolo contenente, altrimenti usa quello in $this->capitolo
-	 * Evidenzia il versetto in $id, altrimenti usa $this->versetto (se presente) e se $this->evidenzia=true
-	 * @param il versetto $id
-	 */
+}
 
-	function fetch_cap()
-	{
+function request()
+{
 
-		if ($this->fetch_capitolo()==-1)
+
+	if (isset($_REQUEST['lib']))
+	{//Ovvero ho passato un GET da valutare
+		$lib=ucfirst(strtolower($_REQUEST['lib']));
+		$lib=trim($lib);
+		$lib=explode(" ",$lib);
+		//dumpa ($lib,1);
+		if (is_numeric ($lib[0]))
 		{
-			$this->cap_h1();
-			$this->testo_cap[1]="Peccato non esiste...";
+			//Se mando un numero (sintassi ridotta del codice) convertilo nel libro relativo
+			$this->libro=$this->libram[$lib[0]];
+			$this->libro_id=$lib[0];
+		}
+
+		else
+		{
+			//Se invece è una stringa faccio l'iverso per accedere al db...
+			//Potrei usare una sintassi abbreviata però!
+			$this->libfetch($lib[0]);
+			//$this->libro=$lib[0];
+			//$this->libro_id=array_search($lib[0],$this->libram);
+		}
+
+
+
+		if (is_numeric ($lib[1]))
+		{//Se passo un solo capitolo (Matteo 5)
+			$this->capitolo=$lib[1];
 		}
 		else
 		{
+			$liba=explode(":",$lib[1]);
+			$this->capitolo=$liba[0];
+			$this->versetto=$liba[1];
+
+			$fv=true;
+		}
+
+		if (is_numeric ($lib[2]) && (!$fv))
+		{//Se non è passato il versetto allora è nella forma matteo 23 34 (senza il :
+			$this->versetto=$lib[2];
+		}
+		else
+		{//Allora è nella forma matteo 23:34 12 (versetti in evidenza)
+			$this->evidenzia=$lib[2];
+		}
+
+		if (is_numeric ($lib[3]))
+		{//Allora è nella forma matteo 23 34 12 (versetti in evidenza e senza il :)
+			$this->evidenzia=$lib[3];
+
+		}
+	}
+	else
+	{
+		//echo "niente GET";
+		//Sempre Numerico lo passo
+		$this->libro=$this->libram[$_REQUEST['l']] ;
+		$this->libro_id=$_REQUEST['l'];
+		$this->capitolo=(isset($_REQUEST['c']) ? $_REQUEST['c'] : 1);
+		$this->versetto=(isset($_REQUEST['v']) ? $_REQUEST['v'] : "");
+		$this->estensione= (isset($_REQUEST['e']) ? $_REQUEST['e'] : 1);
+	}
+
+}
+
+/**
+ * @param Cerca se è un abbreviazione
+ */
+function libfetch ($lib)
+{
+	$this->libro_id=array_search($lib,$this->libram);
+	if ($this->libro_id>0)
+	{//Ok il libro era nella forma "normale"
+		$this->libro=$lib;
+	}
+	else
+	{
+		$i=0;
+		foreach ($this->libram_rsx as $libram)
+		{
+			$i++;
+			//dumpa ($libram);
+
+			$k=array_search($lib,$libram);
+			//dumpa ($k);
+
+			if (!($k===FALSE))
+			{
+				$this->libro_id=$i;
+				$this->libro=$this->libram[$this->libro_id];
+				break;
+			}
+
+		}
+	}
+}
+
+/**
+ * Converte dall'ID del libro al libro che lo contiene
+ */
+function id_to_lib()
+{
+	$this->libro=$this->libram[$this->libro_id];
+}
+
+
+/**Carica un capitolo, se passo un id di un versetto, si ricava il capitolo contenente, altrimenti usa quello in $this->capitolo
+ * Evidenzia il versetto in $id, altrimenti usa $this->versetto (se presente) e se $this->evidenzia=true
+ * @param il versetto $id
+ */
+
+function fetch_cap()
+{
+
+	if ($this->fetch_capitolo()==-1)
+	{
+		$this->cap_h1();
+		$this->testo_cap[1]="Peccato non esiste...";
+	}
+	else
+	{
 		$this->fetch_spacer();
 
 		$this->class_a_cap="cpp";
 		$this->class_ver_sel="sel";
 		$this->class_ver="ver";
-
+		$this->page="l";
 		$this->cap_h1();
 		$this->verse_int();
-		}
+	}
+
+}
+
+function cap_h1()
+{
+
+	$text=$this->hypavex2("<",$this->libro_id,$this->capitolo-1)." ";
+
+	$text.=$this->hyper_title($this->libro);
+	$text.=" ".$this->capitolo;
+	$text.=" ".$this->hypavex2(" >",$this->libro_id,$this->capitolo+1);
+
+	$this->testo_cap[0]=$text;
+}
+
+function hyper_title()
+{
+
+	$text="<a href=\"l?l=$this->libro_id\" rel=\"l2?l=$this->libro_id\" class=\"jtip\" >$this->libro</a>";
+	return $text;
+}
+
+function get_cap($id=false)
+{
+	//dumpa($this,1);
+	if ($id)
+	{
+		$this->fetch_versetto_id($id);
 
 	}
 
-	function cap_h1()
+	//		$cac="capitolo_ita_".$this->libroid."_".$this->capitolo."_".$this->versetto;
+	$cac="capitolo_ita_".$this->libro_id."+c_".$this->capitolo.$this->versetto;
+	$cac_c=$this->cache->select($cac);
+	if ($cac_c!=False)
 	{
 
-		$text=$this->hypavex2("<",$this->libro_id,$this->capitolo-1)." ";
-
-		$text.=$this->hyper_title($this->libro);
-		$text.=" ".$this->capitolo;
-		$text.=" ".$this->hypavex2(" >",$this->libro_id,$this->capitolo+1);
-
-		$this->testo_cap[0]=$text;
+		echo $cac_c;
 	}
-
-	function hyper_title()
+	else
 	{
 
-		$text="<a href=\"l?l=$this->libro_id\" rel=\"l2?l=$this->libro_id\" class=\"jtip\" >$this->libro</a>";
-		return $text;
+		$this->fetch_cap();
+		$t=divme($this->testo_cap[0],"capitolo_h1");
+		$t.=divme($this->testo_cap[1],"capitolo");
+		$this->cache->insert($cac,$t);
+		echo $t;
 	}
+}
 
-	function get_cap($id=false)
+function fetch_capitolo()
+{
+	$sql="select $this->campo_text from versetti where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_versetti";
+	$fs = mysql_queryconerror($sql,$this->db);
+	$i=0;
+	while ($rs=mysql_fetch_row($fs))
 	{
-		//dumpa($this,1);
-		if ($id)
-		{
-			$this->fetch_versetto_id($id);
-
-		}
-		
-//		$cac="capitolo_ita_".$this->libroid."_".$this->capitolo."_".$this->versetto;
-$cac="capitolo_ita_".$this->libro_id."+c_".$this->capitolo.$this->versetto;
-		$cac_c=$this->cache->select($cac);
-		if ($cac_c!=False)
-		{
-
-			echo $cac_c;
-		}
-		else
-		{
-
-			$this->fetch_cap();
-			$t=divme($this->testo_cap[0],"capitolo_h1");
-			$t.=divme($this->testo_cap[1],"capitolo");
-			$this->cache->insert($cac,$t);
-			echo $t;
-		}
+		$i++;
+		$this->testo_cap[$this->libro_id][$this->capitolo][$i]=$rs[0];
 	}
-
-	function fetch_capitolo()
+	if ($i==0) //se nn ha trovato nessuna riga!
 	{
-		$sql="select $this->campo_text from versetti where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_versetti";
-		$fs = mysql_queryconerror($sql,$this->db);
-		$i=0;
-		while ($rs=mysql_fetch_row($fs))
-		{
-			$i++;
-			$this->testo_cap[$this->libro_id][$this->capitolo][$i]=$rs[0];
-		}
-		if ($i==0) //se nn ha trovato nessuna riga!
-		{
-			return -1; //non esiste...
-		}
+		return -1; //non esiste...
 	}
+}
 
 
-	function fetch_spacer()
+function fetch_spacer()
+{
+
+	$sql="select versetto,end from spacer where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_spacer";
+	$fs = mysql_queryconerror($sql,$this->db);
+	$i=0;
+	while ($rs=mysql_fetch_row($fs))
 	{
+		$i++;
 
-		$sql="select versetto,end from spacer where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_spacer";
-		$fs = mysql_queryconerror($sql,$this->db);
-		$i=0;
-		while ($rs=mysql_fetch_row($fs))
-		{
-			$i++;
-
-			$this->spacer[$this->libro_id][$this->capitolo][$rs[0]]=true;
-			$tmp=$rs[1];
-		}
-		$this->spacer[$this->libro_id][$this->capitolo][$tmp]=true;
-
+		$this->spacer[$this->libro_id][$this->capitolo][$rs[0]]=true;
+		$tmp=$rs[1];
 	}
+	$this->spacer[$this->libro_id][$this->capitolo][$tmp]=true;
+
+}
 
 
 
-	function text_hype ($testo)
-	{
-		$link="$this->page?$this->getkey=\\1";
-		//$link="p?w=\\1";
+function text_hype ($testo)
+{
+	$link="$this->page?$this->getkey=\\1";
+	//$link="p?w=\\1";
 
-		$action="";
-		//$id="id=\"\\1\"";
-		$id="";
-		$pattern="/(\p{L}{3,})/u";
-		$replace="<a $id href=\"$link\" $action>\\1</a>";
-		$text=preg_replace($pattern,$replace,$testo);
-		return $text;
-	}
+	$action="";
+	//$id="id=\"\\1\"";
+	$id="";
+	$pattern="/(\p{L}{3,})/u";
+	$replace="<a $id href=\"$link\" $action>\\1</a>";
+	$text=preg_replace($pattern,$replace,$testo);
+	return $text;
+}
 
 
-	function hypavex ($libro,$libro_id,$capitolo,$versetto)
-	{
-		$text=<<<EOD
+function hypavex ($libro,$libro_id,$capitolo,$versetto)
+{
+	$text=<<<EOD
 	<a href="l?l=$libro_id&c=$capitolo&v=$versetto">$libro $capitolo:$versetto</a>
 EOD;
-		return $text;
-	}
+	return $text;
+}
 
 
-	function hypavex2 ($testo,$libro_id,$capitolo,$versetto)
-	{
-		$text=<<<EOD
-	<a href="l?l=$libro_id&c=$capitolo&v=$versetto">$testo</a>
+function hypavex2 ($testo,$libro_id,$capitolo,$versetto)
+{
+	$page=$this->page;
+	$text=<<<EOD
+		
+	<a href="$page?l=$libro_id&c=$capitolo&v=$versetto">$testo</a>
 EOD;
-		return $text;
+	return $text;
+}
+
+
+
+function get_inter_cap($id=false)
+{
+	//dumpa($this,1);
+	if ($id)
+	{//Recupera la coordinata Biblica
+		$this->fetch_versetto_id($id);
+
 	}
 
 
-	//Fien della classe
+	/*
+	 *
+	 * Leggi il primo capitolo e poi while l'altro lingua
+	 */
+
+
+	$cac="capitolo_inter_".$this->libro_id."+c_".$this->capitolo.$this->versetto;
+	$cac_c=$this->cache->select($cac);
+	$cac_c=False;
+	if ($cac_c!=False)
+	{
+
+		echo $cac_c;
+	}
+	else
+	{
+
+		$this->lang_a[0][0]=$this->lang;
+		ksort($this->lang_a);
+
+		$i=0;
+		foreach ($this->lang_a as $lang)
+		{
+			$this->lang=$lang[0];
+			$this->lang_update();
+			$this->fetch_raw_cap();
+		}
+		$this->fetch_spacer();
+
+		$this->class_a_cap="cpp";
+		$this->class_ver_sel="sel_inter";
+		$this->class_ver="ver_inter";
+		$this->page="i";
+		$this->cap_h1(); //Creo l'header per sopra
+
+		$this->verse_inter();
+
+
+		$t=divme($this->testo_cap[0],"capitolo_h1");
+		$t.=divme($this->testo_cap[1],"capitolo_inter");
+		//$this->cache->insert($cac,$t);
+		echo $t;
+
+
+
+		//$this->fetch_cap();
+		//$t=divme($this->testo_cap[0],"capitolo_h1");
+		//$t.=divme($this->testo_cap[1],"capitolo");
+		//$this->cache->insert($cac,$t);
+		//}
+	}
+}
+
+function fetch_raw_cap()
+{
+	$sql="select $this->campo_text from versetti where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_versetti";
+	$fs = mysql_queryconerror($sql,$this->db,1);
+	$i=0;
+	while ($rs=mysql_fetch_row($fs))
+	{
+		$i++;
+		$this->testo_cap[$this->lang][$this->libro_id][$this->capitolo][$i]=$rs[0];
+	}
+	if ($i==0) //se nn ha trovato nessuna riga!
+	{
+		return -1; //non esiste...
+	}
+}
+
+
+function lang_update()
+{
+	$this->campo_text=$this->lang."_text";
+}
+
+//Fien della classe
 }
