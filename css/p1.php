@@ -2,7 +2,8 @@
 include ('../util/mysqlutil.php');
 connetti();
 header("Content-Type: text/css");
-
+header("Cache-Control: must-revalidate, max-age=3600");
+header("Vary: Accept-Encoding");
 if(isset($_REQUEST['user'])) 
 {
 	  $get=$_REQUEST['user'];

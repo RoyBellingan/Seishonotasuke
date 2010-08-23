@@ -8,8 +8,22 @@ header("Vary: Accept-Encoding");
 
 
 
-
 $NOW1=microtime(true);
+if (isset($_COOKIE["interlineare"]))
+{
+	if ($_COOKIE["interlineare"]==1)
+	{
+		$chk="CHECKED";
+	}
+	else
+	{
+		$chk="";
+	}
+}
+else
+{
+	$chk="";
+}
 
 
 require_once ("mysqlutil.php");
@@ -49,7 +63,7 @@ function top()
 
 function top2()
 {
-	GLOBAL $PTitle;
+	GLOBAL $PTitle,$chk;
 	if (isset ($_SERVER['HTTP_REFERER'] ))
 	{
 		$ref=$_SERVER['HTTP_REFERER'];
@@ -68,91 +82,9 @@ function top2()
 	<link rel="stylesheet" href="./css/2.css" type="text/css" />
 	<link rel="stylesheet" href="./css/p1.php" type="text/css" />
 	
-	<script type="text/javascript" src="js/jquery.js">
+	<script type="text/javascript" src="js/jquery.js"></script>
+</head>
 
-        </script>
-        <script type="text/javascript">
-            
-        /*    function sleep(delay){
-                var start = new Date().getTime();
-                while (new Date().getTime() < start + delay);
-            }*/
-            
-            $(document).ready(function(){
-            
-                
-            $("ul.subnav").parent().append("<span></span>"); //Only shows drop down trigger when js is enabled - Adds empty span tag after ul.subnav
-            
-
-            
-                $("ul.topnav li").bind('mouseenter',
-                 function(){ //When trigger is clicked...
-                    //Following events are applied to the subnav itself (moving subnav up and down)
-                    //nao.stop(true, true).slideUp(1);
-                    var neu = $(this).find("ul.subnav")
-                    neu.fadeIn('fast').show(); //Drop down the subnav on click
-
-                    $('#lib').focus();
-                    
-                  /*  $(this).hover(function(){
-                     },
-                    function(){
-                       // var nao = $(this).find("ul.subnav")
-                        //neu.stop(true, true).slideUp(1);
-                        //When the mouse hovers out of the subnav, move it back up
-                    
-                    });*/
-                    
-                    $("#corpo").hover(function(){
-                    neu.stop(true, true).fadeOut(1);
-                    },
-                    function(){
-                    neu.stop(true, true).fadeOut(1);
-                         //When the mouse hovers out of the subnav, move it back up
-                    });
-                    
-                     /*           $(".container").hover(function(){
-                    neu.stop(true, true).fadeOut(1);
-                    },
-                    function(){
-                    neu.stop(true, true).fadeOut(1);
-                         //When the mouse hovers out of the subnav, move it back up
-                    });*/
-                    
-                    
-                    
-                    //Following events are applied to the trigger (Hover events for the trigger)
-                });
-
-                $("#full a").bind('mouseenter',
-                 function(){
-                  //When trigger is clicked...
-                    //Following events are applied to the subnav itself (moving subnav up and down)
-                    //var neu = $(this).
-                    //alert ($(this).attr("name"))
-                    });
-                
-                    
-         $('.jtip').cluetip({
-		  cluetipClass: 'jtip', 
-		  arrows: true, 
-		  showTitle: false,
-		  positionBy: 'bottomTop',
-		  topOffset: 10,     
-		  dropShadow: false,
-		  hoverIntent: false,
-		  sticky: true,
-		  mouseOutClose: true,
-		 // closePosition: 'title',
-		  closeText: ''
-		});
-                
-            });
-        </script>
-	
-	
-	
-	</head>
 <body>
 
 <div class="container" >
@@ -169,6 +101,7 @@ function top2()
                                 <form style=" margin: 0px; padding: 0px" action="l.php" method="post" name="quest" id="quest">
                                 <input id="lib" name="lib" type"text" style="margin: 0px 0 0 20px;" value="">
                                 <input name="submit" type="submit" value="cerca">
+                                <input name="interlineare" type="checkbox" value="1" onclick="setinter(this)" $chk> Interlineare ?
                                 </form>
 <li id="Pentateuco">
     Pentateuco 
@@ -501,11 +434,6 @@ EOD;
 function foot($extra="") {
 	Global $NOW1,$host;
 
-	if (isset ($_SERVER['HTTP_REFERER'] ))
-	{
-		$prima=$_SERVER['HTTP_REFERER'];
-		setcookie("PagePrima",$prima,0,"/");
-	}
 
 	//Timing!
 	$NOW2=microtime(true)-$NOW1;

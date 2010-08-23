@@ -503,8 +503,11 @@ font-size: 18;
 }
 
 .ver_inter_c{
-	    font-weight: 400;
-    color: #fcffda;
+	font-weight: 400;
+    color: #6EDFBC;
+	margin:auto;
+	width:3em;
+	text-align:center;
 }
 
 

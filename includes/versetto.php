@@ -338,10 +338,10 @@ class trova_versetto
 					$text.="</p>\n<p>\n";
 				}
 			}
-
+			$text.="<div class=\"cpp\">";
 			$text.="<div class=\"$this->class_a_cap\" id=\"$this->id_a_cap\">";
 			$text.=$l;
-				
+			$text.="</div>\n";	
 			$cc=0;
 			foreach ($this->lang_a as $lang)
 			{
@@ -454,6 +454,14 @@ function lang()
 function request()
 {
 
+	if (isset($_REQUEST['interlineare']))
+	{
+		$this->page="i";
+	}
+	else
+	{	
+		$this->page="l";
+	}
 
 	if (isset($_REQUEST['lib']))
 	{//Ovvero ho passato un GET da valutare
@@ -486,7 +494,7 @@ function request()
 		else
 		{
 			$liba=explode(":",$lib[1]);
-			$this->capitolo=$liba[0];
+			$this->capitolo=is_numeric($liba[0]) ? $liba[0] : "1";
 			$this->versetto=$liba[1];
 
 			$fv=true;
@@ -603,7 +611,7 @@ function cap_h1()
 function hyper_title()
 {
 
-	$text="<a href=\"l?l=$this->libro_id\" rel=\"l2?l=$this->libro_id\" class=\"jtip\" >$this->libro</a>";
+	$text="<a href=\"$this->page?l=$this->libro_id\" rel=\"l2?l=$this->libro_id&p=$this->page\" class=\"jtip\" >$this->libro</a>";
 	return $text;
 }
 
@@ -746,7 +754,7 @@ function get_inter_cap($id=false)
 		}
 		$this->fetch_spacer();
 
-		$this->class_a_cap="cpp";
+		$this->class_a_cap="ver_inter_c";
 		$this->class_ver_sel="sel_inter";
 		$this->class_ver="ver_inter";
 		$this->page="i";
@@ -773,7 +781,7 @@ function get_inter_cap($id=false)
 function fetch_raw_cap()
 {
 	$sql="select $this->campo_text from versetti where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_versetti";
-	$fs = mysql_queryconerror($sql,$this->db,1);
+	$fs = mysql_queryconerror($sql,$this->db);
 	$i=0;
 	while ($rs=mysql_fetch_row($fs))
 	{

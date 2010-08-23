@@ -3,7 +3,7 @@
  * Draft di come dovrebbe all'incirca venire a livello logico la cosa...
  *
 
-  
+
  */
 //TODO Meti un header che dice in termini umani dove ci si trova plz ?
 
@@ -24,11 +24,21 @@ $v->libram($libr,$libr_rsx); //Carica i riferimenti dei libri
 $v->request();
 $v->db=$db;
 
-$v->evidenzia=True;
 
-$v->get_cap();
+if ($chk=="CHECKED")
+{
+	$v->page="i";
+	$v->get_inter_cap();
 
-//dumpa($v,1);
-//dumpa($GLOBALS);
-foot();
+}
+else
+{
+	$v->page="l";
+	$v->evidenzia=True;
+
+	$v->get_cap();
+}
+	//dumpa($v,1);
+	//dumpa($GLOBALS);
+	foot();
 
