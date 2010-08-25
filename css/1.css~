@@ -1,25 +1,31 @@
 /*
- .class
- #id
- */ @font-face {font-family:prime;
-    font-style: normal;
-    font-weight: normal;
-    src:
-    url(http://roy.selfip.org/font/almanack.ttf);
+.class
+#id
+*/
+@font-face {
+  font-family: prime;
+  font-style:   normal;
+  font-weight: normal;
+  src:url(http://roy.selfip.org/font/almanack.ttf);
 }
-@font-face {font-family:almanack;
-    font-style: normal;
-    font-weight: normal;
-    src:
-    url(http://roy.selfip.org/font/almanack.ttf);
+
+
+@font-face {
+  font-family: almanack;
+  font-style:   normal;
+  font-weight: normal;
+  src:url(http://roy.selfip.org/font/almanack.ttf);
 }
+
+
+
 
 body .container {
     margin: 0 auto;
     position: relative;
     width: 960px;
     height: 50px;
-    font-family: Helvetica;
+	font-family:Helvetica;
 }
 
 #header {
@@ -87,9 +93,9 @@ ul.topnav li ul.subnav li {
 body {
     background: url(../img/body_bg.png) no-repeat scroll center top #202020;
     background-position: 0 -95px;
-    color: #EDE5F0; /* #BBBBBB; */
-    font-size: 14px;
-    font-family: Helvetica, Verdana, Geneva, sans-serif;
+    color: #BBBBBB;
+    font-size: 14px ;
+	font-family:Helvetica, Verdana, Geneva, sans-serif;
     margin: 0;
     min-width: 960px;
     padding: 0;
@@ -166,7 +172,7 @@ body {
 }
 
 a {
-    color: #EDE5F0; /*#BBBBBB;*/
+    color: #EDE5F0 ; /*#BBBBBB;*/
     text-decoration: none;
 }
 
@@ -193,23 +199,23 @@ select {
     right: -15%;
 }
 
-#phs input[type =
-"submit"] {
-    position: absolute;
+#phs input[type="submit"] {
+	position: absolute;
     width: 2em;
     left: 240px;
+	
 }
 
 #phs #cerca {
     position: absolute;
     width: 10em;
     left: 80px;
-    color: #bbb;
-    font-family: Helvetica;
-    text-shadow: 1px 1px 1px #888;
-    border: none;
-    border-bottom: solid silver 1px;
-    background-color: rgba(255, 255, 255, 0);
+	color:#bbb;
+	font-family: Helvetica;
+	text-shadow: 1px 1px 1px #888;
+	border:none;
+	border-bottom: solid silver 1px;
+	background-color:rgba(255, 255, 255, 0);
 }
 
 #alfabetico {
@@ -359,6 +365,9 @@ select {
     width: 12Em;
 }
 
+#footer {
+}
+
 option {
     padding: 1px;
 }
@@ -379,182 +388,126 @@ optgroup option {
     padding: 0 0 0 15px;
 }
 
-.testo_18 {
-    font-family: Helvetica;
-    font-size: 18px;
-    font-weight: 100;
+
+.testo_18
+{
+	font-family: Helvetica;
+	font-size:18px;
+	font-weight:100;
 }
+
 
 .text2 {
-    background-color: #ccc;
-    border-bottom-color: #000000;
-    border-right-color: #000000;
-    border-width: 1px;
-    font-family: Verdana, Arial, Helvetica, sans-serif;
-    font-size: 16px;
-    text-shadow: 0px 0px 1px #888;
+background-color:#ccc;
+border-bottom-color:#000000;
+border-right-color:#000000;
+border-width:1px;
+font-family:Verdana,Arial,Helvetica,sans-serif;
+font-size:16px;
+text-shadow:0px 0px 1px #888;
+
 }
 
-.capitolo {
-    text-align: justify;
-    font-family: Helvetica;
-    font-size: 18px;
-    /*font-size:300%;*/
-    font-weight: 400;
-    line-height: 140%;
-    width: 85%;
-    margin: auto;
-    margin-top: 15px;
-    margin-bottom: 45px;
-    /* 	text-shadow:0px 0px 1px #555; */
-    -moz-column-count: 6;
-    -moz-column-width: 400px;
-    -moz-column-gap: 2em;
-    -moz-column-rule: 1px solid silver;
-    -webkit-column-count: 6;
-    -webkit-column-width: 400px;
-    -webkit-column-gap: 2em;
-    -webkit-column-rule: 1px solid silver;
-    /*height: 80%; Disabilitato di Base attivabile nella User Preferences (a me mi piace)*/
-    /*
-     letter-spacing: 0.05em;
-     */
-}
 
-.capitolo_inter {
-    text-align: justify;
-    font-family: Helvetica;
-    font-size: 18px;
-    /*font-size:300%;*/
-    font-weight: 400;
-    line-height: 140%;
-    width: 85%;
-    margin: auto;
-    margin-top: 15px;
-    margin-bottom: 45px;
-}
 
-.capitolo_h1 {
-    font-size: 32;
-    font-weight: 400;
-    letter-spacing: 0.18em;
-    margin: 12px 0 4px 0;
-    text-align: center;
-    font-family: Helvetica;
-    font-variant: small-caps;
-}
+.capitolo{
+	text-align : justify;
+	font-family:Helvetica;
+	font-size:18px;
+	/*font-size:300%;*/
+	font-weight:400;
+	line-height:140%;
 
-.capitolo p {
-    text-indent: 2em;
-    margin: 12px 0 12px 0;
+	width:85%;
+	margin:auto;
+	margin-top:35px;
+	margin-bottom:45px;
+
+/* 	text-shadow:0px 0px 1px #555; */
+
+ -moz-column-count: 6; 
+-moz-column-width: 400px;
+
+-moz-column-gap: 2em;
+-moz-column-rule: 1px solid silver;
+
+
+ -webkit-column-count: 6; 
+-webkit-column-width: 400px;
+
+-webkit-column-gap: 2em;
+-webkit-column-rule: 1px solid silver;
+ /*height: 80%; Disabilitato di Base attivabile nella User Preferences (a me mi piace)*/
+
 }
 
 
 
 
-.capitolo_inter .cpp {
-    font-weight: 400;
-    font-size: 120%;
-    padding-left: 0.4em;
-    color: #6EDFBC;
-	padding:0;
+.capitolo p{
+	text-indent: 2em;
+	margin:12px 0 12px 0;
+
+}
+
+.capitolo .cpp{
+font-weight:400;
+font-size:120%;
+padding-left:0.4em;
+color: #6EDFBC;
+}
+
+.ver{
+
+}
+
+.sel{
+font-weight:400;
+color:#fcffda;
+
+}
+.sel a{
+font-weight:400;
+color:#fcffda;
+
+}
+
+
+#versetti{
+	text-align : justify;
+	font-family:Helvetica;
+	font-size:16px;
+	/*font-size:300%;*/
+	font-weight:400;
+	line-height:140%;
+
+	width:92%;
+	margin:auto;
+	margin-top:35px;
+	margin-bottom:45px;
+
 	
-/*
-border: dotted grey 1px;
-*/
-}
+/* 	text-shadow:0px 0px 1px #555; */
+
+ -moz-column-count: 6; 
+-moz-column-width: 400px;
+
+-moz-column-gap: 2em;
+-moz-column-rule: 1px solid silver;
 
 
-.capitolo .cpp {
-    font-weight: 400;
-    font-size: 120%;
-    padding-left: 0.4em;
-    color: #6EDFBC;
+ -webkit-column-count: 6; 
+-webkit-column-width: 400px;
 
-}
-
-.ver {
-}
-
-.sel {
-    font-weight: 400;
-    color: #fcffda;
-}
-
-.sel a {
-    font-weight: 400;
-    color: #fcffda;
-}
-
-.ver_inter1 {
-	width: 48%;
-	float: left;
-	color: #EDE5F0;
-	font-size: 18;
-	margin: 4px 0 0 0;
+-webkit-column-gap: 2em;
+-webkit-column-rule: 1px solid silver;
+ /*height: 80%; Disabilitato di Base attivabile nella User Preferences (a me mi piace)*/
 
 }
 
-.ver_inter2 {
-	width: 48%;
-	float: right;
-color: #EDE5F0;
-font-size: 18;
-}
-
-.ver_inter_c{
-	    font-weight: 400;
-    color: #fcffda;
-}
-
-
-.sel_inter1 {
-    font-weight: 400;
-    color: #fcffda;
+#versetti .versetto
+{
 	min-height:100px;
-}
-
-.sel_inter1 a {
-    font-weight: 400;
-    color: #fcffda;
-}
-
-.sel_inter2 {
-    font-weight: 400;
-    color: #fcffda;
-	min-height:100px;
-}
-
-.sel_inter2 a {
-    font-weight: 400;
-    color: #fcffda;
-}
-
-#versetti {
-    text-align: justify;
-    font-family: Helvetica;
-    font-size: 16px;
-    /*font-size:300%;*/
-    font-weight: 400;
-    line-height: 140%;
-    width: 92%;
-    margin: auto;
-    margin-top: 35px;
-    margin-bottom: 45px;
-    /* 	text-shadow:0px 0px 1px #555; */
-    -moz-column-count: 6;
-    -moz-column-width: 400px;
-    -moz-column-gap: 2em;
-    -moz-column-rule: 1px solid silver;
-    -webkit-column-count: 6;
-    -webkit-column-width: 400px;
-    -webkit-column-gap: 2em;
-    -webkit-column-rule: 1px solid silver;
-    /*height: 80%; Disabilitato di Base attivabile nella User Preferences (a me mi piace)*/
-}
-
-#versetti .versetto {
-    min-height: 100px;
 }
 
 /***************************************

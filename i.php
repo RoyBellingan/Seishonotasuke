@@ -23,6 +23,6 @@ $cc->request();
 
 $cc->get_inter_cap();
 
-//dumpa($cc,1);
+dumpa($cc,1);
 
 foot();
