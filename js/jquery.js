@@ -4093,6 +4093,38 @@ sibling : function(n, elem) {
 		});
 })();
 
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
+						
 /*
  * jQuery clueTip plugin Version 1.0.6 (January 13, 2010) @requires jQuery v1.3+
  * 
@@ -4275,8 +4307,8 @@ sibling : function(n, elem) {
 						if (link.tagName.toLowerCase() == 'area'
 								|| opts.positionBy == 'mouse'
 								|| linkWidth + tipWidth > winWidth) { // position
-							// by
-							// mouse
+																		// by
+																		// mouse
 							if (mouseX + 20 + tipWidth > winWidth) {
 								$cluetip.addClass(' cluetip-' + ctClass);
 								posX = (mouseX - tipWidth - lOffset) >= 0 ? mouseX
@@ -4353,8 +4385,8 @@ sibling : function(n, elem) {
 						} else {
 							var optionBeforeSend = opts.ajaxSettings.beforeSend, optionError = opts.ajaxSettings.error, optionSuccess = opts.ajaxSettings.success, optionComplete = opts.ajaxSettings.complete;
 							var ajaxSettings = {
-								cache : true, // force requested page not to
-								// be cached by browser
+								cache : false, // force requested page not to
+												// be cached by browser
 								url : tipAttribute,
 								beforeSend : function(xhr) {
 									if (optionBeforeSend) {
@@ -4522,7 +4554,7 @@ sibling : function(n, elem) {
 							'clue-' + direction + '-' + ctClass).addClass(
 							' cluetip-' + ctClass);
 					if (opts.arrows) { // set up arrow positioning to align
-						// with element
+										// with element
 						var bgY = (posY - tipY - opts.dropShadowSteps);
 						$cluetipArrows
 								.css(
@@ -4690,58 +4722,58 @@ sibling : function(n, elem) {
 		height : 'auto', // The height of the clueTip
 		cluezIndex : 110, // Sets the z-index style property of the clueTip
 		positionBy : 'bottomTop', // Sets the type of positioning: 'auto',
-		// 'mouse','bottomTop', 'fixed'
+								// 'mouse','bottomTop', 'fixed'
 		topOffset : 15, // Number of px to offset clueTip from top of invoking
-		// element
+						// element
 		leftOffset : 15, // Number of px to offset clueTip from left of
-		// invoking element
+							// invoking element
 		local : false, // Whether to use content from the same page for the
-		// clueTip's body
+						// clueTip's body
 		localPrefix : null, // string to be prepended to the tip attribute if
-		// local is true
+							// local is true
 		hideLocal : true, // If local option is set to true, this determines
-		// whether local content
+							// whether local content
 		// to be shown in clueTip should be hidden at its original location
 		attribute : 'rel', // the attribute to be used for fetching the
-		// clueTip's body content
+							// clueTip's body content
 		titleAttribute : 'title', // the attribute to be used for fetching the
-		// clueTip's title
+									// clueTip's title
 		splitTitle : '', // A character used to split the title attribute
-		// into the clueTip title and divs
+							// into the clueTip title and divs
 		// within the clueTip body. more info below [6]
 		escapeTitle : false, // whether to html escape the title attribute
 		showTitle : true, // show title bar of the clueTip, even if title
-		// attribute not set
+							// attribute not set
 		cluetipClass : 'default',// class added to outermost clueTip div in
-		// the form of 'cluetip-' + clueTipClass.
+									// the form of 'cluetip-' + clueTipClass.
 		hoverClass : '', // class applied to the invoking element onmouseover
-		// and removed onmouseout
+							// and removed onmouseout
 		waitImage : true, // whether to show a "loading" img, which is set in
-		// jquery.cluetip.css
+							// jquery.cluetip.css
 		cursor : 'help',
 		arrows : false, // if true, displays arrow on appropriate side of
-		// clueTip
+						// clueTip
 		dropShadow : false, // set to false if you don't want the drop-shadow
-		// effect on the clueTip
+							// effect on the clueTip
 		dropShadowSteps : 0, // adjusts the size of the drop shadow
 		sticky : false, // keep visible until manually closed
 		mouseOutClose : true, // close when clueTip is moused out
 		activation : 'hover', // set to 'click' to force user to click to show
-		// clueTip
+								// clueTip
 		// set to 'focus' to show on focus of a form element and hide on blur
 		clickThrough : true, // if true, and activation is not 'click', then
-		// clicking on link will take user to the link's
-		// href,
+								// clicking on link will take user to the link's
+								// href,
 		// even if href and tipAttribute are equal
 		tracking : false, // if true, clueTip will track mouse movement
-		// (experimental)
+							// (experimental)
 		delayedClose : 0, // close clueTip on a timed delay (experimental)
 		closePosition : 'top', // location of close text for sticky cluetips;
-		// can be 'top' or 'bottom' or 'title'
+								// can be 'top' or 'bottom' or 'title'
 		closeText : 'Close', // text (or HTML) to to be clicked to close
-		// sticky clueTips
+								// sticky clueTips
 		truncate : 0, // number of characters to truncate clueTip's contents.
-		// if 0, no truncation occurs
+						// if 0, no truncation occurs
 
 		// effect and speed for opening clueTips
 		fx : {
@@ -4823,94 +4855,3 @@ sibling : function(n, elem) {
 
 })(jQuery);
 
-/*
- * function sleep(delay){ var start = new Date().getTime(); while (new
- * Date().getTime() < start + delay); }
- */
-
-$(document).ready(function() {
-
-	$("ul.subnav").parent().append("<span></span>"); // Only shows drop down
-		// trigger when js is
-		// enabled - Adds empty
-		// span tag after
-		// ul.subnav
-
-		$("ul.topnav li").bind('mouseenter', function() { // When trigger is
-					// clicked...
-				// Following events are applied to the subnav itself (moving
-				// subnav up and down)
-				// nao.stop(true, true).slideUp(1);
-				var neu = $(this).find("ul.subnav")
-				neu.fadeIn('fast').show(); // Drop down the subnav on click
-
-				$('#lib').focus();
-
-				/*
-				 * $(this).hover(function(){ }, function(){ // var nao =
-				 * $(this).find("ul.subnav") //neu.stop(true, true).slideUp(1);
-				 * //When the mouse hovers out of the subnav, move it back up
-				 * 
-				 * });
-				 */
-
-				$("#corpo").hover(function() {
-					neu.stop(true, true).fadeOut(1);
-				}, function() {
-					neu.stop(true, true).fadeOut(1);
-					// When the mouse hovers out of the subnav, move it back up
-					});
-
-				/*
-				 * $(".container").hover(function(){ neu.stop(true,
-				 * true).fadeOut(1); }, function(){ neu.stop(true,
-				 * true).fadeOut(1); //When the mouse hovers out of the subnav,
-				 * move it back up });
-				 */
-
-				// Following events are applied to the trigger (Hover events for
-				// the trigger)
-			});
-
-		$("#full a").bind('mouseenter', function() {
-			// When trigger is clicked...
-				// Following events are applied to the subnav itself (moving
-				// subnav up and down)
-				// var neu = $(this).
-				// alert ($(this).attr("name"))
-			});
-
-		$('.jtip').cluetip( {
-			cluetipClass : 'jtip',
-			arrows : true,
-			showTitle : false,
-			positionBy : 'bottomTop',
-			topOffset : 15,
-			dropShadow : false,
-			hoverIntent : false,
-			sticky : true,
-			mouseOutClose : true,
-			// closePosition: 'title',
-			closeText : ''
-		});
-
-		
-		val=getElementById('chkinter');
-		setinter(val)
-		
-	});
-
-function setCookie(name, value, expires, path, domain, secure) {
-	document.cookie = name + "=" + encodeURI(value)
-			+ ((expires) ? "; expires=" + expires : "")
-			+ ((path) ? "; path=" + path : "")
-			+ ((domain) ? "; domain=" + domain : "")
-			+ ((secure) ? "; secure" : "");
-}
-
-function setinter(id) {
-	if (id.checked)
-	{setCookie('interlineare', '1');}
-	else
-	{setCookie('interlineare', '0', "-1");}
-}
