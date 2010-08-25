@@ -773,7 +773,7 @@ function get_inter_cap($id=false)
 function fetch_raw_cap()
 {
 	$sql="select $this->campo_text from versetti where libro='$this->libro_id' and capitolo=$this->capitolo ORDER by id_versetti";
-	$fs = mysql_queryconerror($sql,$this->db,1);
+	$fs = mysql_queryconerror($sql,$this->db);
 	$i=0;
 	while ($rs=mysql_fetch_row($fs))
 	{
