@@ -4885,7 +4885,7 @@ $(document).ready(function() {
 			arrows : true,
 			showTitle : false,
 			positionBy : 'bottomTop',
-			topOffset : 10,
+			topOffset : 15,
 			dropShadow : false,
 			hoverIntent : false,
 			sticky : true,
