@@ -2,7 +2,6 @@
 include_once ("util/top_foot_inc.php");
 top2();
 
-
 $html=<<<EOD
 <div
 	class="centrale"
@@ -12,7 +11,7 @@ $html=<<<EOD
 <TABLE class="testo_18">
 <th>
 <td>
-<br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br>
 Il sito al momento è ancora in sviluppo, la versione attuale è la 0.13 beta, sono funzionanti solo la ricerca <br>
 e il visualizzatore dei versetti/capitoli
 <br><br>
