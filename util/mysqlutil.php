@@ -4,9 +4,9 @@
 
 $db;
 $db_host = 'localhost';
-$db_user = '聖書';
-$db_password = '聖書';
-$db_name = '聖書';
+$db_user = 'archidea_seisho';
+$db_password = '-Q~P7e%7T,M+';
+$db_name = 'archidea_seisho';
 
 
 function connetti ()
@@ -18,9 +18,26 @@ function connetti ()
 	mysql_select_db($db_name);
 	if ($db == FALSE)
 	die ("Errore nella connessione. Verificare i parametri nel file mysqlutil.php");
-	mysql_set_charset("utf8_unicode_ci",$db);
-	//echo mysql_client_encoding($db);
+	
+	$sql='SET NAMES utf8';
+	$fs=mysql_query($sql,$db);
+	/*
+$var=mysql_set_charset("utf8_general_ci",$db);
+	dumpa($var);
+	dumpa(mysql_client_encoding($db));
+	
+$sql="SHOW VARIABLES LIKE 'character_set_%';";
+$fs=mysql_query($sql,$db);
+$rs=mysql_fetch_array($fs);
+dumpa($rs);
 
+
+
+$sql="SHOW VARIABLES LIKE 'character_set_%';";
+$fs=mysql_query($sql,$db);
+$rs=mysql_fetch_array($fs);
+dumpa($rs);
+*/
 }
 /**
  * Serve per farsi dare la lista degli enum in un campo di mysql

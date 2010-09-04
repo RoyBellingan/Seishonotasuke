@@ -4855,3 +4855,18 @@ sibling : function(n, elem) {
 
 })(jQuery);
 
+
+function setCookie(name, value, expires, path, domain, secure) {
+	document.cookie = name + "=" + encodeURI(value)
+			+ ((expires) ? "; expires=" + expires : "")
+			+ ((path) ? "; path=" + path : "")
+			+ ((domain) ? "; domain=" + domain : "")
+			+ ((secure) ? "; secure" : "");
+}
+
+function setinter(id) {
+	if (id.checked)
+	{setCookie('interlineare', '1');}
+	else
+	{setCookie('interlineare', '0', "-1");}
+}

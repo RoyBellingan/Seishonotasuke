@@ -139,7 +139,7 @@ class trova_versetto
 	/**
 	 * @var Pagina su cui mandare i link
 	 */
-	var $page="p";
+	var $page="p.php";
 
 	/**
 	 * @var Chiave del get per il link
@@ -282,6 +282,7 @@ class trova_versetto
 		$i=0;
 		foreach ($this->testo_cap[$this->libro_id][$this->capitolo] as $testo)
 		{
+			//echo "<br> $testo";
 			$i++;
 			if (isset($this->spacer[$this->libro_id][$this->capitolo][$i]))
 			{
@@ -581,7 +582,7 @@ function fetch_cap()
 		$this->class_a_cap="cpp";
 		$this->class_ver_sel="sel";
 		$this->class_ver="ver";
-		$this->page="l";
+		$this->page="l.php";
 		$this->cap_h1();
 		$this->verse_int();
 	}
@@ -603,7 +604,7 @@ function cap_h1()
 function hyper_title()
 {
 
-	$text="<a href=\"l?l=$this->libro_id\" rel=\"l2?l=$this->libro_id\" class=\"jtip\" >$this->libro</a>";
+	$text="<a href=\"l.php?l=$this->libro_id\" rel=\"l2.php?l=$this->libro_id\" class=\"jtip\" >$this->libro</a>";
 	return $text;
 }
 
@@ -645,6 +646,7 @@ function fetch_capitolo()
 		$i++;
 		$this->testo_cap[$this->libro_id][$this->capitolo][$i]=$rs[0];
 	}
+	//dumpa ($this->testo_cap[$this->libro_id][$this->capitolo],1);
 	if ($i==0) //se nn ha trovato nessuna riga!
 	{
 		return -1; //non esiste...
@@ -698,6 +700,7 @@ EOD;
 function hypavex2 ($testo,$libro_id,$capitolo,$versetto)
 {
 	$page=$this->page;
+	$page="l.php";
 	$text=<<<EOD
 		
 	<a href="$page?l=$libro_id&c=$capitolo&v=$versetto">$testo</a>

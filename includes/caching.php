@@ -26,9 +26,10 @@ class cache
 	{//Verifica che ci sia il memcache per prima cosa
 		GLOBAL $db;
 		$this->db=$db; 
-		$this->memcache = new Memcache;
+		//$this->memcache = new Memcache;
 
-		$ok=$this->memcache->pconnect('localhost', 11211);
+		//$ok=$this->memcache->pconnect('localhost', 11211);
+		$ok=false;
 		if ($ok)
 		{//Bene abbiamo il memcache!
 			$this->type=1;

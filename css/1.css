@@ -46,7 +46,7 @@ ul.topnav li a {
     color: #fff;
     display: block;
     float: left;
-    padding: 10px 5px 0 5px;
+    margin: 10px 5px 0 5px;
     text-decoration: none;
 }
 
@@ -101,6 +101,7 @@ body {
     float: none;
     padding-left: 5px;
     width: 85px;
+	font-size:120%;
 }
 @font-face {font-family:androgyne;
     src:
@@ -503,8 +504,11 @@ font-size: 18;
 }
 
 .ver_inter_c{
-	    font-weight: 400;
-    color: #fcffda;
+	font-weight: 400;
+    color: #6EDFBC;
+	margin:auto;
+	width:3em;
+	text-align:center;
 }
 
 

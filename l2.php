@@ -69,7 +69,7 @@ $libric[64]=1;
 $libric[65]=1;
 $libric[66]=22;
 
-http://roy.selfip.org/l?l=61&c=2&v=13
+
 $var="";
 for ($i=1; $i<$libric[$l]+1;$i++)
 {

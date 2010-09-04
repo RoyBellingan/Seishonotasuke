@@ -24,9 +24,19 @@ $v->libram($libr,$libr_rsx); //Carica i riferimenti dei libri
 $v->request();
 $v->db=$db;
 
-$v->evidenzia=True;
+if ($chk=="CHECKED")
+{
+	$v->page="i";
+	$v->get_inter_cap();
 
-$v->get_cap();
+}
+else
+{
+	$v->page="l";
+	$v->evidenzia=True;
+
+	$v->get_cap();
+}
 
 //dumpa($v,1);
 //dumpa($GLOBALS);
