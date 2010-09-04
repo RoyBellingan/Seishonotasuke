@@ -43,7 +43,7 @@ class wordinfo
 	/**
 	 * @var Pagina e GET
 	 */
-	var $page_get="p?w";
+	var $page_get="p.php?w";
 
 	function wordinfo()
 	{
@@ -351,7 +351,7 @@ EOD;
 	function divafi()
 	{
 		echo "<div id=\"phs\">";
-		$this->divcerca();
+		//$this->divcerca();
 		$this->divalpha();
 		$this->divfreq();	
 		$this->divparola();

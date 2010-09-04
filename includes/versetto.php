@@ -139,7 +139,7 @@ class trova_versetto
 	/**
 	 * @var Pagina su cui mandare i link
 	 */
-	var $page="p";
+	var $page="p.php";
 
 	/**
 	 * @var Chiave del get per il link
@@ -282,6 +282,7 @@ class trova_versetto
 		$i=0;
 		foreach ($this->testo_cap[$this->libro_id][$this->capitolo] as $testo)
 		{
+			//echo "<br> $testo";
 			$i++;
 			if (isset($this->spacer[$this->libro_id][$this->capitolo][$i]))
 			{
@@ -338,10 +339,10 @@ class trova_versetto
 					$text.="</p>\n<p>\n";
 				}
 			}
-			$text.="<div class=\"cpp\">";
+
 			$text.="<div class=\"$this->class_a_cap\" id=\"$this->id_a_cap\">";
 			$text.=$l;
-			$text.="</div>\n";	
+				
 			$cc=0;
 			foreach ($this->lang_a as $lang)
 			{
@@ -454,14 +455,6 @@ function lang()
 function request()
 {
 
-	if (isset($_REQUEST['interlineare']))
-	{
-		$this->page="i";
-	}
-	else
-	{	
-		$this->page="l";
-	}
 
 	if (isset($_REQUEST['lib']))
 	{//Ovvero ho passato un GET da valutare
@@ -494,7 +487,7 @@ function request()
 		else
 		{
 			$liba=explode(":",$lib[1]);
-			$this->capitolo=is_numeric($liba[0]) ? $liba[0] : "1";
+			$this->capitolo=$liba[0];
 			$this->versetto=$liba[1];
 
 			$fv=true;
@@ -589,7 +582,7 @@ function fetch_cap()
 		$this->class_a_cap="cpp";
 		$this->class_ver_sel="sel";
 		$this->class_ver="ver";
-		$this->page="l";
+		$this->page="l.php";
 		$this->cap_h1();
 		$this->verse_int();
 	}
@@ -611,7 +604,7 @@ function cap_h1()
 function hyper_title()
 {
 
-	$text="<a href=\"$this->page?l=$this->libro_id\" rel=\"l2?l=$this->libro_id&p=$this->page\" class=\"jtip\" >$this->libro</a>";
+	$text="<a href=\"l.php?l=$this->libro_id\" rel=\"l2.php?l=$this->libro_id\" class=\"jtip\" >$this->libro</a>";
 	return $text;
 }
 
@@ -653,6 +646,7 @@ function fetch_capitolo()
 		$i++;
 		$this->testo_cap[$this->libro_id][$this->capitolo][$i]=$rs[0];
 	}
+	//dumpa ($this->testo_cap[$this->libro_id][$this->capitolo],1);
 	if ($i==0) //se nn ha trovato nessuna riga!
 	{
 		return -1; //non esiste...
@@ -706,6 +700,7 @@ EOD;
 function hypavex2 ($testo,$libro_id,$capitolo,$versetto)
 {
 	$page=$this->page;
+	$page="l.php";
 	$text=<<<EOD
 		
 	<a href="$page?l=$libro_id&c=$capitolo&v=$versetto">$testo</a>
@@ -754,7 +749,7 @@ function get_inter_cap($id=false)
 		}
 		$this->fetch_spacer();
 
-		$this->class_a_cap="ver_inter_c";
+		$this->class_a_cap="cpp";
 		$this->class_ver_sel="sel_inter";
 		$this->class_ver="ver_inter";
 		$this->page="i";

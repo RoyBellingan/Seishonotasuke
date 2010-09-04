@@ -4,7 +4,7 @@
 
 
 
-
+// Riparti da select count( * ) from versetti where italiano_text like '%perch%' order by `id_versetti` DESC limit 50;
 include_once("util/top_foot_inc.php");
 include_once("includes/wordinfoclass.php");
 include ("includes/caching.php");
@@ -20,8 +20,8 @@ $winfo= new wordinfo();
 $versetto=new trova_versetto();
 $cache=new cache();
 //$cache->type=2;
-$cl = new SphinxClient ();
-$cl->config_1_bibbia();
+//$cl = new SphinxClient ();
+//$cl->config_1_bibbia();
 
 $winfo->wordlang();//Acquisisco Parola di ricerca e lingua da usare
 $winfo->queryword();//Faccio le query di rito
@@ -32,8 +32,8 @@ $winfo->selectfeq(45);
 $winfo->divafi(); //Scrive il DIV con i select posizionati carini, e le info della parola in questione
 $winfo->jsselect(); // Servono per farlo funzionare meglio
 
-$i=$cl->index; //Indice
-$q=$winfo->word; //Query
+//$i=$cl->index; //Indice
+//$q=$winfo->word; //Query
 
 //dumpa($winfo,1);
 
@@ -44,7 +44,7 @@ $l=50;
 
 //printquery($cl,$q,$i,$v,$o,$l);
 //$id=getquery($cl,$q,$i,$o,$l);
-$id=$cl->getquery($q,$o,$l);
+//$id=$cl->getquery($q,$o,$l);
 //dumpa($id,1);
 
 //

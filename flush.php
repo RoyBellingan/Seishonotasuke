@@ -22,3 +22,4 @@ EOD;
 echo $html;
 
 foot();
+?>

@@ -4,9 +4,9 @@
 
 $db;
 $db_host = 'localhost';
-$db_user = '聖書';
-$db_password = '聖書';
-$db_name = '聖書';
+$db_user = 'archidea_seisho';
+$db_password = '-Q~P7e%7T,M+';
+$db_name = 'archidea_seisho';
 
 
 /**Connettiti, e se passi un true ti dice in modo esplicito come è andata
@@ -21,6 +21,7 @@ function connetti ($val=false)
 	mysql_select_db($db_name);
 	if ($db == FALSE)
 	die ("Errore nella connessione. Verificare i parametri nel file mysqlutil.php");
+
 	mysql_set_charset("utf8_unicode_ci",$db);
 	//echo mysql_client_encoding($db);
 	$sql='SET NAMES utf8';
@@ -29,6 +30,7 @@ function connetti ($val=false)
 	{
 		dumpa($db,1);
 	}
+
 
 }
 /**
