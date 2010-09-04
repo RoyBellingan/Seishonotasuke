@@ -749,7 +749,7 @@ function get_inter_cap($id=false)
 		}
 		$this->fetch_spacer();
 
-		$this->class_a_cap="cpp";
+		$this->class_a_cap="ver_inter_c";
 		$this->class_ver_sel="sel_inter";
 		$this->class_ver="ver_inter";
 		$this->page="i";

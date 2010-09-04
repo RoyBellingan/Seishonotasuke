@@ -17,11 +17,11 @@ Il sito al momento è ancora in sviluppo, la versione attuale è la 0.13 beta, s
 e il visualizzatore dei versetti/capitoli
 <br><br>
 
-Al lavoro su : <a href="http://roy.selfip.org:81/i?l=1&c=32">Interlineare</a>! 4%
+Al lavoro su : <a href="i.php?l=1&c=32">Interlineare</a>! 4%
 <br><br><br> 
-<a href="c">Ricerca Libera</a> (in fase di sviluppo)
+<a href="c.php">Ricerca Libera</a> (in fase di sviluppo)
 <br><br>
-<a href="p">Concordanza Alfabetica</a> (decente dai)
+<a href="p.php">Concordanza Alfabetica</a> (decente dai)
 
 <!--
 <br><br>
