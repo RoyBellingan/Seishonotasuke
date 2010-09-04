@@ -9,7 +9,10 @@ $db_password = '聖書';
 $db_name = '聖書';
 
 
-function connetti ()
+/**Connettiti, e se passi un true ti dice in modo esplicito come è andata
+ * @param unknown_type $val
+ */
+function connetti ($val=false)
 {
 
 	GLOBAL $db_host, $db_password, $db_user, $db, $db_name;
@@ -20,6 +23,12 @@ function connetti ()
 	die ("Errore nella connessione. Verificare i parametri nel file mysqlutil.php");
 	mysql_set_charset("utf8_unicode_ci",$db);
 	//echo mysql_client_encoding($db);
+	$sql='SET NAMES utf8';
+	$fs=mysql_query($sql,$db);
+	if ($val)
+	{
+		dumpa($db,1);
+	}
 
 }
 /**
@@ -248,7 +257,7 @@ function last_id()
 function mysql_queryconerror ($sql,$db,$verbose=FALSE)
 {	
 
-	echo ($verbose ? "$sql" : "");
+	echo ($verbose ? "$sql<br>" : "");
 	$fs = mysql_query($sql,$db);
 	//dumpa ($rs);
 	$err=mysql_error($db);

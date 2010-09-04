@@ -289,3 +289,58 @@ return $text;
 }
 
 
+
+
+/**Cerca un valore in un array multidimensionale
+ * @param  $array
+ * @param  $cosa
+ * @param  $non ho ben capito...
+ */
+function recursiveArraySearch($haystack, $needle, $index = null)
+{
+    $aIt     = new RecursiveArrayIterator($haystack);
+    $it    = new RecursiveIteratorIterator($aIt);
+   
+    while($it->valid())
+    {       
+        if (((isset($index) AND ($it->key() == $index)) OR (!isset($index))) AND ($it->current() == $needle)) {
+            return $aIt->key();
+        }
+       
+        $it->next();
+    }
+   
+    return false;
+}
+
+
+function id_mesi($mese)
+{
+	$mesi[1]="Gennaio";
+	$mesi[2]="Febbraio";
+	$mesi[3]="Marzo";
+	$mesi[4]="Aprile";
+	$mesi[5]="Maggio";
+	$mesi[6]="Giugno";
+	$mesi[7]="Luglio";
+	$mesi[8]="Agosto";
+	$mesi[9]="Settembre";
+	$mesi[10]="Ottobre";
+	$mesi[11]="Novembre";
+	$mesi[12]="Dicembre";
+
+	$mese=ucfirst(strtolower($mese));
+	return array_search($mese,$mesi);
+}
+
+
+
+//End
+
+
+
+
+
+
+
+
