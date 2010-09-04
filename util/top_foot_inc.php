@@ -193,19 +193,19 @@ function top2()
     Pentateuco 
     <dl>
         <dt>
-            <a id="Pentateuco" name="Genesi" href="l.php?l=1" rel="l2?l=1" class="jtip">Genesi</a>
+            <a id="Pentateuco" name="Genesi" href="l.php?l=1" rel="l2.php?l=1" class="jtip">Genesi</a>
         </dt>
         <dt>
-            <a id="Pentateuco" name="Esodo" href="l.php?l=2" rel="l2?l=2" class="jtip">Esodo</a>
+            <a id="Pentateuco" name="Esodo" href="l.php?l=2" rel="l2.php?l=2" class="jtip">Esodo</a>
         </dt>
         <dt>
-            <a id="Pentateuco" name="Levitico" href="l.php?l=3" rel="l2?l=3" class="jtip">Levitico</a>
+            <a id="Pentateuco" name="Levitico" href="l.php?l=3" rel="l2.php?l=3" class="jtip">Levitico</a>
         </dt>
         <dt>
-            <a id="Pentateuco" name="Numeri" href="l.php?l=4" rel="l2?l=4" class="jtip">Numeri</a>
+            <a id="Pentateuco" name="Numeri" href="l.php?l=4" rel="l2.php?l=4" class="jtip">Numeri</a>
         </dt>
         <dt>
-            <a id="Pentateuco" name="Deuteronomio" href="l.php?l=5" rel="l2?l=5" class="jtip">Deuteronomio</a>
+            <a id="Pentateuco" name="Deuteronomio" href="l.php?l=5" rel="l2.php?l=5" class="jtip">Deuteronomio</a>
         </dt>
     </dl>
 </li>

@@ -12,18 +12,21 @@ $html=<<<EOD
 <TABLE class="testo_18">
 <th>
 <td>
-<br><br><br><br><br><br><br><br><br>
-Il sito al momento è ancora in sviluppo, la versione attuale è la 0.13 beta, sono funzionanti solo la ricerca <br>
-e il visualizzatore dei versetti/capitoli
+<br><br><br><br><br>
+Il sito al momento è ancora in sviluppo, la versione attuale è la 0.13 beta, sono funzionanti solo la bibbia e la interlineare
 <br><br>
 
-Al lavoro su : <a href="i.php?l=1&c=32">Interlineare</a>! 4%
-<br><br><br> 
+Al lavoro su : <a href="i.php?l=1&c=32">Interlineare</a>!<br>
+(ma prima scegli in che <a href="lang.php">lingue</a> e ricorda di premere F5 per pulire la cache delle pagine) <br>
+
+<br><br><br>
+<!-- 
 <a href="c.php">Ricerca Libera</a> (in fase di sviluppo)
+
 <br><br>
 <a href="p.php">Concordanza Alfabetica</a> (decente dai)
 
-<!--
+
 <br><br>
 <a href="i.php">Interlineare!</a> (1%)
 -->

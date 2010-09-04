@@ -38,7 +38,7 @@ class wordinfo
 	/**
 	 * @var Pagina cui puntano i link
 	 */
-	var $page="p";
+	var $page="p.php";
 	
 	/**
 	 * @var Pagina e GET

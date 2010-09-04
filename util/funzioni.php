@@ -253,7 +253,7 @@ function getquery($cl,$q,$i,$o,$l)
 
 function text_hype ($testo)
 {
-	$link="p?w=\\1";
+	$link="p.php?w=\\1";
 
 	$action="";
 	//$id="id=\"\\1\"";
