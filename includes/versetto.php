@@ -339,10 +339,10 @@ class trova_versetto
 					$text.="</p>\n<p>\n";
 				}
 			}
-
+$text.="<div class=\"cpp\">";
 			$text.="<div class=\"$this->class_a_cap\" id=\"$this->id_a_cap\">";
 			$text.=$l;
-				
+				$text.="</div>\n";
 			$cc=0;
 			foreach ($this->lang_a as $lang)
 			{
