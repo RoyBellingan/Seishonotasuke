@@ -33,7 +33,7 @@ $winfo->divafi(); //Scrive il DIV con i select posizionati carini, e le info del
 $winfo->jsselect(); // Servono per farlo funzionare meglio
 
 //$i=$cl->index; //Indice
-//$q=$winfo->word; //Query
+$q=$winfo->word; //Query
 
 //dumpa($winfo,1);
 
@@ -48,7 +48,7 @@ $l=50;
 //dumpa($id,1);
 
 //
-
+$id=$winfo->qqword($q);
 
 //dumpa ($versetto,1);
 echo "<div id=\"versetti\">";

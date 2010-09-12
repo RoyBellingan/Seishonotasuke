@@ -10,6 +10,10 @@ class wordinfo
 	var $select_dimension=49; //Numeri dei campi da caricare nel select
 	var $select_view=9; //Numeri dei campi visibili
 	var $lang; //Lingua che si usa a questo giro
+	
+	var $lang_text;
+	
+	
 	/**
 	* @var Suffisso per la frequenza
 	*/
@@ -34,12 +38,12 @@ class wordinfo
 	 * @var del javascript da includere, alla fine
 	 */
 	var $js;
-	
+
 	/**
 	 * @var Pagina cui puntano i link
 	 */
 	var $page="p.php";
-	
+
 	/**
 	 * @var Pagina e GET
 	 */
@@ -61,30 +65,30 @@ class wordinfo
 	function word($word)
 	{
 		/**/
-		
+
 		$req=(isset($_REQUEST ["w"]) ? $_REQUEST ["w"] : " ");
-		
+
 		$word = (empty($word) ? $req : $word);
-		
+
 		$word = (empty($word) ? " " : $word);
 		if ($this->lang=="English")
 		{
 			$word=htmlentities($word,ENT_COMPAT,"UTF-8");
 		}
-		
+
 		$l=strstr(",",trim($word));
 		$word=substr($word,$l);
 		$word=str_ireplace("´","",$word);
 		$word=str_ireplace("·","",$word);
-		
+
 
 		//TODO intercetta qui sintassi come @marco "cercami"
-		
+
 		$this->word=$word;
 	}
 
-	
-	
+
+
 	/**
 	 *Interecetta espressioni come  @marco "cercami" e le converte in espressioni sphinx come
 	 *@libro 41 @testo cercami
@@ -92,7 +96,7 @@ class wordinfo
 	function query_fiel()
 	{
 		//explode(" "$this->word;
-		
+
 	}
 
 	/**
@@ -103,23 +107,24 @@ class wordinfo
 		$lang = (empty($_COOKIE['lang'])) ? 'italiano' : $_COOKIE['lang'];
 		$this->lang=$lang;
 		$this->lang_frequency=$lang.$this->lang_frequency_suffix;
-		
-		
+		$this->lang_text=$lang."_text";
+
+
 
 		$n="";
 		$i=1;
 		while (isset($_COOKIE['lang'.$n]))
 		{
 			$i++;
-				
+
 			$this->lang_a[$i][0]=$_COOKIE['lang'.$n];
 			$this->lang_a[$i][1]=$_COOKIE['lang'.$n]."_frequency"; //Non sò a cosa serva però...
 			$n=$i;
 		}
 
-	
-	
-	
+
+
+
 	}
 
 	function wordlang()
@@ -159,6 +164,28 @@ class wordinfo
 		$this->idn=$idn;
 		$this->pos=$pos;
 		$this->wordfound=$rs[2];
+	}
+	
+	/**
+	 * @param Parola da cercare
+	 */
+	function qqword($word,$in=0,$out=30)
+	{
+		//Che ID ha la mia parola ???//
+		$sql="SELECT id_versetti FROM `versetti` WHERE `$this->lang_text` LIKE '%$word%' LIMIT $in, $out";
+		//$sql="select id_word, frequency, word from _frequency where word >= '$this->word' LIMIT 1";
+		$fs = mysql_query($sql,$this->db);
+		$err=mysql_error($this->db);
+		if ($err)
+		{
+			echo "<br>$sql <br> $err<hr>";
+		}
+		while ($rs=mysql_fetch_row($fs))
+		{
+			$id[]=$rs[0];
+		}
+		//dumpa ($rs);
+		return $id;
 	}
 
 
@@ -353,7 +380,7 @@ EOD;
 		echo "<div id=\"phs\">";
 		//$this->divcerca();
 		$this->divalpha();
-		$this->divfreq();	
+		$this->divfreq();
 		$this->divparola();
 		echo "</div>";
 	}
@@ -366,7 +393,7 @@ EOD;
 <form style="" margin: 0px; padding: 0px" action="$this->page" method="post" name="quest" id="quest">
 <input id="cerca" name="w" type"text"><input name="submit" type="submit" value="Go"></form>
 EOD;
-            echo $int;
+		echo $int;
 	}
 
 
@@ -388,7 +415,7 @@ EOD;
 
 
 	/**
-	 * 
+	 *
 	 */
 	function infoparola()
 	{
@@ -404,8 +431,8 @@ EOD;
             <a href="http://susi/WikiRoy/index.php/BibbiaDB/Bug/17">http://susi/WikiRoy/index.php/BibbiaDB/Bug/17</a>
             <br>
 EOD;
-       //echo $int;
-       $this->infoparola_html=$int;
+		//echo $int;
+		$this->infoparola_html=$int;
 
 	}
 
@@ -413,30 +440,30 @@ EOD;
 
 
 
-/**
- * Crea il link al capitolo da cui è estratto il versetto
- * @param unknown_type $iss
- * @param unknown_type $num
- * @return string
- */
-function selecta_sl($iss,$num=FALSE){
-	$this->page_get;
-	$i=0;
-	$s="";
-	foreach ($iss as $value) {
-		if ($i==$num)
-		{
-			$s =$s."<option selected=\"selected\" value=\"$this->page_get=$value\" >$value</option>\n";
+	/**
+	 * Crea il link al capitolo da cui è estratto il versetto
+	 * @param unknown_type $iss
+	 * @param unknown_type $num
+	 * @return string
+	 */
+	function selecta_sl($iss,$num=FALSE){
+		$this->page_get;
+		$i=0;
+		$s="";
+		foreach ($iss as $value) {
+			if ($i==$num)
+			{
+				$s =$s."<option selected=\"selected\" value=\"$this->page_get=$value\" >$value</option>\n";
+			}
+			else
+			{
+				$s =$s."<option value=\"$this->page_get=$value\" >$value</option>\n";
+			}
+			$i++;
 		}
-		else
-		{
-			$s =$s."<option value=\"$this->page_get=$value\" >$value</option>\n";
-		}
-		$i++;
+		unset($value); // break the reference with the last element
+		return $s;
 	}
-	unset($value); // break the reference with the last element
-	return $s;
-}
 
 
 
