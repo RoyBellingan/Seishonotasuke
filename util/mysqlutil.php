@@ -4,10 +4,15 @@
 
 $db;
 $db_host = 'localhost';
+$db_user = 'archidea_seisho';
+$db_password = '-Q~P7e%7T,M+';
+$db_name = 'archidea_seisho';
+
+$db;
+$db_host = 'localhost';
 $db_user = '聖書';
 $db_password = '聖書';
 $db_name = '聖書';
-
 
 /**Connettiti, e se passi un true ti dice in modo esplicito come è andata
  * @param unknown_type $val
@@ -17,10 +22,19 @@ function connetti ($val=false)
 
 	GLOBAL $db_host, $db_password, $db_user, $db, $db_name;
 
+	if ($_SERVER['SERVER_NAME']=="roy.selfip.org")
+	{
+		$db;
+$db_host = 'localhost';
+$db_user = '聖書';
+$db_password = '聖書';
+$db_name = '聖書';
+	}
 	$db = mysql_connect($db_host, $db_user, $db_password); //PERSISTEBT CONNECTION!!!
 	mysql_select_db($db_name);
 	if ($db == FALSE)
 	die ("Errore nella connessione. Verificare i parametri nel file mysqlutil.php");
+
 	mysql_set_charset("utf8_unicode_ci",$db);
 	//echo mysql_client_encoding($db);
 	$sql='SET NAMES utf8';
@@ -29,6 +43,7 @@ function connetti ($val=false)
 	{
 		dumpa($db,1);
 	}
+
 
 }
 /**

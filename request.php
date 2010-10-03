@@ -1,9 +1,6 @@
 <?php 
 include_once("util/top_foot_inc.php");
-
-include ("includes/caching.php");
-include ("includes/versetto.php");
-top();
+top2();
 
 
 ?><br><br><br><br>

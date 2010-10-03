@@ -1,7 +1,7 @@
-<?php
+<?php  
 //Crea per l'ajax dei capitoli per i libri
 $l=$_GET['l'];
-$p=isset($_GET['p']) ? $_GET['p'] : "l";
+
 $libric[1]=50;
 $libric[2]=40;
 $libric[3]=27;
@@ -69,15 +69,15 @@ $libric[64]=1;
 $libric[65]=1;
 $libric[66]=22;
 
-http://roy.selfip.org/l?l=61&c=2&v=13
+
 $var="";
 for ($i=1; $i<$libric[$l]+1;$i++)
 {
 	$t=$i%10;
 	if ($t==0)
 	{
-		$tm=<<<EOD
-	<a	href="$p?l=$l&c=$i"
+$tm=<<<EOD
+	<a	href="l.php?l=$l&c=$i"
 	class="jtip"
 >$i</a><br>
 EOD;
@@ -85,8 +85,8 @@ EOD;
 	else
 	{
 
-		$tm=<<<EOD
-	<a	href="$p?l=$l&c=$i"
+	$tm=<<<EOD
+	<a	href="l.php?l=$l&c=$i"
 	class="jtip"
 >$i</a>
 EOD;

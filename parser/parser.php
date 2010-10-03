@@ -29,7 +29,7 @@ $lang="s";  //Abbreviazione
 $bib="biblia"; //Nome della Bibbia usato nel sito web
 echo $dime;
 
-echo (mkdir("libri/$lang") ? "cartella creata" : "Warn nessuna cartella verifica che non esista gia !!!!") ;
+echo (mkdir("libri/$lang") ? "cartella creata" : "Warn nessuna cartella verifca che non esista gia !!!!") ;
 
 
 for ($jj=1; $jj<$dimex; $jj++)
