@@ -7,13 +7,13 @@ $db_host = 'localhost';
 $db_user = 'archidea_seisho';
 $db_password = '-Q~P7e%7T,M+';
 $db_name = 'archidea_seisho';
-/*
+
 $db;
 $db_host = 'localhost';
 $db_user = '聖書';
 $db_password = '聖書';
 $db_name = '聖書';
-*/
+
 /**Connettiti, e se passi un true ti dice in modo esplicito come è andata
  * @param unknown_type $val
  */
