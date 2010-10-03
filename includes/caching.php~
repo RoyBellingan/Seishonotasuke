@@ -41,7 +41,7 @@ class cache
 			//E crea l'id per mysql o senno riciclalo in qualche modo
 		}
 		//TODO Rimuovilo dopo i test del db per forzare a non usarew il memcached
-	//	$this->type=-1;
+		$this->type=-1;
 
 	}
 

@@ -1692,6 +1692,7 @@ class SphinxClient
 	 * @param indice da usare $i
 	 * @param offset $o
 	 * @param quante $l
+	 * @return Un array di ID oppure un bello Zeroh
 	 */
 	function getquery($q,$o,$l)
 	{
