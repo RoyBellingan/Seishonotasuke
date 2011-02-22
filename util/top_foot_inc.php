@@ -453,7 +453,7 @@ function top2()
                         <a href="#">Discorsi</a>
                     </li>
                     <li>
-                        <a href="#">Visite (sperimentale)</a>
+                        <a href="visite.php">Visite (sperimentale)</a>
                     </li>
                     <li>
                         <a href="Opzioni">Opzioni</a>

@@ -1,0 +1,47 @@
+<head>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//IT" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+	<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="it" lang="it" dir="ltr">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="generator" content="聖書の助け" />
+	<title>聖書の助け -DEVEL</title>
+	
+
+	<link rel="stylesheet" href="../css/1.css" type="text/css" />
+	<link rel="stylesheet" href="../css/2.css" type="text/css" />
+	<link rel="stylesheet" href="../css/p1.php" type="text/css" />
+
+	
+	<script type="text/javascript" src="../js/jquery.js"></script>
+<title>jQuery UI Auto Complete Widget Example 1</title>
+</head>
+
+<body>
+<label>Search our JavaScript Reference:</label>
+<input type="text" id="suggest">
+
+	<script type="text/javascript">
+//function to execute when doc ready
+$(document).ready(function() {
+//create local data
+var suggestions = [
+"AJAX", "Anonymous functions", "Array",
+"Assignment", "Boolean", "BOM",
+"Callback functions", "Closures", "Comparison",
+"Conditionals", "Deep Copy", "Design Patterns",
+"DOM", "Events", "Functions", "Global Variables",
+"HTML Output", "Inheritance", "JSON", "Keywords",
+"Logical Operators", "Loops", "Math", "Namespacing",
+"Null", "Objects", "Operators", "Properties",
+"Prototype", "Regular Expressions", "Strings",
+"Scope", "Typeof", "Undefined", "Variables", "XHR"
+];
+//create config object
+var autocompOpts = {
+source: suggestions
+}
+//turn specified element into an auto complete
+$("#suggest").autocomplete(autocompOpts);
+});
+</script>
+</body>
+</html>

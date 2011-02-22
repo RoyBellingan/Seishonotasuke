@@ -4,10 +4,7 @@ top2();
 
 
 $html=<<<EOD
-<div
-	class="centrale"
-	align="center"
->
+<div 	class="centrale"	align="center" >
 
 <TABLE class="testo_18">
 <th>

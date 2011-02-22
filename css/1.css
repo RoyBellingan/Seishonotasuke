@@ -194,8 +194,7 @@ select {
     right: -15%;
 }
 
-#phs input[type =
-"submit"] {
+#phs input[type = "submit"] {
     position: absolute;
     width: 2em;
     left: 240px;
@@ -586,4 +585,54 @@ font-size: 18;
     text-align: right;
     margin: 0 5px 5px;
     color: #900;
+}
+
+/*---------------------------------
+ * 
+ * 
+ */
+/*********************** VISITE ***************************/
+
+#form_visite
+{
+	margin-top:80px;
+	margin-left:50px;
+	
+}
+
+#form_visite input[type = "text"]
+{
+
+	top: -15px;
+	left: 45px;
+	
+	
+}
+
+#form_visite #info
+{
+		float:left;
+	margin-top:35px;
+	margin-left:50px;
+	margin-bottom:50px;
+}
+
+#form_visite #visita 
+{
+	margin-top:35px;
+	margin-left:50px;
+	margin-bottom:50px;
+	float:left;
+}
+ 
+ 
+ #clear
+ {
+ 	clear:both;
+ }
+ 
+.ui-autocomplete 
+{
+	
+	left:320px !important;
 }

@@ -50,6 +50,10 @@ class inter
 
 	}
 
+	/**
+	 * @param Array dei libri $libri
+	 * @param Abbreviazione $libri_rsx
+	 */
 	function libram($libri,$libri_rsx)
 	{
 		$this->libram=$libri[$this->lang];
