@@ -4,22 +4,19 @@
 // $Id: test.php 2055 2009-11-06 23:09:58Z shodan $
 //
 
-define('ABSPATH', dirname(__FILE__).'/');
-
-
-include_once (ABSPATH."/util/top_foot_inc.php");
+include_once ("util/top_foot_inc.php");
 
 
 top();
 
 
-require_once (ABSPATH."util/funzioni.php" );
+require_once ("util/funzioni.php" );
 
-//require ("util/sphinxapi.php");
-require_once (ABSPATH."util/mysqlutil.php");
-include_once (ABSPATH."includes/caching.php");
+require ("util/sphinxapi.php");
+require_once ("util/mysqlutil.php");
+include_once ("includes/caching.php");
 
-include_once (ABSPATH."includes/versetto.php");
+include_once ("includes/versetto.php");
 connetti();
 
 $versetto=new trova_versetto();
@@ -55,6 +52,10 @@ cieli !terra -> not
 cieli -terra -> not
 "cieli e la terra" -> frase esatta
 "cielo terra"~10  -> entro 10 parole
+"anda*" -> inizia con
+"*ssimo* -> finisce con
+"*quar*" -> nel mezzo
+
 "Ed erano cherubini che spiegavano due ali verso l’alto"/3  -> trova almeno 3 parole
 videro << tutto << buono   ->   rispetta l'ordine (sottointeso AND)
  @*[X] parola	 -> 	la parola si trova entro X dall'inizio del versetto

@@ -29,8 +29,8 @@ $cl->config_1_bibbia();
 $winfo->wordlang();//Acquisisco Parola di ricerca e lingua da usare
 $winfo->queryword();//Faccio le query di rito
 
-$winfo->selectalpha(64);//Recuper il solo array in ordine alfabetico, con 65 altre parole
-$winfo->selectfeq(45);
+$winfo->selectalpha(25);//Recuper il solo array in ordine alfabetico, con 65 altre parole
+$winfo->selectfeq(24);
 
 $winfo->divafi(); //Scrive il DIV con i select posizionati carini, e le info della parola in questione
 $winfo->jsselect(); // Servono per farlo funzionare meglio

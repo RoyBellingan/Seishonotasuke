@@ -10,10 +10,10 @@ class wordinfo
 	var $select_dimension=49; //Numeri dei campi da caricare nel select
 	var $select_view=9; //Numeri dei campi visibili
 	var $lang; //Lingua che si usa a questo giro
-	
+
 	var $lang_text;
-	
-	
+
+
 	/**
 	* @var Suffisso per la frequenza
 	*/
@@ -165,7 +165,7 @@ class wordinfo
 		$this->pos=$pos;
 		$this->wordfound=$rs[2];
 	}
-	
+
 	/**
 	 * @param Parola da cercare
 	 */
@@ -191,8 +191,9 @@ class wordinfo
 
 	function selectalpha($dim)
 	{
-		$dim=floor(($dim ? $dim : $this->select_dimension));
-		$sql="select * from (select word from $this->lang_frequency where id_word > $this->idn order by `id_word` ASC limit $dim) as t2 order by word ASC ";
+		$this->select_dimension=$dim=floor(($dim ? $dim : $this->select_dimension));
+		//$sql="select * from (select word from $this->lang_frequency where id_word > $this->idn order by `id_word` ASC limit $dim) as t2 order by word ASC ";
+		$sql="select word from $this->lang_frequency where id_word > $this->idn order by `id_word` ASC limit $dim";
 		$this->fsalpha = mysql_queryconerror($sql,$this->db,false);
 
 	}
@@ -262,7 +263,7 @@ EOD;
 		$dim=floor(($dim ? $dim/2 : $this->select_dimension));
 		/************/
 		/*
-		 * Per orindare con le frequenze devo prima vedere 24 item prima che frequenza ci stà quindi un 
+		 * Per orindare con le frequenze devo prima vedere 24 item prima che frequenza ci stà quindi un
 		 * select freq < $feqn limit 24,1
 		 */
 		//UNa unica non va bene perchè non sò quanti risultati ci sono in una sola...

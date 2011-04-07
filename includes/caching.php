@@ -26,9 +26,9 @@ class cache
 	{//Verifica che ci sia il memcache per prima cosa
 		GLOBAL $db;
 		$this->db=$db; 
-		//$this->memcache = new Memcache;
+		$this->memcache = new Memcache;
 
-		//$ok=$this->memcache->pconnect('localhost', 11211);
+		$ok=$this->memcache->pconnect('localhost', 11211);
 		$ok=false;
 		if ($ok)
 		{//Bene abbiamo il memcache!
@@ -41,6 +41,7 @@ class cache
 			$this->db=$db;
 			//E crea l'id per mysql o senno riciclalo in qualche modo
 		}
+		//Valuta il mysql handler socket per questa cosa anche hi hi hi
 		//TODO Rimuovilo dopo i test del db per forzare a non usarew il memcached
 	//	$this->type=-1;
 
