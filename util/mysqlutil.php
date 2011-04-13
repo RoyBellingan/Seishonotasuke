@@ -1,13 +1,13 @@
 <?php
 
 //Ok connettiamoci!
-
+/*
 $db;
 $db_host = 'localhost';
 $db_user = 'archidea_seisho';
 $db_password = '-Q~P7e%7T,M+';
 $db_name = 'archidea_seisho';
-
+*/
 $db;
 $db_host = 'localhost';
 $db_user = '聖書';
@@ -22,15 +22,14 @@ function connetti ($val=false)
 
 	GLOBAL $db_host, $db_password, $db_user, $db, $db_name;
 
-	if ($_SERVER['SERVER_NAME']=="roy.selfip.org")
-	{
+	if ($_SERVER['SERVER_NAME']=="roy.selfip.org"){
 		$db;
-$db_host = 'localhost';
-$db_user = '聖書';
-$db_password = '聖書';
-$db_name = '聖書';
+		$db_host = 'localhost';
+		$db_user = '聖書';
+		$db_password = '聖書';
+		$db_name = '聖書';
 	}
-	$db = mysql_connect($db_host, $db_user, $db_password); //PERSISTEBT CONNECTION!!!
+	$db = mysql_pconnect($db_host, $db_user, $db_password); //PERSISTENT CONNECTION!!!
 	mysql_select_db($db_name);
 	if ($db == FALSE)
 	die ("Errore nella connessione. Verificare i parametri nel file mysqlutil.php");
@@ -270,7 +269,7 @@ function last_id()
  * @return resource
  */
 function mysql_queryconerror ($sql,$db,$verbose=FALSE)
-{	
+{
 
 	echo ($verbose ? "$sql<br>" : "");
 	$fs = mysql_query($sql,$db);

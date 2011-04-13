@@ -1,4 +1,5 @@
-<?php 
+<?php
+//TODO fix bugzilla e metti tabella con codice pubblicazione e che pubblicazione è, a volte viene comodo...
 include_once("util/top_foot_inc.php");
 
 include_once("includes/visite.php");
