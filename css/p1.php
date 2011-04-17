@@ -1,9 +1,11 @@
-<?php 
+<?php
+echo " ";
+die();
 include ('../util/mysqlutil.php');
 connetti();
 header("Content-Type: text/css");
 
-if(isset($_REQUEST['user'])) 
+if(isset($_REQUEST['user']))
 {
 	  $get=$_REQUEST['user'];
 	  if ($get=="Dario")

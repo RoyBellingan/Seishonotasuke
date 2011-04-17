@@ -69,119 +69,45 @@ Ext.onReady(function(){
    });
 	
 	
+/********************************************************************/
+    //Lista discorsi
+/********************************************************************/
+	// Lista "grezza
+	var discorsi_store= new Ext.data.JsonStore({
+		autoload:true,
+		url: 'ajax/discorsi/pull_discorso.php',
+		fields:[
+		    	{name: 'id', type: 'int'},
+		    	{name: 'data', type: 'date', dateFormat: 'd/m/Y'},
+		    	{name: 'argomento'},
+		    	{name: 'oratore',},
+		    	{name: 'testo2'},
+		    	{name: 'testo'},
+		    	{name: 'riassunto'}
+		        ]
+	});
 	
-	
 
-	
-// Array data for the grids
-Ext.grid.dummyData = [
-    ['3m Co',71.72,0.02,0.03,'12/12 12:00am', 'Manufacturing'],
-    ['Alcoa Inc',29.01,0.42,1.47,'4/1 12:00am', 'Manufacturing'],
-    ['Altria Group Inc',83.81,0.28,0.34,'4/3 12:00am', 'Manufacturing'],
-    ['American Express Company',52.55,0.01,0.02,'4/8 12:00am', 'Finance'],
-    ['American International Group, Inc.',64.13,0.31,0.49,'4/1 12:00am', 'Services'],
-    ['AT&T Inc.',31.61,-0.48,-1.54,'4/8 12:00am', 'Services'],
-    ['Boeing Co.',75.43,0.53,0.71,'4/8 12:00am', 'Manufacturing'],
-    ['Caterpillar Inc.',67.27,0.92,1.39,'4/1 12:00am', 'Services'],
-    ['Citigroup, Inc.',49.37,0.02,0.04,'4/4 12:00am', 'Finance'],
-    ['E.I. du Pont de Nemours and Company',40.48,0.51,1.28,'4/1 12:00am', 'Manufacturing'],
-    ['Exxon Mobil Corp',68.1,-0.43,-0.64,'4/3 12:00am', 'Manufacturing'],
-    ['General Electric Company',34.14,-0.08,-0.23,'4/3 12:00am', 'Manufacturing'],
-    ['General Motors Corporation',30.27,1.09,3.74,'4/3 12:00am', 'Automotive'],
-    ['Hewlett-Packard Co.',36.53,-0.03,-0.08,'4/3 12:00am', 'Computer'],
-    ['Honeywell Intl Inc',38.77,0.05,0.13,'4/3 12:00am', 'Manufacturing'],
-    ['Intel Corporation',19.88,0.31,1.58,'4/2 12:00am', 'Computer'],
-    ['International Business Machines',81.41,0.44,0.54,'4/1 12:00am', 'Computer'],
-    ['Johnson & Johnson',64.72,0.06,0.09,'4/2 12:00am', 'Medical'],
-    ['JP Morgan & Chase & Co',45.73,0.07,0.15,'4/2 12:00am', 'Finance'],
-    ['McDonald\'s Corporation',36.76,0.86,2.40,'4/2 12:00am', 'Food'],
-    ['Merck & Co., Inc.',40.96,0.41,1.01,'4/2 12:00am', 'Medical'],
-    ['Microsoft Corporation',25.84,0.14,0.54,'4/2 12:00am', 'Computer'],
-    ['Pfizer Inc',27.96,0.4,1.45,'4/8 12:00am', 'Services', 'Medical'],
-    ['The Coca-Cola Company',45.07,0.26,0.58,'4/1 12:00am', 'Food'],
-    ['The Home Depot, Inc.',34.64,0.35,1.02,'4/8 12:00am', 'Retail'],
-    ['The Procter & Gamble Company',61.91,0.01,0.02,'4/1 12:00am', 'Manufacturing'],
-    ['United Technologies Corporation',63.26,0.55,0.88,'4/1 12:00am', 'Computer'],
-    ['Verizon Communications',35.57,0.39,1.11,'4/3 12:00am', 'Services'],
-    ['Wal-Mart Stores, Inc.',45.45,0.73,1.63,'4/3 12:00am', 'Retail'],
-    ['Walt Disney Company (The) (Holding Company)',29.89,0.24,0.81,'4/1 12:00am', 'Services']
-];
-
-// add in some dummy descriptions
-for(var i = 0; i < Ext.grid.dummyData.length; i++){
-    Ext.grid.dummyData[i].push('Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Sed metus nibh, sodales a, porta at, vulputate eget, dui. Pellentesque ut nisl. Maecenas tortor turpis, interdum non, sodales non, iaculis ac, lacus. Vestibulum auctor, tortor quis iaculis malesuada, libero lectus bibendum purus, sit amet tincidunt quam turpis vel lacus. In pellentesque nisl non sem. Suspendisse nunc sem, pretium eget, cursus a, fringilla vel, urna.<br><br>Aliquam commodo ullamcorper erat. Nullam vel justo in neque porttitor laoreet. Aenean lacus dui, consequat eu, adipiscing eget, nonummy non, nisi. Morbi nunc est, dignissim non, ornare sed, luctus eu, massa. Vivamus eget quam. Vivamus tincidunt diam nec urna. Curabitur velit.');
-}
-
-    var xg = Ext.grid;
-
-    // shared reader
-    var reader = new Ext.data.ArrayReader({}, [
-       {name: 'company'},
-       {name: 'price', type: 'float'},
-       {name: 'change', type: 'float'},
-       {name: 'pctChange', type: 'float'},
-       {name: 'lastChange', type: 'date', dateFormat: 'n/j h:ia'},
-       {name: 'industry'},
-       {name: 'desc'}
-    ]);
-    
-
-    
-    
-    var grid =  new xg.GridPanel({
-        store: new Ext.data.GroupingStore({
-            reader: reader,
-            data: xg.dummyData,
-			// sortInfo:{field: 'price', direction: "ASC"},
-            // groupField:'industry'
-        }),
-
-        columns: [
-            {id:'company',header: "Company", width: 60, sortable: true, dataIndex: 'company'},
-            {header: "Price", width: 35, sortable: true, renderer: Ext.util.Format.usMoney, dataIndex: 'price'},
-            {header: "Change", width: 20, sortable: true, dataIndex: 'change', renderer: Ext.util.Format.usMoney},
-            {header: "Industry", width: 20, sortable: true, dataIndex: 'industry'},
-            {header: "Last Updated", width: 20, sortable: true, renderer: Ext.util.Format.dateRenderer('m/d/Y'), dataIndex: 'lastChange'}
-        ],
-
-        view: new Ext.grid.GroupingView({
-            forceFit:true,
-            groupTextTpl: '{text} ({[values.rs.length]} {[values.rs.length > 1 ? "Items" : "Item"]})'
-        }),
-
-        frame:true,
-        width: 700,
-        height: 450,
-        collapsible: true,
-        animCollapse: false,
-        title: 'Grouping Example',
-        iconCls: 'icon-grid',
-    });
-    
-    
-    /*
-	 * ================ Griglia demo =======================
-	 */
-	var grid_1 = new Ext.grid.GridPanel({
+	var grid_discorsi = new Ext.grid.GridPanel({
 		
 		// id:'mag_griglia',
 		// name:'mag_griglia',
 		frame: true,
 
 		columns: [
-		{header: "id", width: 20, sortable: true, dataIndex: ''},
-		{id:'data',header: "Data (g/m/a)", width: 50, sortable: true, renderer: Ext.util.Format.dateRenderer('d/m/Y'), dataIndex: 'lastChange'},
-		{header: "Argomento", width: 120, sortable: true, dataIndex: 'price'},
-		{header: "Oratore", width: 120, sortable: true, dataIndex: 'change'}
+		{header: "id", width: 20, sortable: true, dataIndex: 'id'},
+		{id:'data',header: "Data (g/m/a)", width: 50, sortable: true, renderer: Ext.util.Format.dateRenderer('d/m/Y'), dataIndex: 'data'},
+		{header: "Argomento", width: 220, sortable: true, dataIndex: 'argomento'},
+		{header: "Oratore", width: 50, sortable: true, dataIndex: 'oratore'}
 		],
-		store: new Ext.data.GroupingStore({
-			reader: reader,
-			data: xg.dummyData,
-			 sortInfo:{field: 'lastChange', direction: "ASC"},
-			 groupField:'lastChange'
-			}),
-		width: '75%',
-		height: 250,
+		store: discorsi_store,
+		width: '100%',
+		height: 450,
+		listeners:{
+            render: function(grid){
+                grid.store.load();
+            }
+         },
 		viewConfig: {
 			forceFit: true
 		},
@@ -194,15 +120,15 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
 			listeners: {
 				rowselect: function(sm, row, rec) {
 					Ext.getCmp("corpo").getForm().loadRecord(rec);
+					//Questa riga qua sopra mi è un poco misterioso ma amen... getcmp vuole l'id del form in cui caricare il dato.
 				}
 			}
 		}),
 			
 		})	
 	
-
-
-
+	
+	
 	
 	
 	/** **************************************************************************** */
@@ -213,26 +139,22 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
 		// renderTo: Ext.getBody(),
 								title:'Discorsi',
 								// id:'visite_tab',
-								layout: 'border',
+								layout: 'form',
 								frame:false,
-								items: [grid_1,{									
+								items: [grid_discorsi,{									
 									split: true,
-									region: 'center',
-									layout:'form',
 									// frame:true,
 									frame:true,
-									defaults: {width: '98%'},
-										defaultType: 'textfield',
-											
+									layout:'fit',	
 											items: [{
-												fieldLabel: 'Descrizione',
-												name: 'desc',
-												xtype:'textarea',
-												height:420
+												fieldLabel: 'Testo',
+												name: 'testo',
+												xtype:'htmleditor',
+												height:270,
+												widht:'100%'
+
 											}],
 											buttons: [{
-												text: 'Salva'
-											},{
 												text: 'Aggiorna'
 											},{
 												text: 'Cancella'
@@ -250,17 +172,28 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
 	var tab_editor = new Ext.Panel({
 		// renderTo: Ext.getBody(),
 		title:'Testo',
+		deferredRender:false,
+		id:'editor_tab',
 		// id:'visite_tab',
 		layout: 'border',
-		frame:false,
+		border:false,
+		frame:true,
 		layout:'fit',
 		items: [{   
 
 		        xtype:'htmleditor',
 		        id:'editor',
-		        fieldLabel:'text_extended'
+		        name:'testo2',
+		        fieldLabel:'text_extended',
+		        widht:'100%'
 
+		}],
+		buttons: [{
+			text: 'Aggiorna'
+		},{
+			text: 'Cancella'
 		}]
+		
 	});
 	
 	
@@ -307,7 +240,7 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
 		style:'margin:auto',
 	// layout:'ux.center',
 		
-        width: '90%',
+        width: '95%',
         items: [{
             layout:'column',
             border:false,
@@ -320,18 +253,18 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
                 items: [{
                     xtype:'textfield',
                     fieldLabel: 'Titolo',
-                    name: 'id',
+                    name: 'argomento',
                     anchor:'95%'
                 },{
                     xtype:'textfield',
                     fieldLabel: 'Oratore',
-                    name: 'nome',
+                    name: 'oratore',
                     anchor:'95%'
                 },{
                     xtype:'textarea',
-                    fieldLabel: 'Descrizione Breve',
+                    fieldLabel: 'Riassunto',
                     height:'65px',
-                    name: 'cognome',
+                    name: 'riassunto',
                     anchor:'95%'
                 },{
                     layout:'column',
@@ -343,7 +276,7 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
                         items: [{
                         fieldLabel: 'Inizio',
                         xtype:'datefield',
-                        name: 'id',
+                        name: 'data',
                         anchor:'95%'
                         }]
                     },{
@@ -353,7 +286,7 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
                         items: [{
                         fieldLabel: 'Fine',
                         xtype:'datefield',
-                        name: 'id',
+                        name: 'data2',
                         anchor:'95%'
                         }]
                     },{
@@ -381,11 +314,11 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
 // frame: true,
 // border:true,
             activeTab: 0,
-            height:525,
-            defaults:{bodyStyle:'padding:10px'},
+            height:800,
+            defaults:{bodyStyle:'padding:2px'},
             items:[
             tab_1,
-			tab_editor,
+            tab_editor,
 			tab_varie
 			]
 // gmaps-tab,
@@ -401,16 +334,6 @@ for(var i = 0; i < Ext.grid.dummyData.length; i++){
 			 * 
 			 */
 
-        }],
-
-        buttons: [{
-            text: 'Save'
-        },{
-            text: 'Aggiorna'
-        },{
-            text: 'Save'
-        },{
-            text: 'Cancel'
         }]
     });
 // grid_1.getSelectionModel().on('rowselect', function(sm, rowIdx, r) {

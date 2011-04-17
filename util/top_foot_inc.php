@@ -117,7 +117,7 @@ function top_text($css,$js)
 
 	<link rel="stylesheet" href="./css/1.css" type="text/css" />
 	<link rel="stylesheet" href="./css/2.css" type="text/css" />
-	<link rel="stylesheet" href="./css/p1.php" type="text/css" />
+
 	$css
 
 	<script type="text/javascript" src="js/jquery.js"></script>
@@ -517,6 +517,9 @@ function top_text($css,$js)
                                 <a href="flush.php">Flush della cache</a>
                             </li>
                             <li>
+                                <a href="categorie.php">Gestione Categorie</a>
+                            </li>
+                            <li>
                                 <a href="lang.php">Lingua</a>
                             </li>
                         </ul>
@@ -549,4 +552,17 @@ function foot($extra="") {
 	printf(" Served with proud by %s in %1.5f secs. $extra</div>", $host, $NOW2);
 	echo "</body>";
 	ob_end_flush();
-} ?>
+}
+
+function endtime(){
+	Global $NOW1,$host;
+	$NOW2=microtime(true)-$NOW1;
+	printf("<br>\n Served with proud by %s in %1.5f secs. $extra</div>", $host, $NOW2);
+}
+
+
+
+
+
+
+?>
