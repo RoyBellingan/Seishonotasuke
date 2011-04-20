@@ -1,0 +1,45 @@
+[{
+    text: 'Istruzione', 
+    cls: 'folder',
+    expanded: true,
+    children: [
+    {
+        text: 'Teocratica',
+        checked: false,
+	    cls: 'folder',
+	children: [
+	{
+	        text: 'Mantenersi Puri',
+        leaf: true,
+        checked: false
+	},{
+	        text: 'Intendimento',
+        leaf: true,
+        checked: false
+	}]	
+    },{
+        text: 'AnarcoCattoCosi',
+        leaf: true,
+        checked: false
+    }]
+},{
+    text: 'Avvertimento',
+    cls: 'folder',
+    children: [{
+        text: 'Tempo della Fine',
+        leaf: true,
+        checked: false
+    },{
+        text: 'Trappole',
+        cls: 'folder',
+        children: [{
+            text: 'Occhio Semplice',
+            leaf: true,
+            checked: false
+        },{
+            text: 'Nazionalismi',
+            leaf: true,
+            checked: false
+        }]
+    }]
+}]
