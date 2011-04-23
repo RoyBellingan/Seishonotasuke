@@ -31,7 +31,18 @@ Ext.onReady(function() {
         }]
     });
 	
-    var tree = new Ext.tree.TreePanel({
+
+
+    
+    
+    
+    /*********************************************/
+     //Categorie
+    
+    /**Peccato al momento sia bugghissimo**/
+    /*
+     * 
+     var tree = new Ext.tree.TreePanel({
         store: store,
         rootVisible: false,
         useArrows: true,
@@ -42,7 +53,35 @@ Ext.onReady(function() {
         width: 300,
         height: 400
     });
+    */
+    /**Rimpiazzo */
+    var tree = new Ext.Panel({
+    		// renderTo: Ext.getBody(),
+    		title:'Categorizzazione',
+    		deferredRender:false,
+    		id:'tree_tab',
+    		// id:'visite_tab',
+    		layout: 'border',
+    		border:false,
+    		frame:true,
+    		layout:'fit',
+    		items: [{   
 
+    		        xtype:'textarea',
+    		        id:'categorie_text',
+    		        name:'categorie',
+    		        fieldLabel:'categorie',
+    		        widht:'100%',
+    		        height:400,
+    		        value:"/*\nUna categoria su ogni riga, già da adesso le puoi annidare cosi\n" +
+    		        		"Città / Parigi\n" +
+    		        		"Cultura / Musei / Louvre\n" +
+    		        		"Per favore le date scrivile cosi Anno - Mese */\n"
+
+    		}]
+    		
+    	});
+    
 	/** ********************************************************************* */
 	// Monoblocco
 		/** ********************************************************************* */
@@ -151,7 +190,7 @@ Ext.onReady(function() {
             text: 'Salva',
             handler:function(){
         	tab2.getForm().submit({
-        		url:'ajax/discorsi/push_discorso.php',
+        		url:'ajax/discorsi/push_discorso.php?neu=1',
         		standardSubmit: true,
         		waitTitle:'Connecting', 
                 waitMsg:'Sending data...',
@@ -159,19 +198,19 @@ Ext.onReady(function() {
 				//var kek=action.response.responseText
 				//var jsonData = Ext.util.JSON.decode(kek);
         			Ext.Msg.alert('Ok',a.result.success);
-        			tab2.getForm().reset();
+        			
         		},
         		failure: function(f,a){
         			Ext.Msg.alert('Failed',a.result.error || a.response.responseText);
-        			}
-            }); 
-        }
-        }/*,{
+        				}
+            	}); 
+        	}
+        },{
             text: 'Reset',
             handler:function(){
         	tab2.getForm().reset();
+        	}
         }
-        }*/
         ]
     });
 

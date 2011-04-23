@@ -488,8 +488,11 @@ function top_text($css,$js)
                             <li>
                                 <a href="discorsi.php">Cerca Discorsi</a>
                             </li>
-
+				<li>
                                 <a href="discorsi_nuovo.php">Nuovo Discorso</a>
+                            </li>
+				<li>
+                                <a href="discorsi_libero.php">Ricerca libera nei Discorsi</a>
                             </li>
                         </ul>
                     </li>
@@ -515,9 +518,6 @@ function top_text($css,$js)
                			<ul class="subnav" style="width:220px;">
                             <li>
                                 <a href="flush.php">Flush della cache</a>
-                            </li>
-                            <li>
-                                <a href="categorie.php">Gestione Categorie</a>
                             </li>
                             <li>
                                 <a href="lang.php">Lingua</a>

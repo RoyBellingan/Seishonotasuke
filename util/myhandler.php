@@ -51,7 +51,7 @@ function handler($table,$colonne)
  * @param quanti campi $lenght
  * @param offset $offset
  */
-function select ($hs,$index=1,$operation="=",$val,$lenght=1,$offset=0){
+function hs_select ($hs,$index=1,$operation="=",$val,$lenght=1,$offset=0){
 	$size=sizeof($val);
 
 	if ($size==1){
@@ -90,7 +90,7 @@ for ($i=0; $i<=30; $i++)
 
 
 //$retval=select($hs,1,'=',34);
-$retval=select($hs,1,'=',$righe);
+$retval=hs_select($hs,1,'=',$righe);
 
 echo "<pre>";
 print_r($retval);

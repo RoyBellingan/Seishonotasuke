@@ -141,7 +141,7 @@ class trova_versetto
 	 */
 	var $page="p.php";
 
-	/**
+	/**Chiave del get per il link
 	 * @var Chiave del get per il link
 	 */
 	var $getkey="w";
@@ -702,7 +702,7 @@ EOD;
 		$page=$this->page;
 		$page="l.php";
 		$text=<<<EOD
-		
+
 	<a href="$page?l=$libro_id&c=$capitolo&v=$versetto">$testo</a>
 EOD;
 		return $text;

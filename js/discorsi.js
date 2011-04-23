@@ -54,10 +54,11 @@ Ext.onReady(function(){
 
 // L'albero in se
     var tree = new Ext.tree.TreePanel({
-    	frame:true,
+    	frame:false,
+    	border:false,
     	id:'albero_cat',
         loader:new Ext.tree.TreeLoader()
-       ,width:'85px'
+       ,anchor:'95%'
        ,height:250
        ,renderTo:Ext.getBody()
        ,root:new Ext.tree.AsyncTreeNode({
@@ -79,12 +80,13 @@ Ext.onReady(function(){
 		fields:[
 		    	{name: 'id', type: 'int'},
 		    	{name: 'data', type: 'date', dateFormat: 'd/m/Y'},
-		    	{name: 'argomento'},
+		    	{name: 'titolo'},
 		    	{name: 'oratore',},
 		    	{name: 'testo2'},
 		    	{name: 'testo'},
 		    	{name: 'riassunto'}
-		        ]
+		        ],
+		        baseParams: { command: 'not implemented yeth', id: '', title: '', oratore: '', riassunto:'', data:'', data2:'', parole:'', categorie:'' }
 	});
 	
 
@@ -93,11 +95,11 @@ Ext.onReady(function(){
 		// id:'mag_griglia',
 		// name:'mag_griglia',
 		frame: true,
-
+		id:"grid_discorsi",
 		columns: [
 		{header: "id", width: 20, sortable: true, dataIndex: 'id'},
 		{id:'data',header: "Data (g/m/a)", width: 50, sortable: true, renderer: Ext.util.Format.dateRenderer('d/m/Y'), dataIndex: 'data'},
-		{header: "Argomento", width: 220, sortable: true, dataIndex: 'argomento'},
+		{header: "Titolo", width: 220, sortable: true, dataIndex: 'titolo'},
 		{header: "Oratore", width: 50, sortable: true, dataIndex: 'oratore'}
 		],
 		store: discorsi_store,
@@ -155,10 +157,56 @@ Ext.onReady(function(){
 
 											}],
 											buttons: [{
-												text: 'Aggiorna'
-											},{
-												text: 'Cancella'
-											}]
+									            text: 'Refresh',
+									            handler:function(){
+
+
+												Ext.getCmp('grid_discorsi').getStore().reload({
+									                FND_NAME: "7",
+									                STATUS: "pepette"
+												});
+									        	}
+									        },{
+									            text: 'Aggiorna',
+									            handler:function(){
+									        	tab2.getForm().submit({
+									        		url:'ajax/discorsi/push_discorso.php?up=1',
+									        		standardSubmit: true,
+									        		waitTitle:'Connecting', 
+									                waitMsg:'Sending data...',
+									                success: function(f,a){
+									        		Ext.getCmp('grid_discorsi').getStore().reload();
+													//var kek=action.response.responseText
+													//var jsonData = Ext.util.JSON.decode(kek);
+									        		Ext.getCmp('corpo').getStore().reload(); 
+									        			Ext.Msg.alert('Ok',a.result.success);
+									        		},
+									        		failure: function(f,a){
+									        			Ext.Msg.alert('Failed',a.result.error || a.response.responseText);
+									        				}
+									            	}); 
+									        	}
+									        },{
+									            text: 'Cancella',
+									            handler:function(){
+									        	tab2.getForm().submit({
+									        		url:'ajax/discorsi/push_discorso.php?del=1',
+									        		standardSubmit: true,
+									        		waitTitle:'Connecting', 
+									                waitMsg:'Sending data...',
+									                success: function(f,a){
+									        		Ext.getCmp('grid_discorsi').getStore().reload();
+													//var kek=action.response.responseText
+													//var jsonData = Ext.util.JSON.decode(kek);
+									        			Ext.Msg.alert('Ok',a.result.success);
+									        			//TODO e cancella la linea...
+									        		},
+									        		failure: function(f,a){
+									        			Ext.Msg.alert('Failed',a.result.error || a.response.responseText);
+									        				}
+									            	}); 
+									        	}
+									        }]
 
 									
 								}]
@@ -189,10 +237,26 @@ Ext.onReady(function(){
 
 		}],
 		buttons: [{
-			text: 'Aggiorna'
-		},{
-			text: 'Cancella'
-		}]
+            text: 'Aggiorna',
+            handler:function(){
+        	tab2.getForm().submit({
+        		url:'ajax/discorsi/push_discorso.php?up=1',
+        		standardSubmit: true,
+        		waitTitle:'Connecting', 
+                waitMsg:'Sending data...',
+                success: function(f,a){
+        		Ext.getCmp('grid_discorsi').getStore().reload();
+				//var kek=action.response.responseText
+				//var jsonData = Ext.util.JSON.decode(kek);
+        		Ext.getCmp('corpo').getStore().reload(); 
+        			Ext.Msg.alert('Ok',a.result.success);
+        		},
+        		failure: function(f,a){
+        			Ext.Msg.alert('Failed',a.result.error || a.response.responseText);
+        				}
+            	}); 
+        	}
+        }]
 		
 	});
 	
@@ -253,18 +317,21 @@ Ext.onReady(function(){
                 items: [{
                     xtype:'textfield',
                     fieldLabel: 'Titolo',
-                    name: 'argomento',
+                    name: 'titolo',
+                    id: 'titolo',
                     anchor:'95%'
                 },{
                     xtype:'textfield',
                     fieldLabel: 'Oratore',
                     name: 'oratore',
+                    id: 'oratore',
                     anchor:'95%'
                 },{
                     xtype:'textarea',
                     fieldLabel: 'Riassunto',
                     height:'65px',
                     name: 'riassunto',
+                    id: 'riassunto',
                     anchor:'95%'
                 },{
                     layout:'column',
@@ -274,9 +341,12 @@ Ext.onReady(function(){
                         layout: 'form',
                         border:false,
                         items: [{
+
                         fieldLabel: 'Inizio',
                         xtype:'datefield',
                         name: 'data',
+                        format:'d/m/Y',
+                        id: 'data',
                         anchor:'95%'
                         }]
                     },{
@@ -284,9 +354,12 @@ Ext.onReady(function(){
                         layout: 'form',
                         border:false,
                         items: [{
+
                         fieldLabel: 'Fine',
                         xtype:'datefield',
                         name: 'data2',
+                        format:'d/m/Y',
+                        id: 'data2',
                         anchor:'95%'
                         }]
                     },{
@@ -297,17 +370,60 @@ Ext.onReady(function(){
                         fieldLabel: 'id',
                         xtype:'textfield',
                         name: 'id',
+                        id: 'id',
                         anchor:'95%'
                         }]
                     }]
                 }]
                 
             },{
-                columnWidth:.3,
+            	columnWidth:.25,
+                layout: 'form',
+                border:false,
+                items: [{
+                    fieldLabel: 'parole',
+                    padding:10,
+                    xtype:'textarea',
+                    name: 'Ricerca',
+                    id: 'parole',
+                    anchor:'95%',
+                    height:230
+                }]
+            },{
+                columnWidth:.25,
                 layout: 'form',
                 border:false,
                 items: [albero_cat]
-            }]
+            }],
+            buttons: [{
+	            text: 'Cerca',
+	            handler:function(){
+
+//Cambio i parametri di base della richiesta, e poi "refresho lo store"            	
+//baseParams: { command: 'not implemented yeth', id: '', title: '', oratore: '', riassunto:'', data1:'', data2:'', parole:'', categorie:'' }
+				
+            	discorsi_store.setBaseParam('command', 'qq');
+				discorsi_store.setBaseParam('id', document.getElementById("id").value);
+				discorsi_store.setBaseParam('title', document.getElementById("titolo").value);
+				discorsi_store.setBaseParam('oratore', document.getElementById("oratore").value);
+				discorsi_store.setBaseParam('riassunto', document.getElementById("riassunto").value);
+				discorsi_store.setBaseParam('data', document.getElementById("data").value);
+				discorsi_store.setBaseParam('data2', document.getElementById("data2").value);
+				discorsi_store.setBaseParam('parole', document.getElementById("parole").value);
+				//discorsi_store.setBaseParam('categorie', document.getElementById("albero_cat").value);
+            	
+				Ext.getCmp('grid_discorsi').getStore().reload();
+            	
+
+	        	}
+	        },{
+    			text: 'Reset',
+    			handler:function(){
+	        	tab2.getForm().reset();
+	        	}
+
+    		}]
+            
         },{
             xtype:'tabpanel',
             plain:true,
