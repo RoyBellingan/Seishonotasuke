@@ -442,12 +442,12 @@
  */
   
   $.fn.cluetip.defaults = {  // set up default options
-    width:            275,      // The width of the clueTip
+    width:            '50px',      // The width of the clueTip
     height:           'auto',   // The height of the clueTip
     cluezIndex:       97,       // Sets the z-index style property of the clueTip
-    positionBy:       'auto',   // Sets the type of positioning: 'auto', 'mouse','bottomTop', 'fixed'
-    topOffset:        15,       // Number of px to offset clueTip from top of invoking element
-    leftOffset:       15,       // Number of px to offset clueTip from left of invoking element
+    positionBy:       'fixed',   // Sets the type of positioning: 'auto', 'mouse','bottomTop', 'fixed'
+    topOffset:        0,       // Number of px to offset clueTip from top of invoking element
+    leftOffset:       100,       // Number of px to offset clueTip from left of invoking element
     local:            false,    // Whether to use content from the same page for the clueTip's body
     localPrefix:      null,       // string to be prepended to the tip attribute if local is true
     hideLocal:        true,     // If local option is set to true, this determines whether local content

@@ -258,7 +258,7 @@ class trova_versetto
 					$text.="</div>\n";
 				}
 				$text.="<div class=\"$this->class_cit\" id=\"$this->id_cit\">\n";
-				$text.=text_hype($this->testo);
+				$text.=$this->text_hype($this->testo);
 				$text.="</div>\n";
 				$text.="</div>\n";
 				$this->cache->insert($idn,$text);
@@ -307,7 +307,7 @@ class trova_versetto
 			{
 				$text.="<span class=\"$this->class_ver\" id=\"$this->id_ver\">\n";
 			}
-			$text.=text_hype($testo);
+			$text.=$this->text_hype($testo);
 			$text.="</span>\n";
 
 		}
@@ -362,7 +362,7 @@ class trova_versetto
 				{
 					$text.="<span class=\"$ver\">\n";
 				}
-				$text.=text_hype($this->testo_cap[$this->lang][$this->libro_id][$this->capitolo][$l]);
+				$text.=$this->text_hype($this->testo_cap[$this->lang][$this->libro_id][$this->capitolo][$l]);
 				$text.="</span>\n";
 
 				//echo $this->testo_cap[$this->lang][$this->libro_id][$this->capitolo][$l]."<br>";
@@ -676,7 +676,7 @@ class trova_versetto
 	function text_hype ($testo)
 	{
 		$link="$this->page?$this->getkey=\\1";
-		//$link="p?w=\\1";
+		$link="p?w=\\1";
 
 		$action="";
 		//$id="id=\"\\1\"";

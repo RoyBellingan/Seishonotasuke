@@ -178,7 +178,7 @@ Ext.onReady(function(){
 									        		Ext.getCmp('grid_discorsi').getStore().reload();
 													//var kek=action.response.responseText
 													//var jsonData = Ext.util.JSON.decode(kek);
-									        		Ext.getCmp('corpo').getStore().reload(); 
+									        		
 									        			Ext.Msg.alert('Ok',a.result.success);
 									        		},
 									        		failure: function(f,a){
@@ -248,7 +248,6 @@ Ext.onReady(function(){
         		Ext.getCmp('grid_discorsi').getStore().reload();
 				//var kek=action.response.responseText
 				//var jsonData = Ext.util.JSON.decode(kek);
-        		Ext.getCmp('corpo').getStore().reload(); 
         			Ext.Msg.alert('Ok',a.result.success);
         		},
         		failure: function(f,a){

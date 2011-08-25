@@ -55,7 +55,7 @@ function hs_select ($hs,$index=1,$operation="=",$val,$lenght=1,$offset=0){
 	$size=sizeof($val);
 
 	if ($size==1){
-	$retval = $hs->executeSingle($index, $operation, array($val), $lenght, $offset);
+		$retval = $hs->executeSingle($index, $operation, array($val), $lenght, $offset);
 	}
 	else{
 		$multi="";
@@ -69,32 +69,66 @@ function hs_select ($hs,$index=1,$operation="=",$val,$lenght=1,$offset=0){
 
 
 /*
-$colonne[]="id_versetti";
-$colonne[]="italiano_text";
-$colonne[]="español_text";
-$colonne[]="日本語_text";
+ $colonne[]="id_versetti";
+ $colonne[]="italiano_text";
+ $colonne[]="español_text";
+ $colonne[]="日本語_text";
 
 
-$hs=handler('versetti',$colonne);
+ $hs=handler('versetti',$colonne);
 
 
 
-$righe[]=34;
-$righe[]=45;
+ $righe[]=34;
+ $righe[]=45;
 
 
-for ($i=0; $i<=30; $i++)
-{
-	$righe[]=rand(10,30000);
+ for ($i=0; $i<=30; $i++)
+ {
+ $righe[]=rand(10,30000);
+ }
+
+
+ //$retval=select($hs,1,'=',34);
+ $retval=hs_select($hs,1,'=',$righe);
+
+ echo "<pre>";
+ print_r($retval);
+ echo "</pre>";
+ */
+
+class handler{
+	//statici
+	var $host = 'localhost';
+	var $port = 9998;
+	var $port_wr = 9999;
+	var $dbname = '聖書';
+
+
+	function handler($table,$column){
+		//Instanzia un hs per una tabella specifica simile alla funzione
+		$col="";
+		foreach ($colonne as $colonna)
+		{
+			$col.="$colonna,";
+		}
+		$col=substr($col,0,-1); //$rest = substr("abcdef", 0, -1);  // returns "abcde" // In questo caso mozzo l'ultima virgola
+
+		//echo $col;
+
+
+
+		$this->hs = new HandlerSocket($hshost, $hsport);
+		//print_r($hs);
+		if (!($hs->openIndex(1, $hsdbname, $table, HandlerSocket::PRIMARY, $col)))
+		{
+			echo $hs->getError(), PHP_EOL;
+			die();
+		}
+		return $hs;
+	}
+
 }
 
-
-//$retval=select($hs,1,'=',34);
-$retval=hs_select($hs,1,'=',$righe);
-
-echo "<pre>";
-print_r($retval);
-echo "</pre>";
-*/
 
 ?>

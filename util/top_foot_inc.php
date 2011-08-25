@@ -188,11 +188,12 @@ function top_text($css,$js)
 		  arrows: true,
 		  showTitle: false,
 		  positionBy: 'bottomTop',
-		  topOffset: 10,
+		  topOffset: 0,
+		  leftOffset: 100,
 		  dropShadow: false,
 		  hoverIntent: false,
 		  sticky: true,
-		  mouseOutClose: true,
+		  mouseOutClose: false,
 		 // closePosition: 'title',
 		  closeText: ''
 		});

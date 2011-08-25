@@ -74,7 +74,7 @@ if ($up==1)
 	$titolo=$_POST['titolo'];
 	$oratore=$_POST['oratore'];
 	$data=explode("/",$_POST['data']);
-	$data2="$data[2]/$data[0]/$data[1]";
+	$data2="$data[2]/$data[1]/$data[0]";
 	$data=$data2;
 
 	$testo=mysql_real_escape_string($_POST['testo']);
@@ -108,6 +108,7 @@ VALUES (
 		error_log($err.$sql);
 	}
 
+	error_log($sql);
 
 
 

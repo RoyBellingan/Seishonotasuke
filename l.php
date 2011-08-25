@@ -3,9 +3,10 @@
  * Draft di come dovrebbe all'incirca venire a livello logico la cosa...
  *
 
-  
+
  */
 //TODO Meti un header che dice in termini umani dove ci si trova plz ?
+
 
 include_once ("util/top_foot_inc.php");
 include_once ("util/elenco_lib.php");
@@ -14,8 +15,13 @@ include_once ("includes/caching.php");
 connetti();
 top2();
 
+
+
+
 $v= new trova_versetto();
+
 $cache=new cache();
+
 $v->cache=$cache;
 
 $v->lang();

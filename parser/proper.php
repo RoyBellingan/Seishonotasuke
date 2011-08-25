@@ -76,25 +76,25 @@ for ($jj=1; $jj<67; $jj++)
 	$gen=str_ireplace("</span>","",$gen);
 	$gen=str_ireplace("<i>","",$gen);
 	$gen=str_ireplace("</i>","",$gen);
-	
-	
-	 
-	$preg="|(<[^>]+>)([^<>]*)|";
+
+
+
+	$preg="|(<[^>]+>)([^<>]*)|"; //Cosa farebbe ??? //spezzetto nei vari <tag> per farmi un array...
 	//$preg="|<[^>]+>(.*)</[^>]+>|U";
 	$fetchati=megafetcher($gen,$preg,PREG_PATTERN_ORDER);
 	//dumpa($fetchati[2],1);
-	
+
 	foreach ($fetchati[2] as $row)
 	{
 		if ($row!="\n")
 		{
 			//$r=trim($row);
-			
+
 			$gen2.=trim($row);
 		}
-			
+
 	}
-	
+
 	$gen=preg_replace("([0-9]+)\n","\n</br>\\0 ",$gen2);
 	$gen=str_ireplace("@@lib","\n@@lib",$gen);
 	$gen=str_ireplace("@@lib\n</br>","@@lib",$gen);
@@ -104,10 +104,10 @@ for ($jj=1; $jj<67; $jj++)
 	$gen=preg_replace("(@@@@)","\n<p></p>\n",$gen);
 	$gen=preg_replace("(\n\n)","\n",$gen);
 	//$gen=preg_replace("(\n\n)","\n",$gen);
-	
+
 	//dumpa ($gen2);
-	
-	
+
+
 	$edit="libri/$lang/edit/".$libr[$lingua][$jj].$a;
 	$pak=file_put_contents($edit,$gen);
 }

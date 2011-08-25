@@ -25,11 +25,24 @@ class cache
 	function cache()
 	{//Verifica che ci sia il memcache per prima cosa
 		GLOBAL $db;
-		$this->db=$db; 
-		$this->memcache = new Memcache;
+		$this->db=$db;
 
+		$mem=get_loaded_extensions(Memcache);
+
+
+
+
+		if($mem[0]=="Memcache"){
+		$this->memcache = new Memcache;
 		$ok=$this->memcache->pconnect('localhost', 11211);
+		}
+		else
+		{
 		$ok=false;
+		}
+
+
+
 		if ($ok)
 		{//Bene abbiamo il memcache!
 			$this->type=1;
@@ -65,9 +78,9 @@ class cache
 		}
 		if ($this->type==2)
 		{
-			$data=addslashes($data); 
+			$data=addslashes($data);
 			$sql=" INSERT INTO `聖書`.`cache` (`key` ,`text` ,`updated`) VALUES ('$id', '$data' ,CURRENT_TIMESTAMP)";
-			
+
 			mysql_query($sql,$this->db);
 
 		}
@@ -98,7 +111,7 @@ class cache
 		}
 		if ($this->type==2)
 		{
-			$sql=" UPDATE `聖書`.`cache` SET `text` = '$data' WHERE `key` = $id"; 
+			$sql=" UPDATE `聖書`.`cache` SET `text` = '$data' WHERE `key` = $id";
 			$sql=addslashes($sql);
 			mysql_query($sql,$this->db);
 
@@ -128,7 +141,7 @@ class cache
 		}
 		if ($this->type==2)
 		{
-			$sql=" Select `text` FROM `聖書`.`cache` WHERE `key` = '$id'"; 
+			$sql=" Select `text` FROM `聖書`.`cache` WHERE `key` = '$id'";
 			$fs=mysql_query($sql,$this->db);
 			$rs=mysql_fetch_row($fs);
 			return $rs[0];

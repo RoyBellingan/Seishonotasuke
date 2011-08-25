@@ -14,10 +14,10 @@ $db_user = '聖書';
 $db_password = '聖書';
 $db_name = '聖書';
 
-/**Connettiti, e se passi un true ti dice in modo esplicito come è andata
- * @param unknown_type $val
+/**Connettiti, soliti campi richiesti e se passi un true ti dice in modo esplicito come è andata
+ * @param bool $val
  */
-function connetti ($val=false)
+function connetti ($host,$user,$pass,$name,$val=false)
 {
 
 	GLOBAL $db_host, $db_password, $db_user, $db, $db_name;
