@@ -396,7 +396,7 @@ optgroup option {
 }
 
 .capitolo {
-    /*text-align: justify;*/
+    text-align: justify;
     font-family: Helvetica;
     font-size: 18px;
     /*font-size:300%;*/

@@ -144,7 +144,7 @@ class trova_versetto
 	/**Chiave del get per il link
 	 * @var Chiave del get per il link
 	 */
-	var $getkey="w";
+	var $getkey="w.php";
 
 	/**
 	 * Il Costruttore
@@ -676,7 +676,7 @@ class trova_versetto
 	function text_hype ($testo)
 	{
 		$link="$this->page?$this->getkey=\\1";
-		$link="p?w=\\1";
+		$link="p.php?w=\\1";
 
 		$action="";
 		//$id="id=\"\\1\"";
