@@ -227,7 +227,8 @@ function strippa2($selettati, $valore) {
 	} else {// dal secondo in poi si mette la virgola
 		$selettati = $selettati . ",`" . $valore . "`";
 	}
-	return $selettati; ;
+	return $selettati;
+	;
 }
 
 function strippa3($wherati, $nome, $tipo, $chiave) {
@@ -236,7 +237,8 @@ function strippa3($wherati, $nome, $tipo, $chiave) {
 	} else {// dal secondo in poi si mette la virgola
 		$wherati = $wherati . " AND `" . $nome . "` " . $tipo . " '" . $chiave . "'";
 	}
-	return $wherati; ;
+	return $wherati;
+	;
 }
 
 function c_box($nome, $class, $ischeck) {
@@ -872,8 +874,60 @@ function printa($cosa) {
 
 /**Rimuove gli spazi doppi
  */
- function no_double_space($text){
- 			$tags = preg_replace('/\s\s+/',' ', $tags);
- }
- 
+function no_double_space($text) {
+	$tags = preg_replace('/\s\s+/', ' ', $tags);
+}
+
+/**Ritorna un array con le posizioni
+ *
+ */
+function mb_strpos_all($testo, $cosa) {
+	$cosa_le = mb_strlen($cosa);
+	$str_le = mb_strlen($testo);
+	$off = 0;
+	$flag = true;
+	$i = 0;
+	while ($flag) {
+		$pos[$i] = mb_strpos($testo, $cosa, $off);
+		if ($pos[$i] == false) {
+			$flag = false;
+			unset($pos[$i]);
+			break;
+		} else {
+			$off=$pos[$i]+$cosa_le;
+			$i++;
+		}
+		//
+		
+	}
+	return $pos;
+
+}
+
+/** Combina gli array mantenendone in qualche modo l'ordine, 
+ * e passando l'attuale indice come valore...
+ */
+function array_flip_combine_plus($a1,$a2){
+	$a1=array_flip($a1);
+	$a2=array_flip($a2);
+	
+	$i=0;
+	foreach ($a1 as $key => $value) {
+		
+		$le[$key][0]=$key;
+		$le[$key][1]=1;
+		//$i++;
+	}
+	foreach ($a2 as $key => $value) {
+		
+		$le[$key][0]=$key;
+		$le[$key][1]=2;
+		//$i++;
+	}
+	sort($le);
+	
+	
+	return $le;
+	
+}
 ?>

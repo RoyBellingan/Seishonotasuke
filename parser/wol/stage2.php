@@ -81,6 +81,7 @@ class handlerer {
 	 */
 	function handlerer() {
 		mb_internal_encoding("UTF-8");
+		mb_regex_encoding("UTF-8");
 		$this -> snoopy = new Snoopy;
 		$this -> snoopy -> accept = "application/json, text/javascript, */*; q=0.01";
 
@@ -221,13 +222,32 @@ class handlerer {
 		//$pos[1]=0;
 		$verse = preg_replace('/\s\s+/', ' ', $verse);
 		$verse_link= str_replace("href='/it", "href='http://wol.jw.org", $verse);
-		
 		$verse = trim($this->snoopy -> _striptext($verse));
+		
 		echo "lavoriamo su $verse <br>";
+		
+		preg_match_all("/(https?|ftp|telnet):\/\/((?:[a-z0-9@:.-]|%[0-9A-F]{2}){3,})(?::(\d+))?((?:\/(?:[a-z0-9-._~!$&()*+,;=:@]|%[0-9A-F]{2})*)*)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?/i", $verse_link, $aar, PREG_SET_ORDER);
+		
+		//printa($aar);
+		
+		$aar2=mb_strpos_all($verse,"*");
+		//printa($aar2);	
+		
+		$aar3=mb_strpos_all($verse,"+");
+		//printa($aar3);
+		
+		$rip=array_flip_combine_plus($aar2,$aar3);
+		//printa($rip);
+		
+		$lli=$this->link_marry($rip,$aar);
+		//printa($lli);
 		//die();
+		
+		
 		while ($flag == true) {
 
 			@$pos[$i] = mb_strpos($verse, "+", $pos[abs($i - 1)] + 1);
+			
 
 			if ($pos[$i] == false) {
 				$flag = false;
@@ -248,8 +268,21 @@ class handlerer {
 
 		}
 
-		//printa($ccs);
+		printa($this->margin_list);
 
+	}
+
+	/** Gruppa i link
+	 */
+	function link_marry($a1,$a2){
+		foreach ($a1 as $key => $value) {
+			$a1[$key][2]=$a2[$key];
+		}
+		return $a1;
+	}
+
+	function mb_strpos_all(){
+		
 	}
 
 	/**Scarica il testo di quel link dal wol per questa lingua
