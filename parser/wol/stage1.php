@@ -40,10 +40,7 @@
 ini_set("display_errors", "1");
 ERROR_REPORTING(E_ALL);
 
-
-
-
-echo  "ਨ੍ਯਨ੍";
+echo "ਨ੍ਯਨ੍";
 define('ABSPATH', dirname(__FILE__) . '/');
 
 include_once ("../../util/funkz.php");
@@ -67,35 +64,34 @@ $snoopy -> agent = "Mozilla/5.0 (X11; Linux x86_64; rv:14.0) Gecko/20100101 Fire
 $pack = file_get_contents("libri/it/Genesi");
 
 $spam = explode("\n", file_get_contents("spam_link1"));
-
+$last_link_note = 0;
 //printa($spam);
 foreach ($spam as $key => $value) {
 	if ($value != "") {
 		//	printa($value);
-		$pos=strstr($value,"{");
+		$pos = strstr($value, "{");
 		//echo $pos;
 		$val = json_decode($pos);
 		//echo $val;
 		//printa($val);
-		if (isset($val->items)) {
+		if (isset($val -> items)) {
 			$margine[] = $val;
 		}
 
-		if (isset($val->content)) {
-			$note[]=$val;
+		if (isset($val -> content)) {
+			$note[] = $val;
 		}
 	}
 }
 
-printa($note);
+//printa($note);
 
 //printa($margine);
 
-$html=<<<EOD
+$html = <<<EOD
 	<textarea id="tt" cols="80" rows="10"></textarea>
 EOD;
 echo $html;
-
 
 //echo $pack;
 $le = strlen($pack);
@@ -112,7 +108,7 @@ $i = 0;
 //$fpj = fopen("spam_json1", 'w');
 $jjj = 0;
 mb_internal_encoding("UTF-8");
-while ($jjj < 2) {
+while ($jjj < 6) {
 	$jjj++;
 	$pos2 = mb_strpos($pack, "</span>", $pos1) + 7;
 	//echo $pos2;
@@ -171,6 +167,9 @@ while ($jjj < 2) {
 	$pos[0] = 0;
 	$gl_m = array();
 	//$pos[1]=0;
+	$str = str_replace("  ", " ", $str);
+	$str = str_replace("  ", " ", $str);
+	$str = str_replace("  ", " ", $str);
 	while ($flag == true) {
 
 		@$pos[$i] = mb_strpos($str, "+", $pos[abs($i - 1)] + 1);
@@ -180,6 +179,8 @@ while ($jjj < 2) {
 			unset($pos[$i]);
 			break;
 		} else {
+			$ccs = substr_count(mb_substr($str, 0, $pos[$i]), ' ');
+			echo "\n<br>$ccs spazi";
 			//$gl_m[];
 		}
 		//	printa($pos);
@@ -190,6 +191,10 @@ while ($jjj < 2) {
 
 	}
 
+	printa($pos);
+
+	echo $str;
+	die ;
 	$strz = str_replace("+", " ", $str);
 	$strz = str_replace("  ", " ", $strz);
 
@@ -245,61 +250,88 @@ while ($jjj < 2) {
 	 $pos_1[$i++]=18;
 	 $pos_1[$i++]=19;
 	 */
-	$i=sizeof($pos_1);
+	$i = sizeof($pos_1);
+
 	//printa($i);
 	//die();
-	$pos_1=array_reverse($pos_1);
+	$pos_1 = array_reverse($pos_1);
 	$i--;
-	
+
+	$i = $i + $last_link_note;
+	//printa($i);
+	$mk = 0;
 	foreach ($pos_1 as $key => $value) {
+		$mk++;
+
+		//echo "ora sono mk $mk<br>" ;
 		//exb();
 		//echo "trim a $value";
 		$stra = mb_substr($str, 0, $value);
 		$strb = mb_substr($str, $value);
-		
-		$text=addslashes(trim($note[$i]->content));
+
+		$text = addslashes(trim($note[$i] -> content));
 		//$text="miao";
-		$html=<<<EOD
+		$html = <<<EOD
 <span onmouseover="document.getElementById('tt').innerHTML=stripslashes('$text')">*</span>" 
 EOD;
 		$str = $stra . $html . $strb;
-		
+
 		$i--;
 		//exb();
 		//exn();
 		//echo "La prima parte è lunga ".mb_strlen($stra)." ed è ->$stra<-";
 		//break;
 	}
-
+	$last_link_note = $mk + $last_link_note;
 	//exb();
 	//echo "$str";
-/*
+
+	$i = sizeof($pos);
+
+	//printa($i);
+	//die();
+	$pos = array_reverse($pos);
+	$i--;
+
+	$i = $i + $last_link_margin;
+	//printa($i);
+	$margink = 0;
+
 	foreach ($pos as $key => $value) {
-		$stra = mb_substr($str, 0, $value);
+		$margink++;
+
+		//echo "ora sono mk $mk<br>" ;
 		//exb();
 		//echo "trim a $value";
-		//exb();
-		//echo "$stra" . "-";
-
+		$stra = mb_substr($str, 0, $value);
 		$strb = mb_substr($str, $value);
 
-		$str = $stra . "+" . $strb;
+		$text = addslashes(trim($note[$i] -> content));
+		//$text="miao";
+		$html = <<<EOD
+<span onmouseover="document.getElementById('tt').innerHTML=stripslashes('$text')">*</span>" 
+EOD;
+		$str = $stra . $html . $strb;
 
+		$i--;
+		//exb();
+		//exn();
+		//echo "La prima parte è lunga ".mb_strlen($stra)." ed è ->$stra<-";
+		//break;
 	}
-*/
+	$last_link_note = $mk + $last_link_note;
+
 	exb();
 	echo "$str";
 
 	if ($str_nnns != $str) {
-	//	die("differenza nelle stringhe a $jjj");
+		//	die("differenza nelle stringhe a $jjj");
 	}
 	exn();
 	exh();
 
 	$pos1 = $end;
-	
+
 }
-
-
 
 //

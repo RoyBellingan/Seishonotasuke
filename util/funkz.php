@@ -227,8 +227,7 @@ function strippa2($selettati, $valore) {
 	} else {// dal secondo in poi si mette la virgola
 		$selettati = $selettati . ",`" . $valore . "`";
 	}
-	return $selettati;
-	;
+	return $selettati; ;
 }
 
 function strippa3($wherati, $nome, $tipo, $chiave) {
@@ -237,8 +236,7 @@ function strippa3($wherati, $nome, $tipo, $chiave) {
 	} else {// dal secondo in poi si mette la virgola
 		$wherati = $wherati . " AND `" . $nome . "` " . $tipo . " '" . $chiave . "'";
 	}
-	return $wherati;
-	;
+	return $wherati; ;
 }
 
 function c_box($nome, $class, $ischeck) {
@@ -335,7 +333,6 @@ EOD;
 
 }
 
-
 /**
  * Inserisce $n <br> ovvero i ritorni a capo nell'html
  * @param $n
@@ -345,8 +342,6 @@ function exn($n = 1) {
 	for ($i = 1; $i <= $n; $i++) {echo "\n";
 	}
 }
-
-
 
 /**
  * Inserisce $n <br> ovvero i ritorni a capo nell'html
@@ -775,7 +770,8 @@ function fetch_matricola2($r) {
  * @param $soglia
  */
 function echa($cosa, $si = 0, $level) {
-	if ($si >= $level) {echo $cosa;
+	if ($si >= $level) {
+		echo $cosa;
 	}
 }
 
@@ -787,16 +783,19 @@ function echa($cosa, $si = 0, $level) {
 function exa($cosa, $level, $si = false) {
 	GLOBAL $vG;
 
-	if ($si === False) {$si = $vG;
+	if ($si === False) {
+		$si = $vG;
 	}
 	$siz = sizeof($si);
 	if ($siz == 1) {
-		if ($si == $level) {echo $cosa;
+		if ($si == $level) {
+			echo $cosa;
 		}
 	} else {
 		foreach ($si as $tipo) {
 			//			echo "$tipo and $level<br>";
-			if ($tipo === $level) {echo $cosa;
+			if ($tipo === $level) {
+				echo $cosa;
 			}
 		}
 	}
@@ -870,4 +869,11 @@ function printa($cosa) {
 	print_r($cosa);
 	echo "</pre>";
 }
+
+/**Rimuove gli spazi doppi
+ */
+ function no_double_space($text){
+ 			$tags = preg_replace('/\s\s+/',' ', $tags);
+ }
+ 
 ?>
