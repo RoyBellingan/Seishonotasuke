@@ -283,6 +283,13 @@ function mysql_queryconerror ($sql,$db,$verbose=FALSE)
 }
 
 
+/** Usata di solito per le stored procedure, che ne posso avere solo una alla volta attiva
+ */  
+function new_mysqli(){
+	GLOBAL $db_host,$db_user,$db_password,$db_name;
+	$dbi= new mysqli($db_host, $db_user, $db_password, $db_name);
+	return $dbi;
+}
 
 
 

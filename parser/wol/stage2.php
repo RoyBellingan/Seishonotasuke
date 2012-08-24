@@ -39,11 +39,14 @@
 
 ini_set("display_errors", "1");
 ERROR_REPORTING(E_ALL);
+define("PATH", "../../");
 
-include_once ("../../util/funkz.php");
-include_once ("../../util/elenco_lib.php");
-include_once ("../../includes/snoopy.php");
+include_once (PATH . "util/funkz.php");
+include_once (PATH . "util/elenco_lib.php");
+include_once (PATH . "includes/snoopy.php");
+include_once (PATH . "util/mysqlutil.php");
 
+$dbi = new_mysqli();
 $h = new handlerer();
 
 $h -> leggi_testo("libri/it/Genesi");
@@ -60,15 +63,20 @@ $h -> parse_versetti(1);
 
 $h -> proper_parse_link();
 foreach ($h -> verse as $key => $value) {
-	$h -> parse_link($key);
+	$h -> parse_link(1);
 }
 
+//printa($h -> versetto_has_link);
 
-printa($h -> versetto_has_link);
+//foreach ($h ->versetto_has_link as $key => $value) {
+$h -> antispam();
+
+$h -> db_push(1);
+//}
+die();
 die();
 
-
-$h -> leggi_link($file_link);
+$h -> get_link($file_link);
 $h -> proper_link();
 
 $h -> versetto_add_note();
@@ -85,6 +93,8 @@ class handlerer {
 		mb_regex_encoding("UTF-8");
 		$this -> snoopy = new Snoopy;
 		$this -> snoopy -> accept = "application/json, text/javascript, */*; q=0.01";
+		$this -> snoopy -> proxy_host = "localhost";
+		$this -> snoopy -> proxy_port = "79";
 
 	}
 
@@ -301,19 +311,22 @@ class handlerer {
 		}
 
 		//printa($this -> note_list);
-		
-		foreach ($lli as $key => $value) {
-			//Se è una NOTA A MARGINE
-			if ($value[1]==1){
-				$lli[$key][4]=$this->note_list[$lli[$key][2]][1];
-				
-				//Se è un RIFERIMENTO a Margine
-			}elseif($value[1]==2){
-				$lli[$key][4]=$this->margin_list[$lli[$key][2]][1];
+		if ($lli) {
+			foreach ($lli as $key => $value) {
+				//Se è una NOTA A MARGINE
+				if ($value[1] == 1) {
+					$lli[$key][4] = $this -> note_list[$lli[$key][2]][1];
+
+					//Se è un RIFERIMENTO a Margine
+				} elseif ($value[1] == 2) {
+					$lli[$key][4] = $this -> margin_list[$lli[$key][2]][1];
+				}
 			}
+			$this -> versetto_has_link[$versetto_id] = $lli;
+		} else {
+			$this -> versetto_has_link[$versetto_id] = false;
 		}
-		
-		$this->versetto_has_link[$versetto_id]=$lli;
+
 		//printa(	$this->versetto_has_link[$versetto_id]);
 		//die ();
 	}
@@ -321,10 +334,15 @@ class handlerer {
 	/** Gruppa i link
 	 */
 	function link_marry($a1, $a2) {
-		foreach ($a1 as $key => $value) {
-			$a1[$key][3] = $a2[$key];
+		if (isset($a1[0])) {
+			foreach ($a1 as $key => $value) {
+				@$a1[$key][3] = $a2[$key];
+			}
+			return $a1;
+		} else {
+			return false;
 		}
-		return $a1;
+
 	}
 
 	function mb_strpos_all() {
@@ -336,6 +354,53 @@ class handlerer {
 	 */
 	function get_link($link) {
 
+	}
+
+	function db_push($verse_id) {
+		foreach ($this->versetto_has_link[$verse_id] as $key => $value) {
+			echo "<hr>";
+			printa($value);
+
+			//$this -> snoopy -> fetchtext($value[3][0]);
+			//printa($this -> snoopy -> results);
+			//Se è una NOTA A MARGINE
+			if ($value[1] == 1) {
+				$var = json_decode($this -> snoopy -> results);
+				//load $var->content
+			} elseif ($value[1] == 2) {
+				//$var=json_decode($this->snoopy -> results);
+				//$var = json_decode($txt);
+				$var=$this->spam[$key];
+				printa($var);
+
+				foreach ($var->items as $key => $value) {
+					$value -> content;
+					echo $value -> content;
+					$id_verse_init = verse_to_id($value->book, $value->first_chapter, $value->first_verse);
+					echo "id versetto iniziale: $id_verse_init --";
+					$id_verse_end = verse_to_id($value->book, $value->last_chapter, $value->last_verse);
+				}
+			}
+
+		}
+
+	}
+
+	function antispam() {
+		$spam = explode("\n", file_get_contents("spam_link1"));
+		$last_link_note = 0;
+		//printa($spam);
+		foreach ($spam as $key => $value) {
+			if ($value != "") {
+				//	printa($value);
+				$pos = strstr($value, "{");
+				$su=strstr($value, $pos);
+				$val = json_decode($su);
+				//echo $val;
+				//printa($val);
+				$this->spam[] = $val;
+			}
+		}
 	}
 
 }

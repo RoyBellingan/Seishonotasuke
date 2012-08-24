@@ -908,6 +908,7 @@ function mb_strpos_all($testo, $cosa) {
  * e passando l'attuale indice come valore...
  */
 function array_flip_combine_plus($a1,$a2){
+	
 	$a1=array_flip($a1);
 	$a2=array_flip($a2);
 	
@@ -926,10 +927,26 @@ function array_flip_combine_plus($a1,$a2){
 		$le[$key][2]=$value;
 		//$i++;
 	}
-	sort($le);
+	@sort($le);
 	
 	
 	return $le;
 	
 }
+
+$pack=unserialize(file_get_contents(PATH."libri/pack"));
+$pack_r=unserialize(file_get_contents(PATH."libri/pack_r"));
+
+//print_r($pack[66][22]);
+
+function verse_to_id($book,$chapter,$verse){
+	GLOBAL $pack;
+return $pack[$book][$chapter][$verse];	
+}
+
+function id_to_verse($id){
+	GLOBAL $pack_r;
+return $pack_r[$id];	
+}
+
 ?>
