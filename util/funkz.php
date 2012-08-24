@@ -916,12 +916,14 @@ function array_flip_combine_plus($a1,$a2){
 		
 		$le[$key][0]=$key;
 		$le[$key][1]=1;
+		$le[$key][2]=$value;
 		//$i++;
 	}
 	foreach ($a2 as $key => $value) {
 		
 		$le[$key][0]=$key;
 		$le[$key][1]=2;
+		$le[$key][2]=$value;
 		//$i++;
 	}
 	sort($le);

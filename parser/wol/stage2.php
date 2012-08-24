@@ -58,17 +58,18 @@ $h -> parse_versetti(1);
 //printa($h -> verse[24]);
 //die();
 
-$h->proper_parse_link();
+$h -> proper_parse_link();
 foreach ($h -> verse as $key => $value) {
 	$h -> parse_link($key);
 }
-printa($h->margin_list);
 
+
+printa($h -> versetto_has_link);
 die();
+
 
 $h -> leggi_link($file_link);
 $h -> proper_link();
-
 
 $h -> versetto_add_note();
 
@@ -196,15 +197,19 @@ class handlerer {
 		//echo "trovati $i versetti";
 	}
 
-/**Pulisce alcune cose prima di analizzare i link
- */
-	function proper_parse_link(){
-		unset($this->margin_list);
-		$this->margin_list=array();
-		$this->margin_counter=1;
-		
+	/**Pulisce alcune cose prima di analizzare i link
+	 */
+	function proper_parse_link() {
+		unset($this -> margin_list);
+		$this -> margin_list = array();
+		$this -> margin_counter = 0;
+
+		unset($this -> note_list);
+		$this -> note_list = array();
+		$this -> note_counter = 0;
+
 	}
-	
+
 	/**Estrae i link, tutti da un versetto_n dell'array
 	 * Crea una lista degli url dei link e un array con le posizioni
 	 */
@@ -213,50 +218,77 @@ class handlerer {
 		//Facciamo per prima le note a margine, nessun motivo specifico...
 		$flag = true;
 		$i = 0;
-		
-		
+
 		$pos[0] = 0;
 		$gl_m = array();
 
 		$verse = $this -> verse[$versetto_id];
 		//$pos[1]=0;
 		$verse = preg_replace('/\s\s+/', ' ', $verse);
-		$verse_link= str_replace("href='/it", "href='http://wol.jw.org", $verse);
-		$verse = trim($this->snoopy -> _striptext($verse));
-		
-		echo "lavoriamo su $verse <br>";
-		
+		$verse_link = str_replace("href='/it", "href='http://wol.jw.org", $verse);
+		$verse = trim($this -> snoopy -> _striptext($verse));
+
+		//echo "lavoriamo su $verse <br>";
+
 		preg_match_all("/(https?|ftp|telnet):\/\/((?:[a-z0-9@:.-]|%[0-9A-F]{2}){3,})(?::(\d+))?((?:\/(?:[a-z0-9-._~!$&()*+,;=:@]|%[0-9A-F]{2})*)*)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?/i", $verse_link, $aar, PREG_SET_ORDER);
-		
+
 		//printa($aar);
-		
-		$aar2=mb_strpos_all($verse,"*");
-		//printa($aar2);	
-		
-		$aar3=mb_strpos_all($verse,"+");
+
+		$aar2 = mb_strpos_all($verse, "*");
+		//printa($aar2);
+
+		$aar3 = mb_strpos_all($verse, "+");
 		//printa($aar3);
-		
-		$rip=array_flip_combine_plus($aar2,$aar3);
+
+		$rip = array_flip_combine_plus($aar2, $aar3);
 		//printa($rip);
-		
-		$lli=$this->link_marry($rip,$aar);
+
+		$lli = $this -> link_marry($rip, $aar);
 		//printa($lli);
 		//die();
-		
-		
+
 		while ($flag == true) {
 
 			@$pos[$i] = mb_strpos($verse, "+", $pos[abs($i - 1)] + 1);
-			
 
 			if ($pos[$i] == false) {
 				$flag = false;
 				unset($pos[$i]);
 				break;
 			} else {
-				$this->margin_list[$this->margin_counter][0]= $versetto_id;
-				$this->margin_list[$this->margin_counter][1] = substr_count(mb_substr($verse, 0, $pos[$i]), ' ');
-				$this->margin_counter++;
+				//$this -> margin_list[$this -> margin_counter][0] = $versetto_id;
+				$this -> margin_list[$this -> margin_counter][1] = substr_count(mb_substr($verse, 0, $pos[$i]), ' ');
+				$this -> margin_counter++;
+				//echo "\n<br>$ccs spazi";
+				//$gl_m[];
+			}
+			//	printa($pos);
+			if ($i > 160) {
+				break;
+			}
+			$i++;
+
+		}
+		//printa($this -> margin_list);
+
+		$i = 0;
+		unset($pos);
+		$pos[0] = 0;
+		$flag = true;
+
+		while ($flag == true) {
+
+			@$pos[$i] = mb_strpos($verse, "*", $pos[abs($i - 1)] + 1);
+			//echo "<br> giro $i, $pos[$i]";
+			if ($pos[$i] == false) {
+				$flag = false;
+				unset($pos[$i]);
+				break;
+			} else {
+				//echo "<br> addo ";
+				//$this -> note_list[$this -> note_counter][0] = $versetto_id;
+				$this -> note_list[$this -> note_counter][1] = substr_count(mb_substr($verse, 0, $pos[$i]), ' ');
+				$this -> note_counter++;
 				//echo "\n<br>$ccs spazi";
 				//$gl_m[];
 			}
@@ -268,21 +300,35 @@ class handlerer {
 
 		}
 
-		printa($this->margin_list);
-
+		//printa($this -> note_list);
+		
+		foreach ($lli as $key => $value) {
+			//Se è una NOTA A MARGINE
+			if ($value[1]==1){
+				$lli[$key][4]=$this->note_list[$lli[$key][2]][1];
+				
+				//Se è un RIFERIMENTO a Margine
+			}elseif($value[1]==2){
+				$lli[$key][4]=$this->margin_list[$lli[$key][2]][1];
+			}
+		}
+		
+		$this->versetto_has_link[$versetto_id]=$lli;
+		//printa(	$this->versetto_has_link[$versetto_id]);
+		//die ();
 	}
 
 	/** Gruppa i link
 	 */
-	function link_marry($a1,$a2){
+	function link_marry($a1, $a2) {
 		foreach ($a1 as $key => $value) {
-			$a1[$key][2]=$a2[$key];
+			$a1[$key][3] = $a2[$key];
 		}
 		return $a1;
 	}
 
-	function mb_strpos_all(){
-		
+	function mb_strpos_all() {
+
 	}
 
 	/**Scarica il testo di quel link dal wol per questa lingua
