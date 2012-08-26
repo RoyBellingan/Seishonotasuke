@@ -374,8 +374,10 @@ class handlerer {
 				printa($var);
 
 				foreach ($var->items as $key => $value) {
-					$value -> content;
-					echo $value -> content;
+					
+					$txt=str_replace("*", "", $value -> content);
+					$txt=str_replace("+", "", $txt);
+					echo $txt;
 					$id_verse_init = verse_to_id($value->book, $value->first_chapter, $value->first_verse);
 					echo "id versetto iniziale: $id_verse_init --";
 					$id_verse_end = verse_to_id($value->book, $value->last_chapter, $value->last_verse);
