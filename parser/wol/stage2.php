@@ -61,6 +61,9 @@ $h -> leggi_testo("libri/it/Genesi");
 $h -> parse_capitoli();
 //printa($h->chapter[1]);
 //die();
+$h -> antispam();
+//printa($h->spam);
+//die();
 
 $h -> parse_versetti(1);
 //printa($h -> verse[24]);
@@ -74,10 +77,7 @@ foreach ($h -> verse as $key => $value) {
 printa($h -> versetto_has_link);
 die();
 //foreach ($h ->versetto_has_link as $key => $value) {
-$h -> antispam();
 
-//printa($h->spam);
-//die();
 //foreach ($h -> verse as $key => $value) {
 
 //}
@@ -279,23 +279,13 @@ class handlerer {
 
 		preg_match_all("/(https?|ftp|telnet):\/\/((?:[a-z0-9@:.-]|%[0-9A-F]{2}){3,})(?::(\d+))?((?:\/(?:[a-z0-9-._~!$&()*+,;=:@]|%[0-9A-F]{2})*)*)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?/i", $verse_link, $aar, PREG_SET_ORDER);
 
-		//printa($aar);
+		foreach ($aar as $key => $value) {
+			$aar[$key][5] = $this -> spam[$key];
+		}
+		printa($aar);
 
-		$aar2 = mb_strpos_all($verse, "*");
-		//printa($aar2);
-		//die();
-		//printa($aar2);
-
-		$aar3 = mb_strpos_all($verse, "+");
-		//printa($aar3);
-
-		$rip = array_flip_combine_plus($aar2, $aar3, $this -> inc_gg);
-		$this -> inc_gg = sizeof($rip) + $this -> inc_gg;
-		//printa($rip);
-
-		$lli = $this -> link_marry($rip, $aar);
-		//printa($lli);
-		//die();
+		$jj = 0;
+		$num = mb_substr_count($verse, ' ');
 
 		while ($flag == true) {
 
@@ -307,12 +297,16 @@ class handlerer {
 				break;
 			} else {
 				//$this -> margin_list[$this -> margin_counter][0] = $versetto_id;
-				$stri=mb_substr($verse, 0, $pos[$i]);
-				$this -> margin_list[$this -> margin_counter][1] = mb_substr_count($stri, ' ');
-				
-				echo "<br>stringa: $stri, spazi : {$this->margin_list[$this->margin_counter][1]} con contatore a $this->margin_counter";
-				
-				$this -> margin_counter++;
+				$stri = mb_substr($verse, 0, $pos[$i]);
+				$bla = mb_substr_count($stri, ' ');
+				$sle = mb_strlen($stri);
+				$this -> list[$sle][0] = 2;
+				$this -> list[$sle][1] = $bla;
+
+				//$this -> list[$bla][1] = $bla;
+
+				echo "<br>stringa: $stri, spazi : $bla";
+
 				//echo "\n<br>$ccs spazi";
 				//$gl_m[];
 			}
@@ -323,7 +317,6 @@ class handlerer {
 			$i++;
 
 		}
-		//printa($this -> margin_list);
 
 		$i = 0;
 		unset($pos);
@@ -341,7 +334,12 @@ class handlerer {
 			} else {
 				//echo "<br> addo ";
 				//$this -> note_list[$this -> note_counter][0] = $versetto_id;
-				$this -> note_list[$this -> note_counter][1] = substr_count(mb_substr($verse, 0, $pos[$i]), ' ');
+				$stri = mb_substr($verse, 0, $pos[$i]);
+				$bla = mb_substr_count($stri, ' ');
+				$sle = mb_strlen($stri);
+				$this -> list[$sle][0] = 1;
+				$this -> list[$sle][1] = $bla;
+				//$this -> list[$bla][1] = $bla;
 				$this -> note_counter++;
 				//echo "\n<br>$ccs spazi";
 				//$gl_m[];
@@ -354,26 +352,21 @@ class handlerer {
 
 		}
 
-		//printa($this -> note_list);
-		if ($lli) {
-			foreach ($lli as $key => $value) {
-				//Se è una NOTA A MARGINE
-				if ($value[1] == 1) {
-					echo "<br>il 2° contatore è a {$lli[$key][5]}";
-					$lli[$key][4] = $this -> note_list[$lli[$key][5]][1];
+		printa($this -> list);
+		ksort($this -> list);
+		printa($this -> list);
 
-					//Se è un RIFERIMENTO a Margine
-				} elseif ($value[1] == 2) {
-					$lli[$key][4] = $this -> margin_list[$lli[$key][5]][1];
-				}
-			}
-			$this -> versetto_has_link[$versetto_id] = $lli;
-		} else {
-			$this -> versetto_has_link[$versetto_id] = false;
+		$i = 0;
+		foreach ($this -> list as $key => $value) {
+			$aar[$i][6] = $value;
+
+			$i++;
+
 		}
+		printa($aar);
 
-		//printa(	$this->versetto_has_link[$versetto_id]);
-		//die ();
+		//die();
+
 	}
 
 	/** Gruppa i link
