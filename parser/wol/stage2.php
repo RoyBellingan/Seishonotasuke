@@ -35,6 +35,11 @@
 <body>
 <?php
 
+/** TODO
+ * Carica nel db i versetti ora
+ *
+ *
+ */
 //die("non si lanciano a mozzo le cose...");
 
 ini_set("display_errors", "1");
@@ -46,7 +51,7 @@ include_once (PATH . "util/elenco_lib.php");
 include_once (PATH . "includes/snoopy.php");
 include_once (PATH . "util/mysqlutil.php");
 
-$dbi = new_mysqli();
+$db = new_mysqli();
 $h = new handlerer();
 
 $h -> leggi_testo("libri/it/Genesi");
@@ -63,15 +68,24 @@ $h -> parse_versetti(1);
 
 $h -> proper_parse_link();
 foreach ($h -> verse as $key => $value) {
-	$h -> parse_link(1);
+	$h -> parse_link($key);
 }
 
-//printa($h -> versetto_has_link);
-
+printa($h -> versetto_has_link);
+die();
 //foreach ($h ->versetto_has_link as $key => $value) {
 $h -> antispam();
 
+//printa($h->spam);
+//die();
+//foreach ($h -> verse as $key => $value) {
+
+//}
 $h -> db_push(1);
+$h -> db_push(2);
+$h -> db_push(3);
+$h -> db_push(4);
+$h -> db_push(5);
 //}
 die();
 die();
@@ -85,12 +99,32 @@ $h -> versetto_add_margin();
 
 class handlerer {
 
+	/**
+	 Array
+	 (
+	 [0] => Caratteri dall'inizio non serve
+	 [1] => tipo
+	 [2] => incremental tipo
+	 [3] => Array del link
+	 \------ [0] => URL
+	 \------ [2] => HOST
+	 \------ [4] => PATH
+	 [4] => offset in spazi bianchi dall'inizio
+	 )
+	 */
+	var $versetto_has_link;
+
 	/**Stuff init and usual related things...
 	 *
 	 */
 	function handlerer() {
 		mb_internal_encoding("UTF-8");
 		mb_regex_encoding("UTF-8");
+
+		//TODO crea un array di look up
+		$this -> id_lang = 0;
+		//Default ita
+
 		$this -> snoopy = new Snoopy;
 		$this -> snoopy -> accept = "application/json, text/javascript, */*; q=0.01";
 		$this -> snoopy -> proxy_host = "localhost";
@@ -140,6 +174,7 @@ class handlerer {
 	}
 
 	/**Crea un array coi versetti partendo da un capitolo
+	 * @param capitolo da analizzare
 	 *I versetti sono un pò più scomodi da definire ma sempre facili
 	 *
 	 * Inizia dopo un
@@ -218,6 +253,8 @@ class handlerer {
 		$this -> note_list = array();
 		$this -> note_counter = 0;
 
+		$this -> inc_gg = 0;
+
 	}
 
 	/**Estrae i link, tutti da un versetto_n dell'array
@@ -246,11 +283,14 @@ class handlerer {
 
 		$aar2 = mb_strpos_all($verse, "*");
 		//printa($aar2);
+		//die();
+		//printa($aar2);
 
 		$aar3 = mb_strpos_all($verse, "+");
 		//printa($aar3);
 
-		$rip = array_flip_combine_plus($aar2, $aar3);
+		$rip = array_flip_combine_plus($aar2, $aar3, $this -> inc_gg);
+		$this -> inc_gg = sizeof($rip) + $this -> inc_gg;
 		//printa($rip);
 
 		$lli = $this -> link_marry($rip, $aar);
@@ -267,7 +307,11 @@ class handlerer {
 				break;
 			} else {
 				//$this -> margin_list[$this -> margin_counter][0] = $versetto_id;
-				$this -> margin_list[$this -> margin_counter][1] = substr_count(mb_substr($verse, 0, $pos[$i]), ' ');
+				$stri=mb_substr($verse, 0, $pos[$i]);
+				$this -> margin_list[$this -> margin_counter][1] = mb_substr_count($stri, ' ');
+				
+				echo "<br>stringa: $stri, spazi : {$this->margin_list[$this->margin_counter][1]} con contatore a $this->margin_counter";
+				
 				$this -> margin_counter++;
 				//echo "\n<br>$ccs spazi";
 				//$gl_m[];
@@ -315,11 +359,12 @@ class handlerer {
 			foreach ($lli as $key => $value) {
 				//Se è una NOTA A MARGINE
 				if ($value[1] == 1) {
-					$lli[$key][4] = $this -> note_list[$lli[$key][2]][1];
+					echo "<br>il 2° contatore è a {$lli[$key][5]}";
+					$lli[$key][4] = $this -> note_list[$lli[$key][5]][1];
 
 					//Se è un RIFERIMENTO a Margine
 				} elseif ($value[1] == 2) {
-					$lli[$key][4] = $this -> margin_list[$lli[$key][2]][1];
+					$lli[$key][4] = $this -> margin_list[$lli[$key][5]][1];
 				}
 			}
 			$this -> versetto_has_link[$versetto_id] = $lli;
@@ -357,37 +402,72 @@ class handlerer {
 	}
 
 	function db_push($verse_id) {
+		echo "<hr> Versetto $verse_id";
 		foreach ($this->versetto_has_link[$verse_id] as $key => $value) {
-			echo "<hr>";
-			printa($value);
+			echo "<br> $key ° link";
+			echo "<br>il val è $value[5]";
+			//printa($value);
 
 			//$this -> snoopy -> fetchtext($value[3][0]);
 			//printa($this -> snoopy -> results);
 			//Se è una NOTA A MARGINE
 			if ($value[1] == 1) {
-				$var = json_decode($this -> snoopy -> results);
+				$var = $this -> spam[$value[5]] -> content;
+				//printa($var);
+				$var = mysql_escape_string($var);
+				//die();
+				//$var = json_decode($this -> snoopy -> results);
 				//load $var->content
+				$sql = "INSERT INTO `聖書`.`riferimenti` 
+				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
+				 VALUES
+				($this->id_lang, $verse_id, '$value[4]', 1, '$var');
+				";
+
+				qi($sql);
+
 			} elseif ($value[1] == 2) {
 				//$var=json_decode($this->snoopy -> results);
 				//$var = json_decode($txt);
-				$var=$this->spam[$key];
-				printa($var);
 
-				foreach ($var->items as $key => $value) {
-					
-					$txt=str_replace("*", "", $value -> content);
-					$txt=str_replace("+", "", $txt);
+				$var = $this -> spam[$value[5]];
+
+				//die();
+				$i = 0;
+				foreach ($var->items as $key => $link) {
+
+					$txt = str_replace("*", "", $link -> content);
+					$txt = str_replace("+", "", $txt);
 					echo $txt;
-					$id_verse_init = verse_to_id($value->book, $value->first_chapter, $value->first_verse);
+					$id_verse_init = verse_to_id($link -> book, $link -> first_chapter, $link -> first_verse);
 					echo "id versetto iniziale: $id_verse_init --";
-					$id_verse_end = verse_to_id($value->book, $value->last_chapter, $value->last_verse);
+					$id_verse_end = verse_to_id($link -> book, $link -> last_chapter, $link -> last_verse);
+
+					$mini[$i][0] = $id_verse_init;
+					$mini[$i][1] = $id_verse_end;
+					$mini[$i][2] = $txt;
+
+					$i++;
 				}
+				$min = mysql_escape_string(serialize($mini));
+				printa($value);
+				$sql = "INSERT INTO `聖書`.`riferimenti` 
+				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
+				 VALUES
+				($this->id_lang, $verse_id, '$value[4]', 2, '$min');
+				";
+
+				qi($sql);
+
 			}
 
 		}
 
 	}
 
+	/**Riciclo la roba scaricata
+	 *
+	 */
 	function antispam() {
 		$spam = explode("\n", file_get_contents("spam_link1"));
 		$last_link_note = 0;
@@ -396,11 +476,11 @@ class handlerer {
 			if ($value != "") {
 				//	printa($value);
 				$pos = strstr($value, "{");
-				$su=strstr($value, $pos);
+				$su = strstr($value, $pos);
 				$val = json_decode($su);
 				//echo $val;
 				//printa($val);
-				$this->spam[] = $val;
+				$this -> spam[] = $val;
 			}
 		}
 	}

@@ -1,13 +1,4 @@
 <?php
-/**
- * Fa il quadrato di un numero
- * @param numero $n
- * @return N^2
- */
-function qq($n) {
-	$n = $n * $n;
-	return $n;
-}
 
 /**
  * fa gli option ecc /option dei select nei form
@@ -227,8 +218,7 @@ function strippa2($selettati, $valore) {
 	} else {// dal secondo in poi si mette la virgola
 		$selettati = $selettati . ",`" . $valore . "`";
 	}
-	return $selettati;
-	;
+	return $selettati; ;
 }
 
 function strippa3($wherati, $nome, $tipo, $chiave) {
@@ -237,8 +227,7 @@ function strippa3($wherati, $nome, $tipo, $chiave) {
 	} else {// dal secondo in poi si mette la virgola
 		$wherati = $wherati . " AND `" . $nome . "` " . $tipo . " '" . $chiave . "'";
 	}
-	return $wherati;
-	;
+	return $wherati; ;
 }
 
 function c_box($nome, $class, $ischeck) {
@@ -894,59 +883,73 @@ function mb_strpos_all($testo, $cosa) {
 			unset($pos[$i]);
 			break;
 		} else {
-			$off=$pos[$i]+$cosa_le;
+			$off = $pos[$i] + $cosa_le;
 			$i++;
 		}
 		//
-		
+
 	}
 	return $pos;
 
 }
 
-/** Combina gli array mantenendone in qualche modo l'ordine, 
+/** Combina gli array mantenendone in qualche modo l'ordine,
  * e passando l'attuale indice come valore...
  */
-function array_flip_combine_plus($a1,$a2){
-	
-	$a1=array_flip($a1);
-	$a2=array_flip($a2);
-	
-	$i=0;
+function array_flip_combine_plus($a1, $a2,$inc_gg=0) {
+
+	$a1 = array_flip($a1);
+	$a2 = array_flip($a2);
+
+
 	foreach ($a1 as $key => $value) {
-		
-		$le[$key][0]=$key;
-		$le[$key][1]=1;
-		$le[$key][2]=$value;
-		//$i++;
+
+		$le[$key][0] = $key;
+		$le[$key][1] = 1;
+		$le[$key][2] = $value;
+	
 	}
 	foreach ($a2 as $key => $value) {
+
+		$le[$key][0] = $key;
+		$le[$key][1] = 2;
+		$le[$key][2] = $value;
 		
-		$le[$key][0]=$key;
-		$le[$key][1]=2;
-		$le[$key][2]=$value;
-		//$i++;
 	}
 	@sort($le);
 	
+	//printa($le[2]);
+	//die();
 	
-	return $le;
+	$si=sizeof($le);
+	$kk=array();
+	for ($i=0; $i < $si; $i++) { 
+		$kk[$i]=$le[$i];
+		$kk[$i][5]=$inc_gg;
+		$inc_gg++;
+	}
 	
+
+	return $kk;
+
 }
 
-$pack=unserialize(file_get_contents(PATH."libri/pack"));
-$pack_r=unserialize(file_get_contents(PATH."libri/pack_r"));
 
 //print_r($pack[66][22]);
 
-function verse_to_id($book,$chapter,$verse){
+function verse_to_id($book, $chapter, $verse) {
 	GLOBAL $pack;
-return $pack[$book][$chapter][$verse];	
+	if ($pack == "") {
+		$pack = unserialize(file_get_contents(PATH . "libri/pack"));
+	}
+	return $pack[$book][$chapter][$verse];
 }
 
-function id_to_verse($id){
+function id_to_verse($id) {
 	GLOBAL $pack_r;
-return $pack_r[$id];	
+		if ($pack_r == "") {
+		$pack_r = unserialize(file_get_contents(PATH . "libri/pack_r"));
+	}
+	return $pack_r[$id];
 }
-
 ?>
