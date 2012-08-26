@@ -74,8 +74,8 @@ foreach ($h -> verse as $key => $value) {
 	$h -> parse_link($key);
 }
 
-printa($h -> versetto_has_link);
-die();
+//printa($h -> versetto_has_link);
+//die();
 //foreach ($h ->versetto_has_link as $key => $value) {
 
 //foreach ($h -> verse as $key => $value) {
@@ -254,6 +254,7 @@ class handlerer {
 		$this -> note_counter = 0;
 
 		$this -> inc_gg = 0;
+		$this->last_aar=0;
 
 	}
 
@@ -268,7 +269,8 @@ class handlerer {
 
 		$pos[0] = 0;
 		$gl_m = array();
-
+		unset($this -> list);
+		$this -> list=array();
 		$verse = $this -> verse[$versetto_id];
 		//$pos[1]=0;
 		$verse = preg_replace('/\s\s+/', ' ', $verse);
@@ -280,9 +282,10 @@ class handlerer {
 		preg_match_all("/(https?|ftp|telnet):\/\/((?:[a-z0-9@:.-]|%[0-9A-F]{2}){3,})(?::(\d+))?((?:\/(?:[a-z0-9-._~!$&()*+,;=:@]|%[0-9A-F]{2})*)*)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?/i", $verse_link, $aar, PREG_SET_ORDER);
 
 		foreach ($aar as $key => $value) {
-			$aar[$key][5] = $this -> spam[$key];
+			//echo "<br> aar numero $key";
+			@$aar[$key][5] = $this -> spam[$key+$this->last_aar];
 		}
-		printa($aar);
+		//printa($aar);
 
 		$jj = 0;
 		$num = mb_substr_count($verse, ' ');
@@ -305,7 +308,7 @@ class handlerer {
 
 				//$this -> list[$bla][1] = $bla;
 
-				echo "<br>stringa: $stri, spazi : $bla";
+				//echo "<br>stringa: $stri, spazi : $bla";
 
 				//echo "\n<br>$ccs spazi";
 				//$gl_m[];
@@ -352,9 +355,9 @@ class handlerer {
 
 		}
 
-		printa($this -> list);
+		//printa($this -> list);
 		ksort($this -> list);
-		printa($this -> list);
+		//printa($this -> list);
 
 		$i = 0;
 		foreach ($this -> list as $key => $value) {
@@ -363,9 +366,13 @@ class handlerer {
 			$i++;
 
 		}
-		printa($aar);
+		
+		$this->last_aar=$i+$this->last_aar;
+		//printa($aar);
 
 		//die();
+		
+		$this->versetto_has_link[$versetto_id]=$aar;
 
 	}
 
@@ -398,14 +405,16 @@ class handlerer {
 		echo "<hr> Versetto $verse_id";
 		foreach ($this->versetto_has_link[$verse_id] as $key => $value) {
 			echo "<br> $key ° link";
-			echo "<br>il val è $value[5]";
+			printa($value);
+			//die();
+			echo "<br>il val è $value";
 			//printa($value);
 
 			//$this -> snoopy -> fetchtext($value[3][0]);
 			//printa($this -> snoopy -> results);
 			//Se è una NOTA A MARGINE
-			if ($value[1] == 1) {
-				$var = $this -> spam[$value[5]] -> content;
+			if ($value[6][0] == 1) {
+				$var = $value[5] -> content;
 				//printa($var);
 				$var = mysql_escape_string($var);
 				//die();
@@ -414,16 +423,16 @@ class handlerer {
 				$sql = "INSERT INTO `聖書`.`riferimenti` 
 				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
 				 VALUES
-				($this->id_lang, $verse_id, '$value[4]', 1, '$var');
+				($this->id_lang, $verse_id, '{$value[6][1]}', 1, '$var');
 				";
 
 				qi($sql);
 
-			} elseif ($value[1] == 2) {
+			} elseif ($value[6][0] == 2) {
 				//$var=json_decode($this->snoopy -> results);
 				//$var = json_decode($txt);
 
-				$var = $this -> spam[$value[5]];
+				$var = $value[5];
 
 				//die();
 				$i = 0;
@@ -447,7 +456,7 @@ class handlerer {
 				$sql = "INSERT INTO `聖書`.`riferimenti` 
 				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
 				 VALUES
-				($this->id_lang, $verse_id, '$value[4]', 2, '$min');
+				($this->id_lang, $verse_id, '{$value[6][1]}', 2, '$min');
 				";
 
 				qi($sql);
