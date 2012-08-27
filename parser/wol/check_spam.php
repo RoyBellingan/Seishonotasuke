@@ -44,6 +44,7 @@ for ($libro = $libro_start; $libro <= 66; $libro++) {
 		$h -> parse_versetti($i);
 		
 		$vr_cap = sizeof($h -> verse);
+		$h->versetti_num=$vr_cap;
 		unset($h -> spam);
 		$h -> proper_parse_link();
 		

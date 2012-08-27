@@ -405,48 +405,56 @@ class handlerer {
 		foreach ($spam as $key => $value) {
 			$subs = substr($value, 0, 6);
 			if ($value != "" && $subs == "@link ") {
-				//	printa($value);
 
-				$pos = strstr($value, "{");
-				
-				if (!$pos){
-					goto jsonerror;
-				}
-				$su = strstr($value, $pos);
-				$val = json_decode($su);
+				preg_match("/([0-9]+)-([0-9]+)/", $value, $roba);
 
-				if (json_last_error() != JSON_ERROR_NONE || $val == "") {
-					jsonerror:
+				if ($roba[1] > $this -> versetti_num) {
+					//Se il bug ridicolo dei versetti fantasma è presente
 					$e_flag = true;
-					//Riscaricalo
-					
-					echo "huston abbiamo un problema @ $value -> tracciabile a";
-					preg_match("/([0-9]+)-([0-9]+)/", $value, $roba);
-					printa($roba);
-					printa($this -> versetto_has_link[$roba[1]][$roba[2]]);
+				} else {
 
-					$this -> snoopy -> fetchtext($this -> versetto_has_link[$roba[1]][$roba[2]][0]);
-					//$this -> snoopy -> results = "nyan cat";
-					$val = json_decode($this -> snoopy -> results);
+					//	printa($value);
+
+					$pos = strstr($value, "{");
+
+					if (!$pos) {
+						goto jsonerror;
+					}
+					$su = strstr($value, $pos);
+					$val = json_decode($su);
 
 					if (json_last_error() != JSON_ERROR_NONE || $val == "") {
-						goto jsonerror;
-					} else {
+						jsonerror:
+						$e_flag = true;
+						//Riscaricalo
 
+						echo "huston abbiamo un problema @ $value -> tracciabile a";
+						preg_match("/([0-9]+)-([0-9]+)/", $value, $roba);
+						printa($roba);
+						printa($this -> versetto_has_link[$roba[1]][$roba[2]]);
+
+						$this -> snoopy -> fetchtext($this -> versetto_has_link[$roba[1]][$roba[2]][0]);
+						//$this -> snoopy -> results = "nyan cat";
+						$val = json_decode($this -> snoopy -> results);
+
+						if (json_last_error() != JSON_ERROR_NONE || $val == "") {
+							goto jsonerror;
+						} else {
+
+							$this -> spam[$jj][0] = $val;
+							$this -> spam[$jj][1] = $roba;
+							$jj++;
+							echo "$this->libro ($this->libro_id) -$this->capitolo_id-$roba[1]-$roba[2]\n";
+						}
+
+					} else {
 						$this -> spam[$jj][0] = $val;
 						$this -> spam[$jj][1] = $roba;
 						$jj++;
-						echo "$this->libro ($this->libro_id) -$this->capitolo_id-$roba[1]-$roba[2]\n";
+						//echo $val;
+						//printa($val);
+
 					}
-
-				} else {
-					preg_match("/([0-9]+)-([0-9]+)/", $value, $roba);
-					//echo $val;
-					//printa($val);
-
-					$this -> spam[$jj][0] = $val;
-					$this -> spam[$jj][1] = $roba;
-					$jj++;
 				}
 
 			}
@@ -456,12 +464,11 @@ class handlerer {
 			$fp = fopen($path, "w");
 			foreach ($this -> spam as $key => $value) {
 				$len = fwrite($fp, "@link {$value[1][1]}-{$value[1][2]}" . json_encode($value[0]) . "\n\n");
-				
+
 			}
 			fclose($fp);
 			die();
 		}
-		
 
 	}
 

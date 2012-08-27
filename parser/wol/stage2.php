@@ -61,7 +61,7 @@ for ($libro = $libro_start; $libro <= 1; $libro++) {
 
 		if ($h -> link_fullati == false) {
 			//die();
-			for ($i = 47; $i <= 48; $i++) {
+			for ($i = 9; $i <= 9; $i++) {
 				echo "$h->libro - $i\n";
 				$h -> parse_versetti($i);
 
