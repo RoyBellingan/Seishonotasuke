@@ -72,15 +72,15 @@ $libram[]="re";
 
 //Italiano
 $libr["italiano"][1]="Genesi";
-$libr["italiano"][]="Esodo";
-$libr["italiano"][]="Levitico";
-$libr["italiano"][]="Numeri";
-$libr["italiano"][]="Deuteronomio";
-$libr["italiano"][]="Giosuè";
-$libr["italiano"][]="Giudici";
-$libr["italiano"][]="Rut";
-$libr["italiano"][]="1 Samuele";
-$libr["italiano"][]="2 Samuele";
+$libr["italiano"][2]="Esodo";
+$libr["italiano"][3]="Levitico";
+$libr["italiano"][4]="Numeri";
+$libr["italiano"][5]="Deuteronomio";
+$libr["italiano"][6]="Giosuè";
+$libr["italiano"][7]="Giudici";
+$libr["italiano"][8]="Rut";
+$libr["italiano"][9]="1 Samuele";
+$libr["italiano"][10]="2 Samuele";
 $libr["italiano"][]="1 Re";
 $libr["italiano"][]="2 Re";
 $libr["italiano"][]="1 Cronache";

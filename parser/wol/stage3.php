@@ -27,7 +27,7 @@ include_once (PATH . "util/elenco_lib.php");
 
 $db = new_mysqli();
 
-$sql = "select id_versetti,italiano_text from versetti where id_versetti < 6 order by id_versetti ASC limit 5";
+$sql = "select id_versetti,italiano_text from versetti where id_versetti < 31 order by id_versetti ASC limit 30";
 
 $vv = qr($sql, MYSQLI_NUM);
 
@@ -63,14 +63,17 @@ foreach ($vv as $key => $value) {
 				$init_t=id_to_verse($r_value[0]);
 				$end_t=id_to_verse($r_value[1]);
 				
-				$init_tt="{$libr["italiano"][$init_t[0]]} $init_t[1]:$init_t[2]"; 
+				 
 				//printa($init_t);
 				if ($init==$end){
+					$init_tt="{$libr["italiano"][$init_t[0]]} $init_t[1]:$init_t[2]";
 					$sql="select italiano_text from versetti where id_versetti = $init limit 1";
 					$res=qx($sql);
 					
 					//printa($res);
 					$rrr.="$init_tt \n$res\n";
+				}else{
+					
 				}
 			}
 		} else {
