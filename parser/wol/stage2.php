@@ -18,53 +18,80 @@ include_once (PATH . "util/mysqlutil.php");
 include_once (PATH . "util/elenco_lib.php");
 include_once ("handler.php");
 
-$lang="italiano";
+$lang = "italiano";
 
-$db = new_mysqli();
-$h = new handlerer();
+$libro_start = 1;
 
+for ($libro = $libro_start; $libro <= 1; $libro++) {
+	//$pid = pcntl_fork();
+/*
+	if ($pid == -1) {
+		exo("could not fork");
+		$this -> reason = "could not fork";
+		return false;
 
-$h->libro_id=8;
+	} else if ($pid) {
+		//Papà
+		$posixProcessID = posix_getpid();
+		//exo("fork fatto! pid $pid, io sono l PADRE $posixProcessID");
+		//Diamo un leggero vantaggio al download iniziale...
 
-
-
-$h -> libro = $libro = $libr[$lang][$h->libro_id];
-
-echo "parse di $libro\n";
-
-
-$h -> leggi_testo("libri/it/$libro");
-//printa($h->book);
+		//sleep(2);
 //die();
+		//return true;
 
-$h -> parse_capitoli();
-//printa($h->chapter[1]);
-//die();
-//$h -> antispam();
-//printa($h->spam);
-//die();
+	} else {
+		*/
+		//Figghio
 
-$le_cap = sizeof($h -> chapter);
+		$h = new handlerer();
+		$h -> libro_id = $libro;
+		$h -> libro = $libr[$lang][$h -> libro_id];
+		echo "parse di $h->libro\n";
+		$h -> leggi_testo("libri/it/$h->libro");
 
-for ($i = 1; $i <= $le_cap; $i++) {
-	echo "$libro - $i\n";
-	$h -> parse_versetti($i);
 
-	$vr_cap = sizeof($h -> verse);
+		$h -> parse_capitoli();
 
-	for ($j = 1; $j <= $vr_cap; $j++) {
-		$h -> proper_parse_link();
-		$h -> parse_link($j);
-		
-	}
-	$h -> fetch_link();
+		$le_cap = sizeof($h -> chapter);
+
+		$h -> chapter_count = $le_cap;
+
+		//$h -> link_fullati();
+
+		if ($h -> link_fullati == false) {
+			//die();
+			for ($i = 47; $i <= 48; $i++) {
+				echo "$h->libro - $i\n";
+				$h -> parse_versetti($i);
+
+				$vr_cap = sizeof($h -> verse);
+				//printa($h->verse);
+				//echo "abbiamo $vr_cap versetti";
+				$h -> proper_parse_link();
+				for ($j = 1; $j <= $vr_cap; $j++) {
+				//	echo "famose il $j\n";
+					
+					$h -> parse_link($j);
+				}
+				//printa($h->versetto_has_link);
+				//die();
+				$h -> fetch_link();
+			}
+			die();
+		} else {
+			echo "$h->libro è fullato già!\n";
+			die();
+		}
+	//}
 }
-die();
+
 //printa($h -> verse[24]);
 //die();
 
 //printa($h -> versetto_has_link);
 //die();
+die();
 $h -> fetch_link();
 
 //foreach ($h ->versetto_has_link as $key => $value) {
