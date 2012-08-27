@@ -23,6 +23,7 @@ include_once (PATH . "util/funkz.php");
 include_once (PATH . "util/elenco_lib.php");
 include_once (PATH . "includes/snoopy.php");
 include_once (PATH . "util/mysqlutil.php");
+include_once (PATH . "util/elenco_lib.php");
 
 $db = new_mysqli();
 
@@ -54,8 +55,23 @@ foreach ($vv as $key => $value) {
 			$row = unserialize($rf_value[3]);
 			$rep = "+";
 			$rrr = "";
+			//printa($row);
+			
 			foreach ($row as $r_key => $r_value) {
-				$rrr .= $r_value[2] . "\n";
+				$init=$r_value[0];
+				$end=$r_value[1];
+				$init_t=id_to_verse($r_value[0]);
+				$end_t=id_to_verse($r_value[1]);
+				
+				$init_tt="{$libr["italiano"][$init_t[0]]} $init_t[1]:$init_t[2]"; 
+				//printa($init_t);
+				if ($init==$end){
+					$sql="select italiano_text from versetti where id_versetti = $init limit 1";
+					$res=qx($sql);
+					
+					//printa($res);
+					$rrr.="$init_tt \n$res\n";
+				}
 			}
 		} else {
 			$rrr = $rf_value[3];
