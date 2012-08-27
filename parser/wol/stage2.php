@@ -436,6 +436,8 @@ class handlerer {
 
 				//die();
 				$i = 0;
+				unset($mini);
+				$mini=array();
 				foreach ($var->items as $key => $link) {
 
 					$txt = str_replace("*", "", $link -> content);
@@ -447,7 +449,10 @@ class handlerer {
 
 					$mini[$i][0] = $id_verse_init;
 					$mini[$i][1] = $id_verse_end;
-					$mini[$i][2] = $txt;
+					
+					//var_dump($txt);
+					//die;
+					//$mini[$i][2] = trim($txt);
 
 					$i++;
 				}
