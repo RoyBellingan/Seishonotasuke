@@ -87,6 +87,8 @@ class handlerer {
 	 * 	Se inizia un altro versetto con uno </span>
 	 * 	Se finisce il paragrafo con uno </p>
 	 *	Se finiscono invece trovo un </div>
+	 * 
+	 * TODO se vuoi fare qualcosa NG che mantenga la sotto formattazione è da qua che devi partire...
 	 */
 	function parse_versetti($capitolo) {
 		$this -> capitolo_id = $capitolo;
@@ -103,53 +105,100 @@ class handlerer {
 		unset($pos);
 		$pos = array();
 		//printa($chapter);
-		$off = strpos($chapter, "id=\"content\"");
+		$off = mb_strpos($chapter, "id=\"content\"");
+
+		$fine = mb_strpos($chapter, "</div></div>", $off);
 
 		while ($flag) {
 
-			$pos[$i][0] = mb_strpos($chapter, "</span>", $off) + 7;
+			// <span class="dv" id="v\n{1,3}"><a href="/it/wol/dx/r6/lp-i/232"><b><sup>27</sup></b>&nbsp;</a></span>
 
-			if ($pos[$i][0] < $off) {
-				$flag = false;
-				break;
-			}
-			//echo "<br> Leggo da $off e lo trovo a {$pos[$i][0]}";
-			if ($pos[$i][0] !== false) {
-
-				$ps = mb_strpos($chapter, "<span", $pos[$i][0] + 1);
-				//finisce per primo comunque...
-				$pp = mb_strpos($chapter, "</p>", $pos[$i][0] + 1);
-				//$pd = mb_strpos($chapter, "</div>", $pos[$i][0] + 1);
-				//echo "analizzo il versetto $i che si trova a {$pos[$i][0]} finisce a $ps o $pp ?<br>";
-				//Controllo che uno dei due esista...
-				if ($ps !== false || $pp !== false) {
-
-					//E prendo il minore
-					if ($ps !== false && $ps < $pp) {
-						$pos[$i][1] = $ps;
-					} else {
-						$pos[$i][1] = $pp;
-
-					}
-
-					$off = $pos[$i][1];
-					//echo "<br> finisce a " . $off;
-					$this -> verse[$i] = mb_substr($chapter, $pos[$i][0], $pos[$i][1] - $pos[$i][0]);
-					//printa($this -> verse[$i]);
-
-					$i++;
-
-				} else {
-					$flag = false;
-					break;
-				}
+			if ($i == 1) {
+				$spanme = "<span id='v$i' class='dc'>";
 			} else {
+				$spanme = "<span id='v$i' class='dv'>";
+			}
+
+			$pos[$i][0] = mb_strpos($chapter, "$spanme", $off) + 7;
+
+			$pos[$i][1] = mb_strpos($chapter, "</span>", $pos[$i][0]) + 7;
+
+			$delta = $pos[$i][1] - $pos[$i][0];
+			//echo "$spanme @ {$pos[$i][0]} + {$pos[$i][1]} = $delta\n";
+
+			if ($pos[$i][1] < $off || $pos[$i][0] == false) {
+				$pos[$i][0] = $fine;
 				$flag = false;
 				break;
+			} else {
+
+				$off = $pos[$i][1];
+				$i++;
 			}
-			//echo"<hr>";
-			//die();
 		}
+
+		$pos[][0] = 0;
+		//Per non far uscire l'errore della variabile mancante
+		$j = $i;
+		for ($i = 1; $i < $j; $i++) {
+			echo "$i da {$pos[$i][1]} a {$pos[$i+1][0]}\n";
+
+			$txt = trim(mb_substr($chapter, $pos[$i][1], $pos[$i + 1][0] - $pos[$i][1]));
+			$txt = str_replace("\n", "", $txt);
+			$txt = str_replace("<span i", "", $txt);
+			$txt = str_replace("</p>", "", $txt);
+			$txt = str_replace("</div>", "", $txt);
+			$txt = str_replace("<p class='sp'>", "", $txt);
+			$txt = str_replace("<p class='sb'>", "", $txt);
+			$txt = str_replace("<p class='sl'>", "", $txt);
+			$txt = str_replace("<p class='sz'>", "", $txt);
+			$txt = preg_replace("/<div id='p[0-9]+' class='par'>/", "", $txt);
+
+			$this -> verse[$i] = trim($txt);
+
+		}
+		unset($this -> verse[$i]);
+
+		/*
+		 //echo "<br> Leggo da $off e lo trovo a {$pos[$i][0]}";
+		 if ($pos[$i][0] !== false) {
+
+		 $ps = mb_strpos($chapter, "<span", $pos[$i][0] + 1);
+		 //finisce per primo comunque...
+		 $pp = mb_strpos($chapter, "</p>", $pos[$i][0] + 1);
+		 //$pd = mb_strpos($chapter, "</div>", $pos[$i][0] + 1);
+		 //echo "analizzo il versetto $i che si trova a {$pos[$i][0]} finisce a $ps o $pp ?<br>";
+		 //Controllo che uno dei due esista...
+		 if ($ps !== false || $pp !== false) {
+
+		 //E prendo il minore
+		 if ($ps !== false && $ps < $pp) {
+		 $pos[$i][1] = $ps;
+		 } else {
+		 $pos[$i][1] = $pp;
+
+		 }
+
+		 $off = $pos[$i][1];
+		 //echo "<br> finisce a " . $off;
+		 $this -> verse[$i] = mb_substr($chapter, $pos[$i][0], $pos[$i][1] - $pos[$i][0]);
+		 //printa($this -> verse[$i]);
+
+		 $i++;
+
+		 } else {
+		 $flag = false;
+		 break;
+		 }
+		 } else {
+		 $flag = false;
+		 break;
+		 }
+		 */
+
+		//echo"<hr>";
+		//die();
+
 		//$i--;
 		//echo "trovati $i versetti";
 	}

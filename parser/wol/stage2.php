@@ -22,7 +22,13 @@ $lang = "italiano";
 
 $libro_start = 1;
 
-for ($libro = $libro_start; $libro <= 1; $libro++) {
+$libro_end = 1;
+
+$capitolo_start=9;
+
+$capitolo_end=9;
+
+for ($libro = $libro_start; $libro <= $libro_end; $libro++) {
 	//$pid = pcntl_fork();
 /*
 	if ($pid == -1) {
@@ -58,16 +64,20 @@ for ($libro = $libro_start; $libro <= 1; $libro++) {
 		$h -> chapter_count = $le_cap;
 
 		//$h -> link_fullati();
+		
+		$h -> link_fullati=0;
 
 		if ($h -> link_fullati == false) {
 			//die();
-			for ($i = 9; $i <= 9; $i++) {
+			$end= $capitolo_end ? $capitolo_end : $h -> chapter_count;
+			for ($i = $capitolo_start; $i <= 9; $i++) {
 				echo "$h->libro - $i\n";
 				$h -> parse_versetti($i);
 
 				$vr_cap = sizeof($h -> verse);
-				//printa($h->verse);
-				//echo "abbiamo $vr_cap versetti";
+				printa($h->verse);
+				echo "abbiamo $vr_cap versetti";
+				die();
 				$h -> proper_parse_link();
 				for ($j = 1; $j <= $vr_cap; $j++) {
 				//	echo "famose il $j\n";
