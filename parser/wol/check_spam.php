@@ -24,52 +24,65 @@ $libro_start = 1;
 $h = new handlerer();
 for ($libro = $libro_start; $libro <= 66; $libro++) {
 
-	$h -> libro_id = $libro;
+	$pid = pcntl_fork();
+	if ($pid == -1) {
+		exo("could not fork");
+		$this -> reason = "could not fork";
+		return false;
 
-	$h -> libro = $libr[$lang][$h -> libro_id];
+	} else if ($pid) {
 
-	echo "parse di $h->libro\n<br>"; ;
-	$h -> leggi_testo("libri/it/$h->libro");
+	} else {
 
-	$h -> parse_capitoli();
+		$h -> libro_id = $libro;
 
-	$le_cap = sizeof($h -> chapter);
+		$h -> libro = $libr[$lang][$h -> libro_id];
 
-	$h -> chapter_count = $le_cap;
+		echo "parse di $h->libro\n<br>";
+		;
+		$h -> leggi_testo("libri/it/$h->libro");
 
-	echo " sono $le_cap capitoli\n<br>";
+		$h -> parse_capitoli();
 
-	for ($i = 1; $i <= $le_cap; $i++) {
-		echo "$h->libro - $i\n<br>";
-		$h -> parse_versetti($i);
-		
-		$vr_cap = sizeof($h -> verse);
-		$h->versetti_num=$vr_cap;
-		unset($h -> spam);
-		$h -> proper_parse_link();
-		
-		for ($j = 1; $j <= $vr_cap; $j++) {
-			
-			$h -> parse_link($j);
+		$le_cap = sizeof($h -> chapter);
+
+		$h -> chapter_count = $le_cap;
+
+		echo " sono $le_cap capitoli\n<br>";
+
+		for ($i = 1; $i <= $le_cap; $i++) {
+			echo "$h->libro - $i\n<br>";
+			$h -> parse_versetti($i);
+
+			$vr_cap = sizeof($h -> verse);
+			$h -> versetti_num = $vr_cap;
+			unset($h -> spam);
+			$h -> proper_parse_link();
+
+			for ($j = 1; $j <= $vr_cap; $j++) {
+
+				$h -> parse_link($j);
+			}
+
+			//printa($h->versetto_has_link[1][0]);
+
+			$h -> antispam();
+
+			//printa($h->versetto_has_link[1][0]);
+			//unset($h -> spam);
+			//$le = sizeof($h -> spam);
+			//printa($h -> spam);
+
+			//die();
+
+			//
+
+			//die();
+
+			//
 		}
-
-		//printa($h->versetto_has_link[1][0]);
-
-		$h -> antispam();
-		
-		//printa($h->versetto_has_link[1][0]);
-		//unset($h -> spam);
-		//$le = sizeof($h -> spam);
-		//printa($h -> spam);
-
-		//die();
-
-		//
-
-		//die();
-
-		//
+		die();
 	}
-	break;
+	
 
 }

@@ -467,7 +467,7 @@ class handlerer {
 
 			}
 			fclose($fp);
-			die();
+			//die();
 		}
 
 	}
