@@ -22,7 +22,7 @@ $lang = "italiano";
 
 $libro_start = 1;
 $h = new handlerer();
-for ($libro = $libro_start; $libro <= 66; $libro++) {
+for ($libro = $libro_start; $libro <= 1; $libro++) {
 
 	$pid = pcntl_fork();
 	if ($pid == -1) {
@@ -50,7 +50,7 @@ for ($libro = $libro_start; $libro <= 66; $libro++) {
 
 		echo " sono $le_cap capitoli\n<br>";
 
-		for ($i = 1; $i <= $le_cap; $i++) {
+		for ($i = 1; $i <= 1; $i++) {
 			echo "$h->libro - $i\n<br>";
 			$h -> parse_versetti($i);
 

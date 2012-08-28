@@ -5,7 +5,7 @@
  *
  *
  */
-//die("non si lanciano a mozzo le cose...");
+die("non si lanciano a mozzo le cose...");
 
 ini_set("display_errors", "1");
 ERROR_REPORTING(E_ALL);
@@ -75,9 +75,9 @@ for ($libro = $libro_start; $libro <= $libro_end; $libro++) {
 				$h -> parse_versetti($i);
 
 				$vr_cap = sizeof($h -> verse);
-				printa($h->verse);
-				echo "abbiamo $vr_cap versetti";
-				die();
+				//printa($h->verse);
+				//echo "abbiamo $vr_cap versetti";
+				//die();
 				$h -> proper_parse_link();
 				for ($j = 1; $j <= $vr_cap; $j++) {
 				//	echo "famose il $j\n";

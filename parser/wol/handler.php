@@ -141,7 +141,7 @@ class handlerer {
 		//Per non far uscire l'errore della variabile mancante
 		$j = $i;
 		for ($i = 1; $i < $j; $i++) {
-			echo "$i da {$pos[$i][1]} a {$pos[$i+1][0]}\n";
+			//echo "$i da {$pos[$i][1]} a {$pos[$i+1][0]}\n";
 
 			$txt = trim(mb_substr($chapter, $pos[$i][1], $pos[$i + 1][0] - $pos[$i][1]));
 			$txt = str_replace("\n", "", $txt);
@@ -366,19 +366,26 @@ class handlerer {
 	}
 
 	function db_push($verse_id) {
-		echo "<hr> Versetto $verse_id";
+		$id_versetto=verse_to_id($this -> libro_id,$this->capitolo_id,$verse_id);
+		echo "\n Capitolo $this->capitolo_id : $verse_id as $id_versetto";
+		
+		//printa($id_versetto);
+		//die();
 		foreach ($this->versetto_has_link[$verse_id] as $key => $value) {
-			echo "<br> $key ° link";
-			printa($value);
+			echo "\n $key ° link";
+		//	printa($value);
 			//die();
-			echo "<br>il val è $value";
+			//echo "<br>il val è $value";
 			//printa($value);
 
 			//$this -> snoopy -> fetchtext($value[3][0]);
 			//printa($this -> snoopy -> results);
 			//Se è una NOTA A MARGINE
+			
+			
+			
 			if ($value[6][0] == 1) {
-				$var = $value[5] -> content;
+				$var = $value[5][0] -> content;
 				//printa($var);
 				$var = mysql_escape_string($var);
 				//die();
@@ -387,7 +394,7 @@ class handlerer {
 				$sql = "INSERT INTO `聖書`.`riferimenti`
 				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
 				 VALUES
-				($this->id_lang, $verse_id, '{$value[6][1]}', 1, '$var');
+				($this->id_lang, $id_versetto, '{$value[6][1]}', 1, '$var');
 				";
 
 				qi($sql);
@@ -396,7 +403,7 @@ class handlerer {
 				//$var=json_decode($this->snoopy -> results);
 				//$var = json_decode($txt);
 
-				$var = $value[5];
+				$var = $value[5][0];
 
 				//die();
 				$i = 0;
@@ -406,9 +413,9 @@ class handlerer {
 
 					$txt = str_replace("*", "", $link -> content);
 					$txt = str_replace("+", "", $txt);
-					echo $txt;
+					//echo $txt;
 					$id_verse_init = verse_to_id($link -> book, $link -> first_chapter, $link -> first_verse);
-					echo "id versetto iniziale: $id_verse_init --";
+					//echo "id versetto iniziale: $id_verse_init --";
 					$id_verse_end = verse_to_id($link -> book, $link -> last_chapter, $link -> last_verse);
 
 					$mini[$i][0] = $id_verse_init;
@@ -421,11 +428,11 @@ class handlerer {
 					$i++;
 				}
 				$min = mysql_escape_string(serialize($mini));
-				printa($value);
+				//printa($value);
 				$sql = "INSERT INTO `聖書`.`riferimenti`
 				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
 				 VALUES
-				($this->id_lang, $verse_id, '{$value[6][1]}', 2, '$min');
+				($this->id_lang, $id_versetto, '{$value[6][1]}', 2, '$min');
 				";
 
 				qi($sql);
@@ -440,18 +447,21 @@ class handlerer {
 	 *
 	 */
 	function antispam() {
+		
+		unset($this -> spam);
 		//printa($this);
 		//die;
 		$path = "libri/it/spam/" . $this -> libro . "_" . $this -> capitolo_id;
-		//echo $path;
+	//	echo $path;
 		$spam = explode("\n", file_get_contents($path));
 		$e_flag = false;
 
 		$last_link_note = 0;
 		//printa($spam);
 		$jj = 0;
-
+		
 		foreach ($spam as $key => $value) {
+		//echo "$key -> $value <br>";	
 			$subs = substr($value, 0, 6);
 			if ($value != "" && $subs == "@link ") {
 
@@ -471,7 +481,7 @@ class handlerer {
 					}
 					$su = strstr($value, $pos);
 					$val = json_decode($su);
-
+					
 					if (json_last_error() != JSON_ERROR_NONE || $val == "") {
 						jsonerror:
 						$e_flag = true;
@@ -508,6 +518,7 @@ class handlerer {
 
 			}
 		}
+
 
 		if ($e_flag) {
 			$fp = fopen($path, "w");
