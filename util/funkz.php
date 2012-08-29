@@ -864,7 +864,8 @@ function printa($cosa) {
 /**Rimuove gli spazi doppi
  */
 function no_double_space($text) {
-	$tags = preg_replace('/\s\s+/', ' ', $tags);
+	$tags = preg_replace('/\s\s+/', ' ', $text);
+	return $tags;
 }
 
 /**Ritorna un array con le posizioni
@@ -907,28 +908,28 @@ function array_flip_combine_plus($a1, $a2,$inc_gg=0) {
 		$le[$key][0] = $key;
 		$le[$key][1] = 1;
 		$le[$key][2] = $value;
-	
+
 	}
 	foreach ($a2 as $key => $value) {
 
 		$le[$key][0] = $key;
 		$le[$key][1] = 2;
 		$le[$key][2] = $value;
-		
+
 	}
 	@sort($le);
-	
+
 	//printa($le[2]);
 	//die();
-	
+
 	$si=sizeof($le);
 	$kk=array();
-	for ($i=0; $i < $si; $i++) { 
+	for ($i=0; $i < $si; $i++) {
 		$kk[$i]=$le[$i];
 		$kk[$i][5]=$inc_gg;
 		$inc_gg++;
 	}
-	
+
 
 	return $kk;
 

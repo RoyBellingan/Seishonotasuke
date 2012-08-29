@@ -87,7 +87,7 @@ class handlerer {
 	 * 	Se inizia un altro versetto con uno </span>
 	 * 	Se finisce il paragrafo con uno </p>
 	 *	Se finiscono invece trovo un </div>
-	 * 
+	 *
 	 * TODO se vuoi fare qualcosa NG che mantenga la sotto formattazione è da qua che devi partire...
 	 */
 	function parse_versetti($capitolo) {
@@ -144,16 +144,16 @@ class handlerer {
 			//echo "$i da {$pos[$i][1]} a {$pos[$i+1][0]}\n";
 
 			$txt = trim(mb_substr($chapter, $pos[$i][1], $pos[$i + 1][0] - $pos[$i][1]));
-			$txt = str_replace("\n", "", $txt);
-			$txt = str_replace("<span i", "", $txt);
-			$txt = str_replace("</p>", "", $txt);
-			$txt = str_replace("</div>", "", $txt);
-			$txt = str_replace("<p class='sp'>", "", $txt);
-			$txt = str_replace("<p class='sb'>", "", $txt);
-			$txt = str_replace("<p class='sl'>", "", $txt);
-			$txt = str_replace("<p class='sz'>", "", $txt);
-			$txt = preg_replace("/<div id='p[0-9]+' class='par'>/", "", $txt);
-
+			$txt = str_replace("\n", " ", $txt);
+			$txt = str_replace("<span i", " ", $txt);
+			$txt = str_replace("</p>", " ", $txt);
+			$txt = str_replace("</div>", " ", $txt);
+			$txt = str_replace("<p class='sp'>", " ", $txt);
+			$txt = str_replace("<p class='sb'>", " ", $txt);
+			$txt = str_replace("<p class='sl'>", " ", $txt);
+			$txt = str_replace("<p class='sz'>", " ", $txt);
+			$txt = preg_replace("/<div id='p[0-9]+' class='par'>/", " ", $txt);
+			$txt = no_double_space($txt);
 			$this -> verse[$i] = trim($txt);
 
 		}
@@ -245,11 +245,12 @@ class handlerer {
 		unset($aar);
 		preg_match_all("/(https?|ftp|telnet):\/\/((?:[a-z0-9@:.-]|%[0-9A-F]{2}){3,})(?::(\d+))?((?:\/(?:[a-z0-9-._~!$&()*+,;=:@]|%[0-9A-F]{2})*)*)(?:\?((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?(?:#((?:[a-z0-9-._~!$&'()*+,;=:\/?@]|%[0-9A-F]{2})*))?/i", $verse_link, $aar, PREG_SET_ORDER);
 
-		foreach ($aar as $key => $value) {
-			//echo "<br> aar numero $key";
-			@$aar[$key][5] = $this -> spam[$key + $this -> last_aar];
-		}
-
+		/*
+		 foreach ($aar as $key => $value) {
+		 //echo "<br> aar numero $key";
+		 @$aar[$key][5] = $this -> spam[$key + $this -> last_aar];
+		 }
+		 */
 		$jj = 0;
 		$num = mb_substr_count($verse, ' ');
 
@@ -366,79 +367,118 @@ class handlerer {
 	}
 
 	function db_push($verse_id) {
-		$id_versetto=verse_to_id($this -> libro_id,$this->capitolo_id,$verse_id);
-		echo "\n Capitolo $this->capitolo_id : $verse_id as $id_versetto";
-		
+		$id_versetto = verse_to_id($this -> libro_id, $this -> capitolo_id, $verse_id);
+		//echo "\n Capitolo $this->capitolo_id : $verse_id as $id_versetto";
+
 		//printa($id_versetto);
 		//die();
-		foreach ($this->versetto_has_link[$verse_id] as $key => $value) {
-			echo "\n $key ° link";
-		//	printa($value);
-			//die();
-			//echo "<br>il val è $value";
-			//printa($value);
 
-			//$this -> snoopy -> fetchtext($value[3][0]);
-			//printa($this -> snoopy -> results);
-			//Se è una NOTA A MARGINE
-			
-			
-			
-			if ($value[6][0] == 1) {
-				$var = $value[5][0] -> content;
-				//printa($var);
-				$var = mysql_escape_string($var);
-				//die();
-				//$var = json_decode($this -> snoopy -> results);
-				//load $var->content
-				$sql = "INSERT INTO `聖書`.`riferimenti`
-				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
-				 VALUES
-				($this->id_lang, $id_versetto, '{$value[6][1]}', 1, '$var');
-				";
+		//alcuni versetti non hanno annotazioni
+		if (isset($this -> versetto_has_ref[$verse_id])) {
 
-				qi($sql);
-
-			} elseif ($value[6][0] == 2) {
-				//$var=json_decode($this->snoopy -> results);
-				//$var = json_decode($txt);
-
-				$var = $value[5][0];
-
-				//die();
-				$i = 0;
-				unset($mini);
-				$mini = array();
-				foreach ($var->items as $key => $link) {
-
-					$txt = str_replace("*", "", $link -> content);
-					$txt = str_replace("+", "", $txt);
-					//echo $txt;
-					$id_verse_init = verse_to_id($link -> book, $link -> first_chapter, $link -> first_verse);
-					//echo "id versetto iniziale: $id_verse_init --";
-					$id_verse_end = verse_to_id($link -> book, $link -> last_chapter, $link -> last_verse);
-
-					$mini[$i][0] = $id_verse_init;
-					$mini[$i][1] = $id_verse_end;
-
-					//var_dump($txt);
-					//die;
-					//$mini[$i][2] = trim($txt);
-
-					$i++;
+			foreach ($this->versetto_has_ref[$verse_id] as $key => $value) {
+				
+				//se è marco 16 : 8 i primi due link sono ok, il resto è d fare a mano...
+				if ($this-> libro_id == 41 && $this->capitolo_id == 16 && $verse_id == 8 && $key==2){
+					break;
 				}
-				$min = mysql_escape_string(serialize($mini));
+				
+				//echo "\n $key ° link";
+				//	printa($value);
+				//die();
+				//echo "<br>il val è $value";
 				//printa($value);
-				$sql = "INSERT INTO `聖書`.`riferimenti`
+
+				//$this -> snoopy -> fetchtext($value[3][0]);
+				//printa($this -> snoopy -> results);
+				//Se è una NOTA A MARGINE
+
+				if (!isset($value[1])){
+					echo "errore in $this->libro $this->capitolo_id : $verse_id as $id_versetto - $key \n";
+					printa($value);
+				}
+				
+				if ($value[1][0] == 1) {
+					//echo " nota";
+					$var = $value[2] -> content;
+					//printa($var);
+					$var = mysql_escape_string($var);
+					//die();
+					//$var = json_decode($this -> snoopy -> results);
+					//load $var->content
+					$sql = "INSERT INTO `聖書`.`riferimenti`
 				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
 				 VALUES
-				($this->id_lang, $id_versetto, '{$value[6][1]}', 2, '$min');
+				($this->id_lang, $id_versetto, '{$value[1][1]}', 1, '$var');
 				";
 
-				qi($sql);
+					qi($sql);
+
+				} elseif ($value[1][0] == 2) {
+					//echo " margine";
+					//$var=json_decode($this->snoopy -> results);
+					//$var = json_decode($txt);
+
+					$var = $value[2];
+
+					//die();
+					$i = 0;
+					unset($mini);
+					$mini = array();
+
+					if (!isset($var -> items)) {
+						echo "errore in $this->libro $this->capitolo_id : $verse_id as $id_versetto  a chiedere gli item del json associato $verse_id $key \n";
+						printa($this->versetto_has_link[$verse_id]);
+						printa($this->versetto_has_ref[$verse_id]);
+					} else {
+
+						foreach ($var->items as $key => $link) {
+
+							$txt = str_replace("*", "", $link -> content);
+							$txt = str_replace("+", "", $txt);
+							//echo $txt;
+
+							//Se chiamo un intero salmo
+							if ($link -> book == 0 || $link -> first_chapter == 0 || $link -> first_verse == 0) {
+								//echo "errore a chiedere l'id da parte di $this->libro $this->capitolo_id : $verse_id as $id_versetto  Ha chiesto $link->book $link->first_chapter:$link->first_verse\n";
+								$id_verse_init = verse_to_id($link -> book, $link -> first_chapter, 1);
+							} else {
+								$id_verse_init = verse_to_id($link -> book, $link -> first_chapter, $link -> first_verse);
+							}
+
+							//Se chiamo un intero salmo
+							if ($link -> book == 0 || $link -> last_chapter == 0 || $link -> last_verse == 0) {
+								//echo "errore a chiedere l'id da parte di $this->libro $this->capitolo_id : $verse_id as $id_versetto Ha chiesto $link->book $link->last_chapter:$link->last_verse\n";
+								$id_verse_end = verse_to_id($link -> book, $link -> last_chapter, 1);
+							} else {
+
+								$id_verse_end = verse_to_id($link -> book, $link -> last_chapter, $link -> last_verse);
+							}
+							//echo "id versetto iniziale: $id_verse_init --";
+
+							$mini[$i][0] = $id_verse_init;
+							$mini[$i][1] = $id_verse_end;
+
+							//var_dump($txt);
+							//die;
+							//$mini[$i][2] = trim($txt);
+
+							$i++;
+						}
+					}
+					$min = mysql_escape_string(serialize($mini));
+					//printa($value);
+					$sql = "INSERT INTO `聖書`.`riferimenti`
+				( `id_lang`, `id_versetto`, `offset`, `cosa`, `text`)
+				 VALUES
+				($this->id_lang, $id_versetto, '{$value[1][1]}', 2, '$min');
+				";
+
+					qi($sql);
+
+				}
 
 			}
-
 		}
 
 	}
@@ -447,21 +487,21 @@ class handlerer {
 	 *
 	 */
 	function antispam() {
-		
+
 		unset($this -> spam);
 		//printa($this);
 		//die;
 		$path = "libri/it/spam/" . $this -> libro . "_" . $this -> capitolo_id;
-	//	echo $path;
+		//	echo $path;
 		$spam = explode("\n", file_get_contents($path));
 		$e_flag = false;
 
 		$last_link_note = 0;
 		//printa($spam);
 		$jj = 0;
-		
+
 		foreach ($spam as $key => $value) {
-		//echo "$key -> $value <br>";	
+			//echo "$key -> $value <br>";
 			$subs = substr($value, 0, 6);
 			if ($value != "" && $subs == "@link ") {
 
@@ -481,7 +521,7 @@ class handlerer {
 					}
 					$su = strstr($value, $pos);
 					$val = json_decode($su);
-					
+
 					if (json_last_error() != JSON_ERROR_NONE || $val == "") {
 						jsonerror:
 						$e_flag = true;
@@ -519,7 +559,6 @@ class handlerer {
 			}
 		}
 
-
 		if ($e_flag) {
 			$fp = fopen($path, "w");
 			foreach ($this -> spam as $key => $value) {
@@ -530,6 +569,106 @@ class handlerer {
 			//die();
 		}
 
+	}
+
+	function load_spam() {
+
+		unset($this -> spam);
+		//printa($this);
+		//die;
+		$path = "libri/it/spam/" . $this -> libro . "_" . $this -> capitolo_id;
+		//	echo $path;
+		$spam = explode("\n", file_get_contents($path));
+		$e_flag = false;
+
+		$last_link_note = 0;
+		//printa($spam);
+		$jj = 0;
+
+		foreach ($spam as $key => $value) {
+			//echo "$key -> $value <br>";
+			$subs = substr($value, 0, 6);
+			if ($value != "" && $subs == "@link ") {
+
+				preg_match("/([0-9]+)-([0-9]+)/", $value, $roba);
+
+				if ($roba[1] > $this -> versetti_num) {
+					//Se il bug ridicolo dei versetti fantasma è presente
+					$e_flag = true;
+				} else {
+
+					//	printa($value);
+
+					$pos = strstr($value, "{");
+
+					if (!$pos) {
+						goto jsonerror;
+					}
+					$su = strstr($value, $pos);
+					$val = json_decode($su);
+
+					if (json_last_error() != JSON_ERROR_NONE || $val == "") {
+						echo "versetto $roba[1] - link $roba[2] - errore json";
+						echo json_last_error();
+						printa($val);
+						//die();
+						jsonerror:
+						$e_flag = true;
+						//Riscaricalo
+
+						echo "huston abbiamo un problema @ $value -> tracciabile a";
+						preg_match("/([0-9]+)-([0-9]+)/", $value, $roba);
+						printa($roba);
+						printa($this -> versetto_has_link[$roba[1]][$roba[2]]);
+
+						$this -> snoopy -> fetchtext($this -> versetto_has_link[$roba[1]][$roba[2]][0]);
+						//$this -> snoopy -> results = "nyan cat";
+						$val = json_decode($this -> snoopy -> results);
+
+						if (json_last_error() != JSON_ERROR_NONE || $val == "") {
+							goto jsonerror;
+						} else {
+
+							$this -> spam[$roba[1]][$roba[2]][0] = $val;
+							$this -> spam[$roba[1]][$roba[2]][1] = $roba;
+							//$this -> spam[$jj][1] = $roba;
+							$jj++;
+							echo "$this->libro ($this->libro_id) -$this->capitolo_id-$roba[1]-$roba[2]\n";
+						}
+
+					} else {
+						$this -> spam[$roba[1]][$roba[2]][0] = $val;
+						$this -> spam[$roba[1]][$roba[2]][1] = $roba;
+						//$this -> spam[$jj][0] = $val;
+						//$this -> spam[$jj][1] = $roba;
+						$jj++;
+						//echo $val;
+						//printa($val);
+
+					}
+				}
+
+			}
+		}
+
+		$e_flag = false;
+		if ($e_flag) {
+			$this -> fix_link();
+		}
+
+	}
+
+	function fix_link() {
+		$path = "libri/it/spam/" . $this -> libro . "_" . $this -> capitolo_id;
+		$fp = fopen($path, "w");
+
+		foreach ($this -> spam as $key => $value) {
+			foreach ($value as $l_k => $l_v) {
+
+				$len = fwrite($fp, "@link {$key}-{$l_k}" . json_encode($l_v[0]) . "\n\n");
+			}
+		}
+		fclose($fp);
 	}
 
 	/**Tutti i link trovati in versetto_has_link
@@ -575,6 +714,55 @@ class handlerer {
 
 		$this -> link_fullati = true;
 		return true;
+	}
+
+	/** Faccio il merge dei link e dei json
+	 *
+	 */
+	function link_merge() {
+		//se ci sono link scaricati da aggiugnere poi al testo
+		$e_flag = false;
+		//Per ogni versetto
+		foreach ($this->versetto_has_link as $key => $value) {
+			//Per ogni link nel versetto
+			foreach ($value as $l_k => $l_v) {
+
+				//printa($l_v);
+				//die();
+				//Prendo il link
+				$this -> versetto_has_ref[$key][$l_k][0] = $l_v[0];
+				//Prendo la posizione
+				if (!isset($l_v[6])) {
+					echo "manca la posizione a $this->libro $this->capitolo_id : $key  - $l_k \n";
+				} else {
+					$this -> versetto_has_ref[$key][$l_k][1] = $l_v[6];
+				}
+
+				//SE NON è presente nei link scaricati
+				if (!isset($this -> spam[$key][$l_k])) {
+					$e_flag = true;
+					//echo "prok $key";
+					//Scarico
+					$this -> snoopy -> fetchtext($l_v[0]);
+					$val = json_decode($this -> snoopy -> results);
+					//E lo inserisco
+					$this -> spam[$key][$l_k][0] = $val;
+					$this -> spam[$key][$l_k][1][0] = $key;
+					$this -> spam[$key][$l_k][1][1] = $l_k;
+				}
+				$pack1 = $this -> spam[$key][$l_k][0];
+				$pack2 = $this -> spam[$key][$l_k][1];
+
+				$this -> versetto_has_ref[$key][$l_k][2] = $pack1;
+				$this -> versetto_has_ref[$key][$l_k][3] = $pack2;
+
+			}
+
+		}
+
+		if ($e_flag) {
+			$this -> fix_link();
+		}
 	}
 
 }
