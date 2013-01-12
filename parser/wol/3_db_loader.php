@@ -18,15 +18,17 @@ include_once (PATH . "util/mysqlutil.php");
 include_once (PATH . "util/elenco_lib.php");
 include_once ("handler.php");
 
-$lang = "italiano";
-$db = new_mysqli();
-$sql = "truncate table riferimenti";
-qq($sql);
+$lang = "deutsch";
+$lang_sigla="de";
+//$db = new_mysqli();
+//$sql = "truncate table deutsch_riferimenti";
+//qq($sql);
 
 $libro_start = 1;
 
-for ($libro = 1; $libro <= 66; $libro++) {
+for ($libro = 1; $libro <= 1; $libro++) {
 
+	/*
 	$pid = pcntl_fork();
 	if ($pid == -1) {
 		exo("could not fork");
@@ -34,26 +36,31 @@ for ($libro = 1; $libro <= 66; $libro++) {
 		return false;
 
 	} else if ($pid) {
-
+		//echo "father";
 	} else {
-
+	 */ 
 		$db = new_mysqli();
 		$h = new handlerer();
+		
 
 		$h -> libro_id = $libro;
 
 		$h -> libro = $libr[$lang][$h -> libro_id];
 
 		//echo "parse di $h->libro\n<br>"; ;
-		$h -> leggi_testo("libri/it/$h->libro");
+		$h -> leggi_testo("libri/$lang_sigla/$h->libro");
+		
 
-		$h -> parse_capitoli();
+		$h -> parse_capitoli_wol();		
+		//printa($h);
 
 		$le_cap = sizeof($h -> chapter);
 
 		$h -> chapter_count = $le_cap;
+		
 
 		//echo " sono $le_cap capitoli\n<br>";
+		//die();
 		spam:
 		for ($i = 1; $i <= $le_cap; $i++) {
 
@@ -91,13 +98,15 @@ for ($libro = 1; $libro <= 66; $libro++) {
 */
 			loop:
 			$h -> capitolo_id = $i;
+			
 			unset($h -> spam);
 			unset($h -> versetto_has_ref);
 			unset($h -> versetto_has_link);
 
 			//echo "$h->libro - $i\n<br>";
 			$h -> parse_versetti($i);
-			//printa ($h->verse);
+			printa ($h->verse);
+			die();
 
 			$vr_cap = sizeof($h -> verse);
 			$h -> versetti_num = $vr_cap;
@@ -106,17 +115,17 @@ for ($libro = 1; $libro <= 66; $libro++) {
 
 			for ($j = 1; $j <= $vr_cap; $j++) {
 
-				$h -> parse_link($j);
+				//$h -> parse_link($j);
 			}
 			//printa($h -> versetto_has_link[15]);
 
-			$h -> load_spam();
+			//$h -> load_spam();
 
 			//printa($h -> versetto_has_link[15]);
 			//printa($h -> spam[2]);
 			//die();
 
-			$h -> link_merge();
+			//$h -> link_merge();
 			//printa($h -> versetto_has_ref[15]);
 			//die();
 
@@ -124,7 +133,7 @@ for ($libro = 1; $libro <= 66; $libro++) {
 
 			for ($j = 1; $j <= $vr_cap; $j++) {
 
-				$h -> db_push($j);
+					//$h -> db_push($j);
 			}
 
 			//printa($h->versetto_has_link[1][0]);
@@ -144,5 +153,5 @@ for ($libro = 1; $libro <= 66; $libro++) {
 
 	}
 
-}
+//}
 die();

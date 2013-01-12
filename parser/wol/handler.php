@@ -46,7 +46,7 @@ class handlerer {
 	 * I capitoli sono delineati da <capitolo_N{1,3}> </capitolo_N{1,3}>
 	 *
 	 */
-	function parse_capitoli() {
+	function parse_capitoli_classic() {
 		$flag = true;
 		$i = 1;
 		$off = 0;
@@ -75,6 +75,54 @@ class handlerer {
 
 	}
 
+
+	/**Crea un array con i capitoli partendo dal testo letto
+	 * I capitoli sono delineati da 
+	 <p class="sb"> 
+		<span id="v1" class="dc">
+	 *
+	 */
+	function parse_capitoli_wol() {
+		
+		$flag = true;
+		$i = 1;
+		$off = 0;
+		while ($flag) {
+
+			$pos[$i][0] = $off = mb_strpos($this -> book, "<span id='v1' class='dc'>", $off);
+			$off++;
+			
+			
+			
+			if ($pos[$i][0] !== false) {//Se trovo l'inizio
+				//Allora cerca la fine
+				$pos[$i][1] = mb_strpos($this -> book, "<span id='v1' class='dc'>", $pos[$i][0]+1);
+				$this -> chapter[$i] = mb_substr($this -> book, $pos[$i][0], $pos[$i][1] - $pos[$i][0]);
+				$i++;
+
+			} else {
+				//Altrimenti togli questo record e amen
+				unset($pos[$i]);
+				$flag = false;
+				break;
+			}
+			
+
+		}
+		$i--;
+		
+		
+		$pos[$i][1]=mb_strpos($this -> book, "class='par clearTextFlow", $off);
+		$this -> chapter[$i] = mb_substr($this -> book, $pos[$i][0], $pos[$i][1] - $pos[$i][0]);
+		//print_r($pos);
+		//print_r($this -> chapter);
+		//die();
+		//$i--;
+		//echo "trovati $i capitoli";
+
+	}
+	
+	
 	/**Crea un array coi versetti partendo da un capitolo
 	 * @param capitolo da analizzare
 	 *I versetti sono un pò più scomodi da definire ma sempre facili
@@ -102,12 +150,14 @@ class handlerer {
 		//echo $chapter;
 		$chapter = $this -> chapter[$capitolo];
 		//echo $chapter;
+		//die();
 		unset($pos);
 		$pos = array();
 		//printa($chapter);
 		$off = mb_strpos($chapter, "id=\"content\"");
 
-		$fine = mb_strpos($chapter, "</div></div>", $off);
+		//$fine = mb_strpos($chapter, "</div></div>", $off); //con la rbi8 single page non è presente
+		$fine = strlen($chapter);
 
 		while ($flag) {
 
