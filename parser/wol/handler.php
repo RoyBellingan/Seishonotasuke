@@ -92,8 +92,6 @@ class handlerer {
 			$pos[$i][0] = $off = mb_strpos($this -> book, "<span id='v1' class='dc'>", $off);
 			$off++;
 			
-			
-			
 			if ($pos[$i][0] !== false) {//Se trovo l'inizio
 				//Allora cerca la fine
 				$pos[$i][1] = mb_strpos($this -> book, "<span id='v1' class='dc'>", $pos[$i][0]+1);
@@ -132,10 +130,9 @@ class handlerer {
 	 * seguito da un link e poi il </span>
 	 *
 	 * Può terminare
-	 * 	Se inizia un altro versetto con uno </span>
+	 * 	Se inizia un altro versetto con uno <span id=+1> 
 	 * 	Se finisce il paragrafo con uno </p>
-	 *	Se finiscono invece trovo un </div>
-	 *
+	 * 
 	 * TODO se vuoi fare qualcosa NG che mantenga la sotto formattazione è da qua che devi partire...
 	 */
 	function parse_versetti($capitolo) {
@@ -163,19 +160,44 @@ class handlerer {
 
 			// <span class="dv" id="v\n{1,3}"><a href="/it/wol/dx/r6/lp-i/232"><b><sup>27</sup></b>&nbsp;</a></span>
 
+			//Il versetto "SICURAMENTE INZIA dove è presente un "
 			if ($i == 1) {
 				$spanme = "<span id='v$i' class='dc'>";
 			} else {
 				$spanme = "<span id='v$i' class='dv'>";
 			}
+			$pos[$i][0] = mb_strpos($chapter, "$spanme", $off) + 1;
 
-			$pos[$i][0] = mb_strpos($chapter, "$spanme", $off) + 7;
 
-			$pos[$i][1] = mb_strpos($chapter, "</span>", $pos[$i][0]) + 7;
+			//Tuttavia puo finire in 2 condizioni diverse
+			
+			//Inizia un nuovo versetto 
+			$i_plus=$i+1;
+			$spanend = "<span id='v$i_plus' class='dv'>";		
+			$spanend_pos_1 = mb_strpos($chapter, $spanend, $pos[$i][0]);
+
+			//Finisce il paragrafo
+			$spanend_pos_2 = mb_strpos($chapter, "</p>", $pos[$i][0]);
+			
+			
+			
+			//minore, e che non sia un false (non trovato) vince
+			if ($spanend_pos_1 != false){
+				if ($spanend_pos_1 > $spanend_pos_2){
+					$pos[$i][1]=$spanend_pos_2;
+				}else{
+					$pos[$i][1]=$spanend_pos_1;
+				}
+			}else{
+					$pos[$i][1]=$spanend_pos_2;
+			}
 
 			$delta = $pos[$i][1] - $pos[$i][0];
 			//echo "$spanme @ {$pos[$i][0]} + {$pos[$i][1]} = $delta\n";
 
+			echo "\n --------- versetto $i inizia a {$pos[$i][0]} e finisce a $spanend_pos_1 od $spanend_pos_2"; 
+			echo "\n ho scelto {$pos[$i][1]} , delta $delta";
+			
 			if ($pos[$i][1] < $off || $pos[$i][0] == false) {
 				$pos[$i][0] = $fine;
 				$flag = false;
@@ -185,6 +207,8 @@ class handlerer {
 				$off = $pos[$i][1];
 				$i++;
 			}
+			
+
 		}
 
 		$pos[][0] = 0;
@@ -192,17 +216,24 @@ class handlerer {
 		$j = $i;
 		for ($i = 1; $i < $j; $i++) {
 			//echo "$i da {$pos[$i][1]} a {$pos[$i+1][0]}\n";
-
-			$txt = trim(mb_substr($chapter, $pos[$i][1], $pos[$i + 1][0] - $pos[$i][1]));
+			//echo "trim avviene da {$pos[$i][0]} ";
+			$txt = trim(mb_substr($chapter, $pos[$i][0]-1, $pos[$i][1] - $pos[$i][0] ));
+			echo $txt;
+			
 			$txt = str_replace("\n", " ", $txt);
-			$txt = str_replace("<span i", " ", $txt);
+			//$txt = str_replace("<span i", " ", $txt);
+			//<span id='pg1' class='pg' data-no='18'></span>
+			$txt = str_replace("</span>", " ", $txt);
 			$txt = str_replace("</p>", " ", $txt);
 			$txt = str_replace("</div>", " ", $txt);
 			$txt = str_replace("<p class='sp'>", " ", $txt);
 			$txt = str_replace("<p class='sb'>", " ", $txt);
 			$txt = str_replace("<p class='sl'>", " ", $txt);
 			$txt = str_replace("<p class='sz'>", " ", $txt);
-			$txt = preg_replace("/<div id='p[0-9]+' class='par'>/", " ", $txt);
+			$txt = preg_replace("/<b>.*<\/b>/", " ", $txt);
+			//$txt = preg_replace("/<div id='p[0-9]+' class='par'>/", " ", $txt);
+			$txt = preg_replace("/<[^\/a][^a][^>]*>/", "",$txt);
+			
 			$txt = no_double_space($txt);
 			$this -> verse[$i] = trim($txt);
 
@@ -404,6 +435,29 @@ class handlerer {
 		}
 
 	}
+
+
+/** Rimuovi le note a margine e a pie pagina
+ */
+	function strip_verse(){
+		echo "\n -------------------- versetto  $this->verse_id \n";
+		$rep="";
+		$this->verse_clean=preg_replace("/<[^\/][^>]*>[^<]+<[^>]*./", "",$this->verse[$this->verse_id]);
+		print_r($this->verse[$this->verse_id]);
+		echo "\n --- Pulito \n";
+		print_r($this->verse_clean);
+		echo "\n";
+	}
+
+
+/** Carica il versetto, liscio, nel db.
+function load_verse(){
+	
+}
+
+
+
+
 
 	function mb_strpos_all() {
 
