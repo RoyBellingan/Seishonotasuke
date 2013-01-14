@@ -1,6 +1,6 @@
 <?php
 
-die("non si lanciano a mozzo le cose...");
+//die("non si lanciano a mozzo le cose...");
 
 ini_set("display_errors", "1");
 ERROR_REPORTING(E_ALL);
@@ -18,7 +18,7 @@ $counter = 0;
 
 // http://	wol.jw.org	/it	/wol	/b	/r6		/lp-i	/20		/23
 // vabbè	sito		lingua	serve	bo	versione?	cosa	sottopagina	sottopagina2
-$lingua = "Deutsch";
+$lingua = "deutsch";
 //Lingua che ci si appresta a scaricare
 $lang = "de";
 //Abbreviazione
@@ -28,8 +28,8 @@ echo "mi apresto a Scaricare la bibbia in $lingua";
 
 //echo(mkdir("libri/$lang") ? "cartella creata" : false("Warn nessuna cartella verifca che non esista gia !!!!"));
 
-$counter = 1001060003;
-$init=2;
+$counter_base = 1001060003;
+$init=66;
 $end=66;
 
 
@@ -43,7 +43,7 @@ for ($jj = $init; $jj < $end+1; $jj++) {
 	//echo $fp;
 	$error = false;
 
-	$counter++;
+	$counter=$counter_base+$jj;
 	$url = "http://wol.jw.org/$lang/wol/d/r10/lp-x/$counter";
 	echo $url;
 	exb();

@@ -15,6 +15,7 @@ top2();
 		<option value="日本語">日本語</option>
 		<option value="español">Español</option>
 		<option value="pусский">Pусский</option>
+		<option value="deutsch">Deutsch</option>
 	</select>
 <h2>Lingua Interlineare</h2>
 		<select id="lang1" name="lang1">
@@ -22,7 +23,7 @@ top2();
 		<option value="english">English</option>
 		<option value="日本語">日本語</option>
 		<option value="español">Español</option>
-		<option value="pусский">Pусский</option>
+		<option value="deutsch">Deutsch</option>
 	</select>
 	<p><input type="submit" value="Continue" /></p>
 </form>

@@ -25,8 +25,8 @@ $lang_sigla = "de";
 //qq($sql);
 
 $libro_start = 1;
-
-for ($libro = 1; $libro <= 1; $libro++) {
+$db = new_mysqli();
+for ($libro = 1; $libro <= 66; $libro++) {
 
 	/*
 	 $pid = pcntl_fork();
@@ -39,14 +39,18 @@ for ($libro = 1; $libro <= 1; $libro++) {
 	 //echo "father";
 	 } else {
 	 */
-	$db = new_mysqli();
+
+	 
+	unset($h);
 	$h = new handlerer();
+	$h->db=$db;
+	
 
 	$h -> libro_id = $libro;
 
 	$h -> libro = $libr[$lang][$h -> libro_id];
 
-	//echo "parse di $h->libro\n<br>"; ;
+	echo "parse di $h->libro\n"; ;
 	$h -> leggi_testo("libri/$lang_sigla/$h->libro");
 
 	$h -> parse_capitoli_wol();
@@ -59,7 +63,7 @@ for ($libro = 1; $libro <= 1; $libro++) {
 	//echo " sono $le_cap capitoli\n<br>";
 	//die();
 	spam:
-	for ($i = 1; $i <= $le_cap; $i++) {
+	for ($i = 1; $i <= $h -> chapter_count; $i++) {
 
 		/*
 		 $lib = "Salmi";
@@ -101,7 +105,7 @@ for ($libro = 1; $libro <= 1; $libro++) {
 		//echo "$h->libro - $i\n<br>";
 		$h -> parse_versetti($i);
 		//printa ($h->verse);
-//		die();
+		//		die();
 
 		$vr_cap = sizeof($h -> verse);
 		$h -> versetti_num = $vr_cap;
@@ -133,12 +137,13 @@ for ($libro = 1; $libro <= 1; $libro++) {
 
 		//Rimuovi da in mezzo al testo i link, e fai una versione "nuda"
 		for ($j = 1; $j <= $vr_cap; $j++) {
-			$h->verse_id=$j;
-			$h->strip_verse();
-			//$h->load_verse();
-			
+			$h -> verse_id = $j;
+			$h -> strip_verse();
+			$h -> load_verse();
+
 		}
-die();
+		
+		//die();
 		//printa($h->versetto_has_link[1][0]);
 		//unset($h -> spam);
 		//$le = sizeof($h -> spam);
@@ -150,8 +155,6 @@ die();
 
 		//
 	}
-
-	die();
 
 }
 

@@ -15,6 +15,14 @@ class handlerer {
 	 )
 	 */
 	var $versetto_has_link;
+	
+	var $libro_id;
+	var $capitolo_id;
+	var $verse_id;
+	var $versetti_num;
+	var $chapter_count;
+	var $libro;
+	var $db;
 
 	/**Stuff init and usual related things...
 	 *
@@ -75,15 +83,14 @@ class handlerer {
 
 	}
 
-
 	/**Crea un array con i capitoli partendo dal testo letto
-	 * I capitoli sono delineati da 
-	 <p class="sb"> 
-		<span id="v1" class="dc">
+	 * I capitoli sono delineati da
+	 <p class="sb">
+	 <span id="v1" class="dc">
 	 *
 	 */
 	function parse_capitoli_wol() {
-		
+
 		$flag = true;
 		$i = 1;
 		$off = 0;
@@ -91,36 +98,35 @@ class handlerer {
 
 			$pos[$i][0] = $off = mb_strpos($this -> book, "<span id='v1' class='dc'>", $off);
 			$off++;
-			
+
 			if ($pos[$i][0] !== false) {//Se trovo l'inizio
 				//Allora cerca la fine
-				$pos[$i][1] = mb_strpos($this -> book, "<span id='v1' class='dc'>", $pos[$i][0]+1);
+				$pos[$i][1] = mb_strpos($this -> book, "<span id='v1' class='dc'>", $pos[$i][0] + 1);
 				$this -> chapter[$i] = mb_substr($this -> book, $pos[$i][0], $pos[$i][1] - $pos[$i][0]);
 				$i++;
 
 			} else {
 				//Altrimenti togli questo record e amen
 				unset($pos[$i]);
+				$off=$pos[$i-1][0];
 				$flag = false;
 				break;
 			}
-			
 
 		}
 		$i--;
-		
-		
-		$pos[$i][1]=mb_strpos($this -> book, "class='par clearTextFlow", $off);
+		//echo "offset = $off";
+		$pos[$i][1] = mb_strpos($this -> book, "class='par clearTextFlow", $off);
 		$this -> chapter[$i] = mb_substr($this -> book, $pos[$i][0], $pos[$i][1] - $pos[$i][0]);
 		//print_r($pos);
+		//die();
 		//print_r($this -> chapter);
 		//die();
 		//$i--;
 		//echo "trovati $i capitoli";
 
 	}
-	
-	
+
 	/**Crea un array coi versetti partendo da un capitolo
 	 * @param capitolo da analizzare
 	 *I versetti sono un pò più scomodi da definire ma sempre facili
@@ -130,9 +136,9 @@ class handlerer {
 	 * seguito da un link e poi il </span>
 	 *
 	 * Può terminare
-	 * 	Se inizia un altro versetto con uno <span id=+1> 
+	 * 	Se inizia un altro versetto con uno <span id=+1>
 	 * 	Se finisce il paragrafo con uno </p>
-	 * 
+	 *
 	 * TODO se vuoi fare qualcosa NG che mantenga la sotto formattazione è da qua che devi partire...
 	 */
 	function parse_versetti($capitolo) {
@@ -151,8 +157,13 @@ class handlerer {
 		unset($pos);
 		$pos = array();
 		//printa($chapter);
-		$off = mb_strpos($chapter, "id=\"content\"");
-
+		//Alcuni Make Proper,　TODO rendi possibile usare la formattazione tanto carina in salmi ecc anche... qualche hint nel vecchio parser 
+		
+		//$chapter = str_replace("<p class='sp'>", " ", $chapter);
+		
+		
+		//$off = mb_strpos($chapter, "id=\"content\"");
+		$off=0;
 		//$fine = mb_strpos($chapter, "</div></div>", $off); //con la rbi8 single page non è presente
 		$fine = strlen($chapter);
 
@@ -168,36 +179,33 @@ class handlerer {
 			}
 			$pos[$i][0] = mb_strpos($chapter, "$spanme", $off) + 1;
 
-
 			//Tuttavia puo finire in 2 condizioni diverse
-			
-			//Inizia un nuovo versetto 
-			$i_plus=$i+1;
-			$spanend = "<span id='v$i_plus' class='dv'>";		
+
+			//Inizia un nuovo versetto
+			$i_plus = $i + 1;
+			$spanend = "<span id='v$i_plus' class='dv'>";
 			$spanend_pos_1 = mb_strpos($chapter, $spanend, $pos[$i][0]);
 
 			//Finisce il paragrafo
-			$spanend_pos_2 = mb_strpos($chapter, "</p>", $pos[$i][0]);
-			
-			
-			
+			$spanend_pos_2 = mb_strpos($chapter, "</div>", $pos[$i][0]);
+
 			//minore, e che non sia un false (non trovato) vince
-			if ($spanend_pos_1 != false){
-				if ($spanend_pos_1 > $spanend_pos_2){
-					$pos[$i][1]=$spanend_pos_2;
-				}else{
-					$pos[$i][1]=$spanend_pos_1;
+			if ($spanend_pos_1 != false) {
+				if ($spanend_pos_1 > $spanend_pos_2) {
+					$pos[$i][1] = $spanend_pos_2;
+				} else {
+					$pos[$i][1] = $spanend_pos_1;
 				}
-			}else{
-					$pos[$i][1]=$spanend_pos_2;
+			} else {
+				$pos[$i][1] = $spanend_pos_2;
 			}
 
 			$delta = $pos[$i][1] - $pos[$i][0];
 			//echo "$spanme @ {$pos[$i][0]} + {$pos[$i][1]} = $delta\n";
 
-			echo "\n --------- versetto $i inizia a {$pos[$i][0]} e finisce a $spanend_pos_1 od $spanend_pos_2"; 
-			echo "\n ho scelto {$pos[$i][1]} , delta $delta";
-			
+			//echo "\n --------- versetto $i inizia a {$pos[$i][0]} e finisce a $spanend_pos_1 od $spanend_pos_2";
+			//echo "\n ho scelto {$pos[$i][1]} , delta $delta";
+
 			if ($pos[$i][1] < $off || $pos[$i][0] == false) {
 				$pos[$i][0] = $fine;
 				$flag = false;
@@ -207,7 +215,6 @@ class handlerer {
 				$off = $pos[$i][1];
 				$i++;
 			}
-			
 
 		}
 
@@ -217,9 +224,9 @@ class handlerer {
 		for ($i = 1; $i < $j; $i++) {
 			//echo "$i da {$pos[$i][1]} a {$pos[$i+1][0]}\n";
 			//echo "trim avviene da {$pos[$i][0]} ";
-			$txt = trim(mb_substr($chapter, $pos[$i][0]-1, $pos[$i][1] - $pos[$i][0] ));
-			echo $txt;
-			
+			$txt = trim(mb_substr($chapter, $pos[$i][0] - 1, ($pos[$i][1] - $pos[$i][0]) + 1));
+			//echo $txt;
+
 			$txt = str_replace("\n", " ", $txt);
 			//$txt = str_replace("<span i", " ", $txt);
 			//<span id='pg1' class='pg' data-no='18'></span>
@@ -232,8 +239,8 @@ class handlerer {
 			$txt = str_replace("<p class='sz'>", " ", $txt);
 			$txt = preg_replace("/<b>.*<\/b>/", " ", $txt);
 			//$txt = preg_replace("/<div id='p[0-9]+' class='par'>/", " ", $txt);
-			$txt = preg_replace("/<[^\/a][^a][^>]*>/", "",$txt);
-			
+			$txt = preg_replace("/<[^\/a][^a][^>]*>/", "", $txt);
+
 			$txt = no_double_space($txt);
 			$this -> verse[$i] = trim($txt);
 
@@ -436,28 +443,27 @@ class handlerer {
 
 	}
 
-
-/** Rimuovi le note a margine e a pie pagina
- */
-	function strip_verse(){
-		echo "\n -------------------- versetto  $this->verse_id \n";
-		$rep="";
-		$this->verse_clean=preg_replace("/<[^\/][^>]*>[^<]+<[^>]*./", "",$this->verse[$this->verse_id]);
-		print_r($this->verse[$this->verse_id]);
-		echo "\n --- Pulito \n";
-		print_r($this->verse_clean);
-		echo "\n";
+	/** Rimuovi le note a margine e a pie pagina
+	 */
+	function strip_verse() {
+		//echo "\n -------------------- versetto  $this->verse_id \n";
+		$rep = "";
+		$this -> verse_clean = trim(preg_replace("/<[^\/][^>]*>[^<]+<[^>]*./", "", $this -> verse[$this -> verse_id]));
+		//print_r($this -> verse[$this -> verse_id]);
+		//echo "\n --- Pulito \n";
+		//print_r($this -> verse_clean);
+		//echo "\n";
 	}
 
-
-/** Carica il versetto, liscio, nel db.
-function load_verse(){
-	
-}
-
-
-
-
+	/** Carica il versetto, liscio, nel db.
+	 */
+	function load_verse() {
+		$txt=$this->db->real_escape_string($this -> verse_clean);
+			$sql="UPDATE `聖書`.`versetti` SET `deutsch_text` = '$txt' WHERE `libro` = $this->libro_id AND `capitolo` = $this->capitolo_id AND `versetto` = $this->verse_id;";
+			//echo "$sql\n";
+			qq($sql);
+		
+	}
 
 	function mb_strpos_all() {
 
@@ -481,12 +487,12 @@ function load_verse(){
 		if (isset($this -> versetto_has_ref[$verse_id])) {
 
 			foreach ($this->versetto_has_ref[$verse_id] as $key => $value) {
-				
+
 				//se è marco 16 : 8 i primi due link sono ok, il resto è d fare a mano...
-				if ($this-> libro_id == 41 && $this->capitolo_id == 16 && $verse_id == 8 && $key==2){
+				if ($this -> libro_id == 41 && $this -> capitolo_id == 16 && $verse_id == 8 && $key == 2) {
 					break;
 				}
-				
+
 				//echo "\n $key ° link";
 				//	printa($value);
 				//die();
@@ -497,11 +503,11 @@ function load_verse(){
 				//printa($this -> snoopy -> results);
 				//Se è una NOTA A MARGINE
 
-				if (!isset($value[1])){
+				if (!isset($value[1])) {
 					echo "errore in $this->libro $this->capitolo_id : $verse_id as $id_versetto - $key \n";
 					printa($value);
 				}
-				
+
 				if ($value[1][0] == 1) {
 					//echo " nota";
 					$var = $value[2] -> content;
@@ -532,8 +538,8 @@ function load_verse(){
 
 					if (!isset($var -> items)) {
 						echo "errore in $this->libro $this->capitolo_id : $verse_id as $id_versetto  a chiedere gli item del json associato $verse_id $key \n";
-						printa($this->versetto_has_link[$verse_id]);
-						printa($this->versetto_has_ref[$verse_id]);
+						printa($this -> versetto_has_link[$verse_id]);
+						printa($this -> versetto_has_ref[$verse_id]);
 					} else {
 
 						foreach ($var->items as $key => $link) {
