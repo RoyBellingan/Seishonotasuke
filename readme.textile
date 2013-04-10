@@ -1,12 +1,1 @@
-Questo **README** sarà abbastanza lungo temo...
-
-Al momento il sito di riferimento non esiste, poichè sono rimasto *davvero*  impressionato dalla qualità del materiale che è relazionato con GIT.
-_E ovviamente non posso sfigurare!_
-(peraltro mi han dato delle ottime idee per il css 2.0...!)
-
-Al momento la versione di sviluppo è su http://roy.selfip.org:81, con shpinx e altre cosine, la versione 
-"stabile" quindi senza schermate di errore in giro è su http://roy.selfip.org (quindi senza l'81).
-Essendo sul pc di casa deve essere acceso per funzionare...
-
-La versione stabile ma senza ricerca e altre cosine (è su un hosting condiviso -.-) è 
-http://seisho.archidea.us
+Live su seisho.us
