@@ -26,7 +26,7 @@ $lang_sigla = "de";
 
 $libro_start = 1;
 $db = new_mysqli();
-for ($libro = 1; $libro <= 66; $libro++) {
+for ($libro = 31; $libro <= 31; $libro++) {
 
 	/*
 	 $pid = pcntl_fork();

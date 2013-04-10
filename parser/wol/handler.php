@@ -203,10 +203,10 @@ class handlerer {
 			$delta = $pos[$i][1] - $pos[$i][0];
 			//echo "$spanme @ {$pos[$i][0]} + {$pos[$i][1]} = $delta\n";
 
-			//echo "\n --------- versetto $i inizia a {$pos[$i][0]} e finisce a $spanend_pos_1 od $spanend_pos_2";
-			//echo "\n ho scelto {$pos[$i][1]} , delta $delta";
+			//echo "\n ---------capitolo $this->capitolo_id versetto $i inizia a {$pos[$i][0]} e finisce a $spanend_pos_1 od $spanend_pos_2";
+			//echo "\n ho scelto {$pos[$i][1]} , delta $delta, off $off";
 
-			if ($pos[$i][1] < $off || $pos[$i][0] == false) {
+			if ($pos[$i][1] <= $off || $pos[$i][0] == false) {
 				$pos[$i][0] = $fine;
 				$flag = false;
 				break;
